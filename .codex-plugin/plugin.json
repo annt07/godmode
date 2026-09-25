@@ -1,0 +1,35 @@
+{
+  "name": "godmode",
+  "version": "1.0.0",
+  "description": "Godmode: Superpowers pipeline + Matt Pocock engineering depth. Autonomous TDD, grilling, deep-module design, subagent execution, systematic debugging, and code review.",
+  "keywords": [
+    "brainstorming",
+    "subagent-driven-development",
+    "grilling",
+    "codebase-design",
+    "domain-modeling",
+    "skills",
+    "planning",
+    "tdd",
+    "debugging",
+    "code-review",
+    "workflow"
+  ],
+  "skills": "./skills/",
+  "hooks": {},
+  "interface": {
+    "displayName": "Godmode",
+    "shortDescription": "Superpowers pipeline + Matt Pocock engineering depth for coding agents",
+    "longDescription": "Godmode combines the Superpowers autonomous pipeline (brainstorming, planning, subagent execution, TDD, debugging, code review, branch completion) with Matt Pocock's engineering depth (grilling, codebase design, domain modeling, prototype, to-spec, research, architecture improvement).",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "I've got an idea for something I'd like to build.",
+      "Let's add a feature to this project."
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "godmode-local",
+  "description": "Local marketplace for the godmode skill set",
+  "owner": {
+    "name": "godmode"
+  },
+  "plugins": [
+    {
+      "name": "godmode",
+      "description": "Godmode: Superpowers pipeline + Matt Pocock engineering depth.",
+      "version": "1.0.0",
+      "source": "./"
+    }
+  ]
+}
