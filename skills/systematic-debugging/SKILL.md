@@ -57,7 +57,7 @@ Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give
 7. **Property/fuzz loop.** If the bug is "sometimes wrong output", run 1000 random inputs and look for the failure mode.
 8. **Bisection harness.** If the bug appeared between two known states (commit, dataset, version), automate "boot at state X, check, repeat" so you can `git bisect run` it.
 9. **Differential loop.** Run the same input through old-version vs new-version (or two configs) and diff outputs.
-10. **HITL script (last resort).** If a human must click, drive *them* with a structured script so the loop is still structured. Captured output feeds back to you.
+10. **HITL script (last resort).** If a human must click, drive *them* with a structured script so the loop is still structured. Captured output feeds back to you. Start from [scripts/hitl-loop.template.sh](scripts/hitl-loop.template.sh).
 
 #### Tighten the Loop
 
@@ -194,7 +194,7 @@ Write the regression test **before the fix**, but only if there is a **correct s
 
 A correct seam is one where the test exercises the **real bug pattern** as it occurs at the call site. If the only available seam is too shallow (unit test that cannot replicate the chain that triggered the bug), a regression test there gives false confidence.
 
-**If no correct seam exists, that itself is the finding.** Note it. The codebase architecture is preventing the bug from being locked down. Flag this for the code review stage.
+**If no correct seam exists, that itself is the finding.** Note it. The codebase architecture is preventing the bug from being locked down. Describe the missing seam with `godmode:codebase-design` vocabulary (which module, which interface, why the current one is too shallow), flag it for the code review stage, and recommend `godmode:improve-codebase-architecture` for that area in your final report. Recommend it; do not start the refactor inside a bug fix.
 
 If a correct seam exists:
 

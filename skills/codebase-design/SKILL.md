@@ -104,4 +104,8 @@ Good interfaces make testing natural:
 
 ## Design-It-Twice
 
-When exploring alternative interfaces for a module, spin up parallel sub-agents to design the interface several radically different ways, then compare on depth, locality, and seam placement. Reserve this for architectural decisions where the interface shape is genuinely uncertain.
+When exploring alternative interfaces for a module, spin up parallel sub-agents to design the interface several radically different ways, then compare on depth, locality, and seam placement. Reserve this for architectural decisions where the interface shape is genuinely uncertain. The full procedure, including the sub-agent briefs and the comparison format, is in [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md).
+
+## Deepening a Shallow Module
+
+When a module fails the deletion test, or dependencies make it hard to test through its interface, follow [DEEPENING.md](DEEPENING.md): classify the dependencies, pick the seam discipline that fits, and decide what sits behind the seam.

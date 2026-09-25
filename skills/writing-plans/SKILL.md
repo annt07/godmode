@@ -15,7 +15,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** If working in an isolated worktree, it should have been created via the `godmode:using-git-worktrees` skill at execution time.
 
-**Save plans to:** `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `docs/godmode/plans/YYYY-MM-DD-<feature-name>.md`
 
 ## Scope Check
 
@@ -36,6 +36,16 @@ This structure informs the task decomposition. Each task should produce self-con
 ## Task Right-Sizing
 
 A task is the smallest unit that carries its own test cycle and is worth a fresh reviewer's gate. When drawing task boundaries: fold setup, configuration, scaffolding, and documentation steps into the task whose deliverable needs them; split only where a reviewer could meaningfully reject one task while approving its neighbor. Each task ends with an independently testable deliverable.
+
+## Slice Vertically: Tracer Bullets, Not Layers
+
+Every task is a **tracer bullet**: a thin but complete path through every layer the change touches (schema, logic, API, UI, tests) that can be demoed on its own the moment it lands. Never slice by layer ("all the schema", then "all the API"): nothing works until every layer lands, and each task's checks reach into work another task owns. Horizontal slicing is the failure that multiplies rework.
+
+- **Demo test.** For each task, answer: "What can I demo when this is done?" The answer must be behavior, not a layer. A task with no answer is a horizontal slice: re-cut it.
+- **Prefactoring first.** Make the change easy, then make the easy change. If existing code must be reshaped before the feature fits (a shallow module deepened, a seam introduced), that reshaping is its own task at the front of the order, never mixed into a feature task.
+- **Checks must fail at the start.** Every acceptance check must be false at the commit the task starts from. A check already true at the base, or one only another task's work can satisfy, grades nothing. For each check, name the observation that would show it false.
+- **Wide-refactor exception: expand, migrate, contract.** A single mechanical change whose blast radius fans across the codebase (rename a column, retype a shared symbol) cannot land as one green vertical slice. Sequence it as: **expand** (add the new form beside the old, nothing breaks), **migrate** (move call sites in batches sized by blast radius, one task per batch, each consuming the expand), **contract** (delete the old form once no caller remains).
+- **Size to one fresh context.** A task must be finishable by an implementer that has never seen the spec, working only from its brief.
 
 ## Bite-Sized Task Granularity
 
@@ -86,15 +96,19 @@ Each task must include seam confirmation before any test is written (see `godmod
 - Modify: `exact/path/to/existing.[ext]:123-145`
 - Test: `tests/exact/path/to/test.[ext]`
 
-**Seam under test:** [the public interface this task's tests exercise — module name, method names, or endpoint. Confirm this seam with the reviewer before implementation begins.]
+**Seam under test:** [the public interface this task's tests exercise — module name, method names, or endpoint. Copy it from the spec's Testing Decisions, where your human partner agreed it. A seam the spec never agreed goes to your partner at plan review, not to the implementer.]
+
+**Demo:** [the behavior you can show when this task lands, not a layer]
+
+**Fails at base:** [the observation that is false at this task's starting commit and true when it is done]
 
 **Interfaces:**
 - Consumes: [what this task uses from earlier tasks — exact signatures]
 - Produces: [what later tasks rely on — exact function names, parameter and return types]
 
-- [ ] **Step 1: Confirm the seam**
+- [ ] **Step 1: Check the seam reaches the behavior**
 
-Before writing any test, confirm the seam: "The seam under test is [interface]. Tests will exercise this through its public interface only, not its internals." Get a nod from the implementer.
+Read the code at the agreed seam and confirm a test through its public interface can observe this task's behavior. If it cannot, stop: that is a plan defect (see `godmode:test-driven-development` Step 0), not a reason to test internals.
 
 - [ ] **Step 2: Write the failing test**
 
@@ -146,13 +160,17 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 **5. Review Focus:** For each input class or failure mode the spec implies, is there a task whose tests exercise it?
 
+**6. Slicing:** Does every task have a behavioral Demo line and a Fails at base line? Is any task one layer of the change? Is prefactoring at the front, not mixed into feature tasks? Is any wide refactor sequenced expand, migrate, contract?
+
+**7. Agent-readable:** The plan and every task brief are read by agents with no context. Apply godmode:writing-for-agents' no-op test to the Global Constraints and task prose: cut what the implementer would do by default, keep each constraint in one place, and give every step a checkable done-condition.
+
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
 ## Execution Handoff
 
 After saving and self-reviewing the plan, link it for your human partner to read. Ask them to review the plan and choose an execution method before implementation.
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
+**"Plan complete and saved to `docs/godmode/plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
 
 - **Subagent-driven** - A fresh subagent implements each task and a fresh reviewer checks it before the next one starts, then a whole-branch review at the end. Most thorough; costs a fresh context per task and per review.
 - **Native** - I implement every task myself in this session, then one fresh reviewer on the most capable model checks the whole branch. Cheapest and fastest; no independent review until the end.

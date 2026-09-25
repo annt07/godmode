@@ -1,0 +1,21 @@
+# Shell scripts must keep LF endings: bash on macOS/Linux fails on CRLF
+*.sh text eol=lf
+hooks/session-start text eol=lf
+skills/subagent-driven-development/scripts/* text eol=lf
+skills/executing-plans/scripts/* text eol=lf
+
+# The polyglot wrapper is parsed by both cmd and bash, so it keeps LF too
+*.cmd text eol=lf
+
+# Common text files
+*.md text eol=lf
+*.json text eol=lf
+*.js text eol=lf
+*.yaml text eol=lf
+*.dot text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.gif binary
+*.svg binary

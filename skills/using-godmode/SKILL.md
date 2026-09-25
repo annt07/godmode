@@ -58,6 +58,20 @@ This combined skill set merges Superpowers (autonomous pipeline driver) with Mat
 | Researching a factual question against primary sources | `godmode:research` |
 | Scanning a codebase for architecture improvement opportunities | `godmode:improve-codebase-architecture` |
 | Encountering a git merge or rebase conflict | `godmode:resolving-merge-conflicts` |
+| Blocked on a step only a human can do (credentials, CI secrets, a dashboard, a one-off cutover) | `godmode:wizard` |
+| Creating or editing a skill, AGENTS.md, CLAUDE.md, or another agent-read document | `godmode:writing-for-agents` |
+
+### Programmer Commands (Matt Pocock, user-invoked only)
+
+These are your human partner's tools. They are never model-invoked and no skill calls them. When one would help, tell your partner it exists; do not run its steps yourself.
+
+| Command | When your partner types it |
+|---------|----------------------------|
+| `/wait-what` | Your last message did not land: re-pitch it with the missing context, in plain English, using CONTEXT.md terms |
+| `/handoff` | The work has to travel (new harness, new directory, a colleague, or a side fork such as a prototype detour) |
+| `/grill-me` | A stateless grilling session with no repo under it: writes no files |
+| `/to-questionnaire` | A decision needs someone else's knowledge: turns it into a questionnaire for them |
+| `/teach` | Learn a concept over several sessions, using the directory as a teaching workspace |
 
 ## Skill Priority
 
@@ -67,6 +81,29 @@ When multiple skills apply, process skills come first — they set the approach,
 - "Fix this bug" → `godmode:systematic-debugging` first, then domain skills.
 - "Design this module" → `godmode:codebase-design` + `godmode:domain-modeling` before any code.
 - "Grill me on this plan" → `godmode:grilling` immediately.
+- "Refactor / clean up / make this more testable" → `godmode:improve-codebase-architecture`.
+- Merge or rebase conflict → `godmode:resolving-merge-conflicts` before anything else.
+
+## Lifecycle Map
+
+Superpowers drives the pipeline. At each stage, the Matt Pocock engineering skill listed is not optional: the pipeline skill requires it.
+
+| Stage | Pipeline skill | Engineering skills it must pull in |
+|-------|----------------|------------------------------------|
+| Understand the request | `godmode:brainstorming` | `godmode:grilling` for every clarifying question; `godmode:domain-modeling` when a term is fuzzy or a decision is ADR-worthy; `godmode:research` for facts |
+| Feasibility spike | `godmode:brainstorming` (Spike path) | `godmode:prototype` |
+| Design | `godmode:brainstorming` (Architectural path) | `godmode:codebase-design` for every module boundary and seam |
+| Written spec | `godmode:brainstorming` | `godmode:to-spec` |
+| Plan | `godmode:writing-plans` | `godmode:codebase-design` for file boundaries; a named seam per task |
+| Implement | `godmode:subagent-driven-development` or `godmode:executing-plans` | `godmode:test-driven-development` at the task's seam; `godmode:research` on factual gaps |
+| Review | `godmode:requesting-code-review` | Two axes (Standards with the Fowler baseline, Spec); refactoring happens here, not in TDD |
+| Debug | `godmode:systematic-debugging` | Feedback loop first; no correct seam means recommend `godmode:improve-codebase-architecture` |
+| Blocked on a human-only step | `godmode:subagent-driven-development` or `godmode:executing-plans` | `godmode:wizard`, then stop and hand over the script |
+| Integrate | `godmode:finishing-a-development-branch` | `godmode:resolving-merge-conflicts` |
+| Improve structure | `godmode:improve-codebase-architecture` | `godmode:codebase-design`, `godmode:grilling`, `godmode:domain-modeling`, then back into `godmode:brainstorming` with the Grilling Summary |
+| Write skills or agent docs | `godmode:writing-skills` | `godmode:writing-for-agents` |
+
+The precision decisions stay with your human partner and are made while they are present: requirements (grilling), test seams (the Bounded design or the spec's Testing Decisions), and the spec and plan approvals. Everything after the plan is approved runs without stopping and reuses those decisions.
 
 ## Red Flags
 
@@ -84,9 +121,27 @@ These thoughts mean STOP — you are rationalizing:
 | "This doesn't count as a task" | Action = task. Check for skills. |
 | "The skill is overkill" | Simple things become complex. Use it. |
 | "I'll just do this one thing first" | Check BEFORE doing anything. |
+| "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
 | "I know what that means" | Knowing the concept is not the same as using the skill. Invoke it. |
+| "They gave me the whole spec, so I can skip brainstorming" | A complete spec makes brainstorming fast (empty frontier, a four-line design), not optional. Invoke it: its approval gate still applies before any code. |
+| "It's small and clear, I'll go straight to TDD" | TDD comes after the design is approved. Any change to behavior starts in `godmode:brainstorming`. |
+| "The design (or plan) is approved, I know TDD, I'll just write the test" | Approval hands off to skills, not to memory. Invoke `godmode:test-driven-development` before the first test and `godmode:verification-before-completion` before saying it's done, including inside `executing-plans` and `subagent-driven-development`. |
 | "The grilling will slow things down" | Ungrilled requirements cause rework. Grill first, always. |
 | "The design is obvious, no need for codebase-design" | Obvious designs have non-obvious seams. Check. |
+
+## Platform Adaptation
+
+If your harness appears here, read its reference file for special instructions (tool names, subagent dispatch, where skills live):
+
+- Claude Code: `references/claude-code-tools.md`
+- Codex: `references/codex-tools.md`
+- Gemini CLI: `references/gemini-tools.md`
+- Pi: `references/pi-tools.md`
+- Antigravity: `references/antigravity-tools.md`
+- Hermes Agent: `references/hermes-tools.md`
+- Muse: `references/muse-tools.md`
+
+**Windows:** skills run helper scripts with `bash` (for example `subagent-driven-development/scripts/*`, `executing-plans/scripts/*`). A plain `bash` on Windows may resolve to WSL (`C:\Windows\System32\bash.exe`), which cannot run these scripts from their Windows paths. Run them with Git Bash instead: `& "C:\Program Files\Git\bin\bash.exe" <script> <args>`. If Git Bash is missing, do the script's steps by hand and ledger that you did.
 
 ## User Instructions
 

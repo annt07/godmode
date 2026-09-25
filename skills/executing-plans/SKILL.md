@@ -21,6 +21,8 @@ the final reviewer is the second pair of eyes.
 prove each step with a test you watched fail and then pass, and leave a
 record that survives your own forgetting.
 
+**Skill calls, not recollections.** Your first action after reading the plan is a skill call to `godmode:test-driven-development`, before Task 1, even when you know TDD and the plan's steps already spell out RED and GREEN. Before the final review, and before any message that says the work is done, call `godmode:verification-before-completion`.
+
 **Narration:** between tool calls, narrate at most one short line — the
 ledger and the tool results carry the record.
 
@@ -42,12 +44,30 @@ that norms say you ask about first (a merge, a push to a shared branch, a
 publish); and a plan so broken that every path forward is a guess. For
 those, stop and ask.
 
+When what blocks you is a step only a human can perform (minting a
+credential, setting a CI secret, clicking through a third-party dashboard,
+running a one-off cutover), invoke godmode:wizard to generate the script
+that walks them through it and statically check it. Then:
+
+- Ledger the task as `Task <N>: blocked on human: <step> — wizard at <path>`.
+  It is not complete: no placeholder values, no mocked stand-in for the
+  real credential, no completion line.
+- Continue with the remaining tasks that do not depend on it, in plan
+  order. Stop before the first task that consumes what the blocked task
+  produces, and before the final review: a branch with a blocked task
+  never reaches the final review or finishing-a-development-branch.
+- Put the wizard path and the blocked task at the top of your final
+  message, before the rulings list.
+
+Never paste the manual steps into chat, and never ask your partner to paste
+a secret to you.
+
 ## When to Use
 
 - You have a plan from godmode:writing-plans and your human partner
   chose inline execution at the handoff.
 - Your harness has no subagent tool (see the per-platform references in
-  `../using-superpowers/references/`). Never fabricate a dispatch; run
+  `../using-godmode/references/`). Never fabricate a dispatch; run
   the plan here.
 - Tasks are mostly independent — the same precondition as
   godmode:subagent-driven-development.
@@ -125,7 +145,7 @@ and the new one resumes from the same ledger.
 - Each plan owns a workspace: at skill start, run
   `../subagent-driven-development/scripts/sdd-workspace PLAN_FILE` — it
   prints the plan's git-ignored directory
-  (`<repo-root>/.superpowers/sdd/<plan-basename>/`), home to every
+  (`<repo-root>/.godmode/sdd/<plan-basename>/`), home to every
   artifact for THIS plan: ledger, briefs, review packages. Another plan's
   directory is never yours to read or write.
 - Check for this plan's ledger at `<workspace>/progress.md`. If its first
@@ -183,7 +203,16 @@ never in a call of its own.
 ### 2. Work the steps
 
 The plan's steps are already in RED-GREEN order; follow them in that
-order under godmode:test-driven-development, loaded at setup. A test
+order under godmode:test-driven-development, loaded at setup. Start each
+task by confirming its "Seam under test": every test goes through that
+public interface. If the seam cannot reach the behavior, that is a plan
+defect: rule on a seam using godmode:codebase-design vocabulary and
+ledger it. Run the typechecker (if the project has one) and the focused
+test file regularly; the full suite runs at `task-done`. Smells you notice
+outside the minimal change go to the ledger as
+`Task <N>: refactor note: <one-liner>` for the final Standards review,
+never into the current task. A factual question about a library or API
+gets godmode:research, not a guess. A test
 step's code is written first and run first. Watching it fail is a step,
 not a formality — a test that passes before the implementation exists is
 a finding about the test.
@@ -237,10 +266,14 @@ Run `../subagent-driven-development/scripts/review-package PLAN_FILE MERGE_BASE 
 (MERGE_BASE = the commit the branch started from, e.g.
 `git merge-base main HEAD`) and review from the file it prints.
 
-**With a subagent tool:** dispatch the reviewer on the most capable
-available model — the whole-branch review is a judgment task — using
-godmode:requesting-code-review's
-[code-reviewer.md](../requesting-code-review/code-reviewer.md), with the
+**With a subagent tool:** run godmode:requesting-code-review's two-axis
+review, a Standards sub-agent and a Spec sub-agent in parallel, both on
+the most capable available model — the whole-branch review is a
+judgment task — both built on
+[code-reviewer.md](../requesting-code-review/code-reviewer.md), the
+Standards one also carrying
+[fowler-smells.md](../requesting-code-review/fowler-smells.md) and the
+ledger's `refactor note` lines. Give both the
 package path, the plan and spec paths, the plan's Review Focus section
 verbatim if it has one (the input classes and failure modes the plan's
 tests do not exercise — the reviewer checks each deliberately), and a
@@ -250,9 +283,10 @@ explicitly; an omitted model inherits the session's, which may not be the
 most capable. This is the one fresh context the whole run buys. Do not
 skip it, and do not replace it with your own read of the diff.
 
-**Without a subagent tool:** read code-reviewer.md and perform that review
-yourself against the package, as a separate pass after the last task's
-ledger line. Write `Final review: self-review (no subagent tool)` to the
+**Without a subagent tool:** read code-reviewer.md and fowler-smells.md
+and perform that review yourself against the package, as a separate pass
+after the last task's ledger line, reporting Standards and Spec under
+separate headings with separate verdicts. Write `Final review: self-review (no subagent tool)` to the
 ledger, and say so in your final message: a self-review by the author is
 weaker than a fresh reviewer, and your human partner decides whether that
 is enough before merge.
@@ -326,8 +360,8 @@ Use godmode:finishing-a-development-branch.
 You: I'm using the executing-plans skill to implement this plan inline.
 
 [Setup: worktree verified]
-[Read plan once: docs/superpowers/plans/feature-plan.md; spec read]
-[Resolve workspace: sdd-workspace docs/superpowers/plans/feature-plan.md — no ledger inside, fresh start]
+[Read plan once: docs/godmode/plans/feature-plan.md; spec read]
+[Resolve workspace: sdd-workspace docs/godmode/plans/feature-plan.md — no ledger inside, fresh start]
 [Pre-flight scan: 2 shared-interface rows, 4 self-consistency rows, clean; written to ledger]
 [Create todos for all tasks]
 

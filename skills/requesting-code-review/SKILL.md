@@ -42,7 +42,7 @@ Confirm the diff is non-empty before dispatching: `git diff --stat $BASE_SHA..$H
 
 Look for the originating spec, in this order:
 1. The plan file used by subagent-driven-development for this task
-2. The spec file in `docs/superpowers/specs/` that the plan was written from
+2. The spec file in `docs/godmode/specs/` that the plan was written from
 3. If nothing is found, provide the task text directly to the Spec sub-agent
 
 ### 3. Identify Standards Sources
@@ -70,6 +70,10 @@ On top of repo-documented standards, the Standards axis always carries the **Fow
 - **Refused Bequest**: a subclass or implementer that ignores or overrides most of what it inherits. Drop the inheritance, use composition.
 
 ### 4. Spawn Both Sub-Agents in Parallel
+
+Both sub-agents start from the base template [code-reviewer.md](code-reviewer.md) (read-only review, no sub-dispatch, "the spec is a vision document", "Declined to judge", severity calibration, output format), then add their axis brief below and restrict themselves to that axis. If a review package file exists (subagent-driven-development and executing-plans produce one), pass its path instead of raw git commands.
+
+**Only one review seat available** (no subagent tool, or a per-task gate that must stay cheap): one reviewer fills code-reviewer.md and reports the two axes under separate `## Standards` and `## Spec` headings, each with its own verdict. Never merge them into one verdict.
 
 **Standards sub-agent prompt** should include:
 

@@ -22,9 +22,9 @@ If a prior design conversation or grilling session already exists, proceed direc
 
 2. **Sketch out the seams** at which you are going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better. Consult `godmode:codebase-design` for seam vocabulary if needed.
 
-   Check with your human partner that these seams match their expectations.
+   Check with your human partner that these seams match their expectations. This is the moment seams get agreed: once the spec is approved, the plan copies them into each task's "Seam under test", and execution uses them without asking again. Record the agreed seams in the spec's Testing Decisions.
 
-3. **Write the spec** using the template below. Save it to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit.
+3. **Write the spec** using the template below. Save it to `docs/godmode/specs/YYYY-MM-DD-<topic>-design.md` and commit.
 
 ---
 

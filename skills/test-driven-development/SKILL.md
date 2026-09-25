@@ -43,19 +43,20 @@ Write code before the test? Delete it. Start over.
 
 Implement fresh from tests. Period.
 
-## Step 0: Confirm the Seam
-
-**Before writing any test**, confirm the seam under test.
+## Step 0: Test Only at Pre-Agreed Seams
 
 A **seam** is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
 
+No test is written at an unagreed seam. You cannot test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case. Your human partner agrees seams while they are present, not in the middle of an automated run. Find the agreed seam in this order:
+
+1. **The plan task's "Seam under test"** (agreed when the spec and plan were approved). Use it. Do not re-ask.
+2. **The approved Bounded design or spec's Testing Decisions.** Use it. Do not re-ask.
+3. **No agreed seam, interactive session** (a bug fix or a change with no plan): write the seam down and ask before the first test: "The seam under test is [interface]. Tests will exercise it through its public interface only. Is this the right seam?"
+4. **No agreed seam, inside plan execution** (subagent-driven-development or executing-plans, where you do not stop to ask): pick the highest existing seam that reaches the behavior, record it as a ledgered ruling, and continue. An implementer subagent reports NEEDS_CONTEXT instead.
+
 **REQUIRED SUB-SKILL:** If the seam placement is unclear — where the module's interface lives, how deep it should be, whether a new seam is needed — invoke `godmode:codebase-design` for the vocabulary and principles before proceeding.
 
-Write down the seams under test and confirm them with your human partner:
-
-> "The seam under test is [interface name]. Tests will exercise this through its public interface only. Is this the right seam?"
-
-No test is written at an unconfirmed seam. You cannot test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
+Read CONTEXT.md (if it exists) so test names and interface vocabulary use the project's domain language, and respect ADRs in the area you are touching.
 
 **Prefer existing seams.** Before proposing a new seam, check whether an existing public interface already reaches the behavior. Use the highest seam possible.
 
@@ -97,6 +98,8 @@ test('retries failed operations 3 times', async () => {
 - **Implementation-coupled:** mocks internal collaborators, tests private methods, or verifies through a side channel. The tell: the test breaks when you refactor but behavior has not changed.
 - **Tautological:** the assertion recomputes the expected value the way the code does — it passes by construction and can never disagree with the code.
 - **Horizontal slicing:** writing all tests first, then all implementations. Work in vertical slices instead.
+
+For what a good test looks like at a seam, see [tests.md](tests.md). Before reaching for a mock, read [mocking.md](mocking.md): mock only at system boundaries, never your own modules.
 
 ### Verify RED: Watch It Fail
 
@@ -175,7 +178,7 @@ Next vertical slice: next failing test for the next behavior at the confirmed se
 
 Before marking work complete:
 
-- [ ] Seam under test was confirmed before writing tests
+- [ ] Every test goes through a pre-agreed seam (or a ledgered ruling / partner-confirmed seam per Step 0)
 - [ ] Every new function/method has a test
 - [ ] Watched each test fail before implementing
 - [ ] Each test failed for the expected reason (feature missing, not typo)

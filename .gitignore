@@ -1,0 +1,13 @@
+# Artifacts godmode writes when it runs inside this repo
+.godmode/
+
+# Python / Node caches from running or testing skill scripts
+__pycache__/
+*.pyc
+node_modules/
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

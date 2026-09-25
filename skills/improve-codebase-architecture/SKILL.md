@@ -49,6 +49,8 @@ For each candidate, render a card with:
 
 End the report with a **Top recommendation** section: which candidate you would tackle first and why.
 
+Follow [HTML-REPORT.md](HTML-REPORT.md) for the full HTML scaffold, diagram patterns, and styling.
+
 **ADR conflicts**: if a candidate contradicts an existing ADR, only surface it when the friction is real enough to warrant revisiting the ADR. Mark it clearly.
 
 Do NOT propose interfaces yet. After the file is written, ask the user: "Which of these would you like to explore?"
@@ -66,4 +68,4 @@ Side effects happen inline as decisions crystallise; invoke `godmode:domain-mode
 
 ### 4. Implementation
 
-Once the grilling loop produces a confirmed design, the brainstorming equivalent has already happened inline. Invoke `godmode:writing-plans` directly to produce the implementation plan for the chosen refactor. If the scope is large enough to warrant a written spec first, write a brief spec to `docs/superpowers/specs/YYYY-MM-DD-<refactor-topic>.md` using the `godmode:to-spec` template, then invoke `godmode:writing-plans`.
+A picked and grilled candidate is a new idea, not an approved design. When the grilling loop ends, produce its Grilling Summary, then invoke `godmode:brainstorming` with that summary as the starting brief. Brainstorming classifies the refactor (Bounded or Architectural) and runs its approval gates as usual, but treats every decision in the summary as settled: it asks only what the summary left open, instead of re-grilling. This keeps the refactor behind the same design and spec approvals as any other change, so it never reaches implementation on a conversational yes alone.

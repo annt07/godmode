@@ -45,6 +45,8 @@ When in doubt between two paths, take the heavier one. The ratchet is one-way: h
 
 The grilling skill's frontier model asks all currently unblocked questions in one round (with your recommended answer for each), waits for answers, then advances to the next round of now-unblocked questions. This is strictly more efficient than one-question-per-message and ensures no branch of the design tree goes silently unvisited.
 
+Grilling costs what the request leaves open, no more. If the request, the codebase, or an incoming Grilling Summary already settles every decision, the frontier is empty: say so in one line and go straight to the design. A Bounded change usually needs one round or none. Never invent questions to fill a round.
+
 For finding facts during grilling (filesystem, existing code, tool capabilities), use `godmode:research` and dispatch it as a background agent; do not ask your partner for facts you can look up yourself.
 
 ## Module Design: Use Codebase Design Vocabulary
@@ -86,9 +88,9 @@ Classify first, announce the path, then create a task for each item on your path
 **Bounded:**
 1. Explore project context — check files, docs, recent commits; read CONTEXT.md
 2. **REQUIRED SUB-SKILL:** Invoke `godmode:grilling` for clarifying questions (frontier rounds, recommended answers)
-3. Present short design in chat — approach, files touched, seams, testing
+3. Present short design in chat — approach, files touched, the seams tests will go through, testing. Approving this design agrees those seams; implementation uses them without asking again
 4. Get approval — STOP and wait for an explicit yes
-5. Implement — proceed with the normal development workflow (TDD applies); no plan document
+5. Implement — no plan document. **REQUIRED SUB-SKILL:** invoke `godmode:test-driven-development` before the first test, using the seams the approved design named. Before reporting the change as done, invoke `godmode:verification-before-completion`
 
 **Architectural:**
 1. Explore project context — check files, docs, recent commits; read CONTEXT.md
@@ -96,7 +98,7 @@ Classify first, announce the path, then create a task for each item on your path
 3. **REQUIRED SUB-SKILL:** Invoke `godmode:grilling` — understand purpose, constraints, and success criteria through frontier rounds
 4. Propose 2-3 approaches — with trade-offs and your recommendation
 5. Present design — in sections scaled to their complexity; **REQUIRED SUB-SKILL:** use `godmode:codebase-design` vocabulary for any module boundary or seam; invoke `godmode:domain-modeling` for any fuzzy or new domain terms; get user approval after each section
-6. **REQUIRED SUB-SKILL:** Invoke `godmode:to-spec` — write structured spec to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
+6. **REQUIRED SUB-SKILL:** Invoke `godmode:to-spec` — write structured spec to `docs/godmode/specs/YYYY-MM-DD-<topic>-design.md` and commit
 7. Spec self-review — scan for placeholders, contradictions, ambiguity, scope creep; fix inline
 8. User reviews written spec — ask user to review before proceeding
 9. Transition to implementation — invoke `godmode:writing-plans`

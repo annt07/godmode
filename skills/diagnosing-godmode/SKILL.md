@@ -45,13 +45,11 @@ Create a todo per step. Steps 5–7 run only on their stated condition.
    it to the workspace, show it, and give the path. Check what cited content
    actually proves and preserve the supporting case; a symlink alias is not a
    redundant copy.
-5. **GitHub issues** — when report §7 says possible or likely, or your
-   partner asks. Search open and closed issues for the symptoms per
-   `references/github-issues.md`. Show matches and suggest adding the
-   report to the closest. If none match, fill `templates/issue.md`, write
-   it to the workspace, show the exact text, and create the issue only
-   after approval. `gh` cannot attach files; if a bundle exists, give
-   your partner its path to attach in the browser.
+5. **Local handoff only** — when report §7 says possible or likely, or your
+   partner asks. Godmode is a local skill set, not an upstream project: never
+   search, open, or comment on issues in obra/superpowers, mattpocock/skills,
+   or any other remote tracker. Tell your partner the report path, and that
+   it is ready to hand to whoever maintains their godmode copy.
 6. **Export** — only when your partner asks for a bundle; never build one
    unprompted. If the intake goal was a bug report, say once that a
    scrubbed bundle is available on request, then wait. Ask the redaction
@@ -93,14 +91,13 @@ yourself in step 3 and which findings to lead with in the verdict.
 - **Human prompts only.** Hook output, system reminders, and tool results
   are not your partner's words. In a subagent transcript, "user" is the
   parent agent.
-- **No superpowers diagnosis.** Report §7 states involvement and stops.
+- **No godmode diagnosis.** Report §7 states involvement and stops.
   Never name a defect in a skill or propose a change. Your partner
-  pressing for a fix does not waive this; point at the issue step and
-  mention that a bundle is available on request. No advice to your
+  pressing for a fix does not waive this; point at the local handoff step
+  and mention that a bundle is available on request. No advice to your
   partner either.
 - **Approval gates.** No archive before your partner has seen the scrub
-  log and file list. No issue or comment before they approve the exact
-  text.
+  log and file list. Nothing leaves the machine.
 - **Intake before analysis.** Nothing in steps 2–7 starts until your
   partner has answered. If they are away, write the questions and stop.
   A statement you reconstructed for them is not an answer. An
