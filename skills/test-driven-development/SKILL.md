@@ -27,6 +27,22 @@ Write the test first. Watch it fail. Write minimal code to pass. Refactoring is 
 
 Thinking "skip TDD just this once"? Stop. That is rationalization.
 
+## Entry Gate: Design Approved First
+
+TDD is the implementation step, never the first step. Before writing the first test, one of these must be true **in this session**:
+
+- Your human partner approved a design from `godmode:brainstorming` (Bounded or Architectural), or
+- You are executing an approved plan (`godmode:executing-plans` / `godmode:subagent-driven-development`), or
+- `godmode:systematic-debugging` found the root cause of a bug and you are writing its regression test.
+
+If none is true, stop: invoke `godmode:brainstorming` now, and write no test or code until its design is approved. This holds when the request reads like a complete spec ("that is the whole spec", exact signature, exact errors): a complete spec makes brainstorming quick (Bounded, nothing left to ask, a short design naming the seam, wait for yes), not optional.
+
+| Thought | Reality |
+|---------|---------|
+| "The user gave the whole spec, so there's nothing to design" | Brainstorming says that in one line and shows the seam. Your partner's yes is the gate, not your judgement that it's clear. |
+| "TDD is a discipline skill, it doesn't need approval" | TDD decides how to build, not whether this design is the one wanted. |
+| "The spec in the request approves my design" | Approval is a reply sent after your partner saw the design. If you showed the design in this same turn, nobody has approved it yet: end the turn. |
+
 ## The Iron Law
 
 ```

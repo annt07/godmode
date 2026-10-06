@@ -9,7 +9,7 @@ description: Use when creating new skills, editing existing skills, or verifying
 
 **Writing skills IS Test-Driven Development applied to process documentation.**
 
-**Personal skills live in your runtime's skills directory** (`~/.claude/skills/` on Claude Code) — see [codex-tools.md](../using-godmode/references/codex-tools.md) or [gemini-tools.md](../using-godmode/references/gemini-tools.md) for the path on those runtimes. Codex, Copilot CLI, and Gemini CLI all also recognize `~/.agents/skills/` as a cross-runtime alias.
+**Personal skills live in your agent's user-level skills directory**; `~/.agents/skills/` is a widely recognised cross-agent location.
 
 You write test cases (pressure scenarios with subagents), watch them fail (baseline behavior), write the skill (documentation), watch tests pass (agents comply), and refactor (close loopholes).
 
@@ -19,7 +19,7 @@ You write test cases (pressure scenarios with subagents), watch them fail (basel
 
 **REQUIRED SUB-SKILL:** Invoke godmode:writing-for-agents for the prose itself: the description as a context pointer, the information hierarchy, completion criteria, leading words, and the no-op pruning pass. This skill proves a document changes agent behavior under pressure; writing-for-agents makes it short and predictable. When they pull in different directions, the pressure test wins: never prune a Red Flags row or rationalization entry that a test showed was load-bearing.
 
-**Official guidance:** For Anthropic's official skill authoring best practices, see anthropic-best-practices.md. This document provides additional patterns and guidelines that complement the TDD-focused approach in this skill.
+**Prose guidance:** for how skill text should be written (structure, wording, what to cut), use `godmode:writing-for-agents`. This skill covers testing it.
 
 ## What is a Skill?
 

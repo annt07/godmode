@@ -11,3 +11,7 @@ node_modules/
 .idea/
 .DS_Store
 Thumbs.db
+
+# npm pack output
+*.tgz
+node_modules/

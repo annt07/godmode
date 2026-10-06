@@ -281,12 +281,15 @@ pointer to the ledger's `Ruling:` lines so it can weigh the calls you
 made. Specify the model
 explicitly; an omitted model inherits the session's, which may not be the
 most capable. This is the one fresh context the whole run buys. Do not
-skip it, and do not replace it with your own read of the diff.
+skip it, and do not replace it with your own read of the diff. Dispatch
+the security pass (`godmode:vuln-scan` in review mode over
+MERGE_BASE..HEAD) as a third parallel sub-agent; it always runs here.
 
 **Without a subagent tool:** read code-reviewer.md and fowler-smells.md
 and perform that review yourself against the package, as a separate pass
-after the last task's ledger line, reporting Standards and Spec under
-separate headings with separate verdicts. Write `Final review: self-review (no subagent tool)` to the
+after the last task's ledger line, then run `godmode:vuln-scan` in review
+mode yourself, reporting Standards, Spec and Security under separate
+headings with separate verdicts. Write `Final review: self-review (no subagent tool)` to the
 ledger, and say so in your final message: a self-review by the author is
 weaker than a fresh reviewer, and your human partner decides whether that
 is enough before merge.

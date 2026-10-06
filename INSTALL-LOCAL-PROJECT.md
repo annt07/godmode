@@ -10,6 +10,8 @@ Use this when:
 
 For a machine-wide install, see [INSTALL.md](INSTALL.md).
 
+> **Easier:** run `npx github:annt07/godmode` inside the project. It does every step below idempotently, but keeps everything local: the skills go in `.agents/skills/` and the bootstrap goes in an untracked `AGENTS.local.md`, both listed in `.git/info/exclude`, and shared `AGENTS.md`/`CLAUDE.md` are never edited. `--dry-run` previews. This page documents the shared, committed variant by hand.
+
 > **Tested on:** Devin CLI on Windows, using `.devin/skills/` plus the `AGENTS.md` bootstrap. The Claude Code and Codex/Gemini paths below follow the same pattern, using each tool's documented project skill folder, but were not run end to end.
 
 ---
@@ -18,7 +20,7 @@ For a machine-wide install, see [INSTALL.md](INSTALL.md).
 
 ```
 <your-project>/
-  .devin/skills/            the 30 godmode skill folders (or .claude/skills/, .agents/skills/)
+  .devin/skills/            the 33 godmode skill folders (or .claude/skills/, .agents/skills/)
     using-godmode/SKILL.md  the router
     brainstorming/SKILL.md
     ...
@@ -59,7 +61,7 @@ $TARGET  = Join-Path $PROJECT ".devin\skills"     # or .claude\skills, .agents\s
 
 New-Item -ItemType Directory -Force $TARGET | Out-Null
 Copy-Item -Recurse -Force "$GODMODE\skills\*" $TARGET
-(Get-ChildItem $TARGET -Directory).Count          # expect 30
+(Get-ChildItem $TARGET -Directory).Count          # expect 33
 ```
 
 **bash (macOS, Linux, Git Bash):**
@@ -71,7 +73,7 @@ TARGET="$PROJECT/.devin/skills"                   # or .claude/skills, .agents/s
 
 mkdir -p "$TARGET"
 cp -R "$GODMODE/skills/." "$TARGET/"
-ls -d "$TARGET"/*/ | wc -l                        # expect 30
+ls -d "$TARGET"/*/ | wc -l                        # expect 33
 ```
 
 Copy the `skills/` folder whole. The skills link to each other and to their support files (`../requesting-code-review/fowler-smells.md`, the `scripts/` folders), so they must stay side by side in one folder.
@@ -133,7 +135,7 @@ Devin CLI, from the project root:
 devin skills list
 ```
 
-Each godmode skill should show a source path inside `.\.devin\skills\`. The five programmer commands show `[user]` (only you can run them); the other 25 show `[user,model]`.
+Each godmode skill should show a source path inside `.\.devin\skills\`. The seven programmer commands show `[user]` (only you can run them); the other 26 show `[user,model]`.
 
 Other tools: open a session and ask "list your available skills".
 

@@ -1,0 +1,5 @@
+interface:
+  display_name: "MR/PR Full Review"
+  short_description: "Full read-only review of an MR/PR into .scratch"
+policy:
+  allow_implicit_invocation: false

@@ -89,12 +89,18 @@ Both sub-agents start from the base template [code-reviewer.md](code-reviewer.md
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 
-### 5. Aggregate and Act
+### 5. Security Pass (required)
 
-Present the two reports under `## Standards` and `## Spec` headings. Do NOT merge or rerank findings across axes.
+**REQUIRED SUB-SKILL:** run `godmode:vuln-scan` in **review mode** over the same `$BASE_SHA..$HEAD_SHA` range, alongside the two axis reviewers (as a third parallel sub-agent when you have a subagent tool, otherwise yourself after them). Review mode never pauses to ask for authorization or threat-model refinement, and writes its artifacts under `.godmode/security/`, not into the source tree.
+
+It runs on every review this skill performs, including "just a quick review" and changes that don't look security-related: the scan is scoped to the diff, so it is cheap when there's nothing to find. The one exception is the per-task gate inside `subagent-driven-development`, which runs it only for tasks touching security-sensitive code; the final whole-branch review of `subagent-driven-development` and `executing-plans` always runs it.
+
+### 6. Aggregate and Act
+
+Present the three reports under `## Standards`, `## Spec` and `## Security` headings. Do NOT merge or rerank findings across them. Critical and high security findings are blocking (Important or Critical); medium and low are Minor.
 
 End with:
-- A one-line summary: total findings per axis, worst issue within each axis
+- A one-line summary: total findings per heading, worst issue within each
 - An overall verdict: Ready / With fixes / Not ready
 
 **Act on feedback:**
@@ -111,6 +117,8 @@ End with:
 | "The reviewer needs my whole session history" | Hand it precisely crafted context, never your session's history. That keeps the reviewer on the work product. |
 | "It's simple, no need for a formal review" | Simple changes cascade into complex bugs. Review early. |
 | "One reviewer is enough" | One reviewer cannot evaluate both spec and standards independently. The two axes need isolation to avoid masking. |
+| "This change isn't security-related, skip vuln-scan" | Injection, leaked PHI and secrets in logs arrive in "harmless" changes. The scan is diff-scoped and cheap; it always runs. |
+| "The repo is internal, so security findings are Minor" | Internal services still hold credentials and PHI. Grade by vuln-scan's severity, not by where the code runs. |
 
 ## Red Flags
 
@@ -119,3 +127,4 @@ End with:
 - Ignore Critical issues
 - Proceed with unfixed Important issues
 - Merge both reviewer findings into one verdict before presenting them separately
+- Finish a review without the `## Security` section from `godmode:vuln-scan`

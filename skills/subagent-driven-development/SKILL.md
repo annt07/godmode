@@ -370,6 +370,15 @@ needed.
   loop. If the prompt you are writing contains "do not flag," "don't treat X
   as a defect," "at most Minor," or "the plan chose" — stop: you are
   pre-judging, usually to spare yourself a review loop.
+- **Security-sensitive tasks also get the security pass.** When the task's
+  diff touches authentication or authorization, secrets or configuration,
+  input parsing, file paths, shell or SQL construction, network calls,
+  PHI/PII handling, LLM prompts or tool calls, or dependency manifests,
+  dispatch `godmode:vuln-scan` in review mode over the same BASE..HEAD
+  range alongside the task reviewer. Its critical/high findings enter the
+  fix loop like Important findings; medium/low go to the ledger as
+  deferred minors.
+
 The task reviewer may report "⚠️ Cannot verify from diff" items — requirements
 that live in unchanged code or span tasks. These do not block the rest of the
 review, but you must resolve each one yourself before marking the task
@@ -487,9 +496,11 @@ axis brief. Give both the package path, the plan and spec paths, and the
 plan's Review Focus section; give the Standards sub-agent the full
 contents of [fowler-smells.md](../requesting-code-review/fowler-smells.md).
 Point both at the ledger's deferred-minor and parked lines so they can
-triage which must be fixed before merge. Keep their findings under
-separate Standards and Spec headings; the fix wave below takes both
-lists.
+triage which must be fixed before merge. Dispatch the security pass
+(`godmode:vuln-scan` in review mode over MERGE_BASE..HEAD) as a third
+parallel sub-agent; it always runs here. Keep the findings under
+separate Standards, Spec and Security headings; the fix wave below takes
+all three lists.
 
 If the final whole-branch review returns findings, dispatch ONE fix subagent
 with the complete findings list — not one fixer per finding.

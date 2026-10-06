@@ -26,7 +26,7 @@ Before taking any implementation action, including invoking an implementation sk
 - Bounded: the human partner approves the short in-chat design.
 - Architectural: the human partner reviews and approves the written spec, then reviews the written implementation plan and selects its execution method. Conversational design approval only permits writing the spec; written-spec approval only permits invoking writing-plans.
 
-A reply approves the stage actually presented. Approval of an idea or feature scope does not approve artifacts that do not exist yet. Resume at the earliest incomplete stage; do not turn one approval into permission to skip the rest of the selected path. Read-only project exploration is allowed while those prerequisites remain incomplete.
+A reply approves the stage actually presented. Only a reply that comes after the presentation can approve it: the request that started the work never approves the design you derived from it, however complete it is. Approval of an idea or feature scope does not approve artifacts that do not exist yet. Resume at the earliest incomplete stage; do not turn one approval into permission to skip the rest of the selected path. Read-only project exploration is allowed while those prerequisites remain incomplete.
 </HARD-GATE>
 
 ## Three Paths
@@ -89,7 +89,7 @@ Classify first, announce the path, then create a task for each item on your path
 1. Explore project context — check files, docs, recent commits; read CONTEXT.md
 2. **REQUIRED SUB-SKILL:** Invoke `godmode:grilling` for clarifying questions (frontier rounds, recommended answers)
 3. Present short design in chat — approach, files touched, the seams tests will go through, testing. Approving this design agrees those seams; implementation uses them without asking again
-4. Get approval — STOP and wait for an explicit yes
+4. Get approval — STOP and wait for an explicit yes. End your turn right after the design. Approval is a reply your partner sends after seeing this design; nothing in the original request counts ("that is the whole spec", "just add it", an exact signature), because they hadn't seen your design when they wrote it
 5. Implement — no plan document. **REQUIRED SUB-SKILL:** invoke `godmode:test-driven-development` before the first test, using the seams the approved design named. Before reporting the change as done, invoke `godmode:verification-before-completion`
 
 **Architectural:**

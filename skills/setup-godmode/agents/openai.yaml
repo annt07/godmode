@@ -1,0 +1,5 @@
+interface:
+  display_name: "Setup godmode"
+  short_description: "Install godmode and wire its bootstrap"
+policy:
+  allow_implicit_invocation: false

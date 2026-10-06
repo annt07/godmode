@@ -59,9 +59,10 @@ This combined skill set merges Superpowers (autonomous pipeline driver) with Mat
 | Scanning a codebase for architecture improvement opportunities | `godmode:improve-codebase-architecture` |
 | Encountering a git merge or rebase conflict | `godmode:resolving-merge-conflicts` |
 | Blocked on a step only a human can do (credentials, CI secrets, a dashboard, a one-off cutover) | `godmode:wizard` |
-| Creating or editing a skill, AGENTS.md, CLAUDE.md, or another agent-read document | `godmode:writing-for-agents` |
+| Creating or editing a skill, an agent instructions file (AGENTS.md or equivalent), or another agent-read document | `godmode:writing-for-agents` |
+| The security pass of any code review; or a request to scan code for vulnerabilities, secrets or PHI/PII exposure | `godmode:vuln-scan` |
 
-### Programmer Commands (Matt Pocock, user-invoked only)
+### Programmer Commands (user-invoked only)
 
 These are your human partner's tools. They are never model-invoked and no skill calls them. When one would help, tell your partner it exists; do not run its steps yourself.
 
@@ -72,6 +73,8 @@ These are your human partner's tools. They are never model-invoked and no skill 
 | `/grill-me` | A stateless grilling session with no repo under it: writes no files |
 | `/to-questionnaire` | A decision needs someone else's knowledge: turns it into a questionnaire for them |
 | `/teach` | Learn a concept over several sessions, using the directory as a teaching workspace |
+| `/mr-full-review` | Only when your partner types the command: a full, read-only MR/PR review written to `.scratch/` as a numbered round. Every other review request, including ones that mention an MR or PR number, invokes `godmode:requesting-code-review` |
+| `/setup-godmode` | Install, update or remove godmode for a repo or for every repo, and wire the bootstrap |
 
 ## Skill Priority
 
@@ -82,6 +85,7 @@ When multiple skills apply, process skills come first — they set the approach,
 - "Design this module" → `godmode:codebase-design` + `godmode:domain-modeling` before any code.
 - "Grill me on this plan" → `godmode:grilling` immediately.
 - "Refactor / clean up / make this more testable" → `godmode:improve-codebase-architecture`.
+- "Review this / review MR 46 / act as an independent reviewer" → invoke `godmode:requesting-code-review` (which runs `godmode:vuln-scan`). Knowing how the review goes is not a substitute for the skill call.
 - Merge or rebase conflict → `godmode:resolving-merge-conflicts` before anything else.
 
 ## Lifecycle Map
@@ -96,7 +100,7 @@ Superpowers drives the pipeline. At each stage, the Matt Pocock engineering skil
 | Written spec | `godmode:brainstorming` | `godmode:to-spec` |
 | Plan | `godmode:writing-plans` | `godmode:codebase-design` for file boundaries; a named seam per task |
 | Implement | `godmode:subagent-driven-development` or `godmode:executing-plans` | `godmode:test-driven-development` at the task's seam; `godmode:research` on factual gaps |
-| Review | `godmode:requesting-code-review` | Two axes (Standards with the Fowler baseline, Spec); refactoring happens here, not in TDD |
+| Review | `godmode:requesting-code-review` | Two axes (Standards with the Fowler baseline, Spec) plus the `godmode:vuln-scan` security pass; refactoring happens here, not in TDD |
 | Debug | `godmode:systematic-debugging` | Feedback loop first; no correct seam means recommend `godmode:improve-codebase-architecture` |
 | Blocked on a human-only step | `godmode:subagent-driven-development` or `godmode:executing-plans` | `godmode:wizard`, then stop and hand over the script |
 | Integrate | `godmode:finishing-a-development-branch` | `godmode:resolving-merge-conflicts` |
@@ -131,18 +135,10 @@ These thoughts mean STOP — you are rationalizing:
 
 ## Platform Adaptation
 
-If your harness appears here, read its reference file for special instructions (tool names, subagent dispatch, where skills live):
-
-- Claude Code: `references/claude-code-tools.md`
-- Codex: `references/codex-tools.md`
-- Gemini CLI: `references/gemini-tools.md`
-- Pi: `references/pi-tools.md`
-- Antigravity: `references/antigravity-tools.md`
-- Hermes Agent: `references/hermes-tools.md`
-- Muse: `references/muse-tools.md`
+Skills name actions, not tools: "read the file", "dispatch a subagent", "track tasks", "invoke the skill". Use whatever tool your environment provides for each. If an action has no equivalent (for example no subagent tool), follow the skill's stated fallback; most say what to do inline instead.
 
 **Windows:** skills run helper scripts with `bash` (for example `subagent-driven-development/scripts/*`, `executing-plans/scripts/*`). A plain `bash` on Windows may resolve to WSL (`C:\Windows\System32\bash.exe`), which cannot run these scripts from their Windows paths. Run them with Git Bash instead: `& "C:\Program Files\Git\bin\bash.exe" <script> <args>`. If Git Bash is missing, do the script's steps by hand and ledger that you did.
 
 ## User Instructions
 
-User instructions (CLAUDE.md, AGENTS.md, GEMINI.md, etc., direct requests) take precedence over skills, which in turn override default behavior. Only skip skill workflows or instructions when your human partner has explicitly told you to.
+User instructions (the repo's or user's agent instructions files such as AGENTS.md, and direct requests) take precedence over skills, which in turn override default behavior. Only skip skill workflows or instructions when your human partner has explicitly told you to.
