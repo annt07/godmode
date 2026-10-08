@@ -1,6 +1,6 @@
 ---
 name: finishing-a-development-branch
-description: Use when implementation is complete, all tests pass, and you must decide how to integrate the work.
+description: Use when implementation is complete, all tests pass, and you must decide how to integrate the work. Also use it when the user asks to "push", "rebase", "merge" or "open a PR".
 ---
 
 # Finishing a Development Branch

@@ -36,7 +36,9 @@
  "skills/finishing-a-development-branch/SKILL.md": [
   "implementation is complete",
   "tests pass",
-  "integrate"
+  "integrate",
+  "push",
+  "rebase"
  ],
  "skills/grill-me/SKILL.md": [
   "interview",
