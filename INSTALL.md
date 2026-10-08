@@ -10,8 +10,8 @@ Seven skills ship as **programmer commands** that only you can run: Matt Pocock'
 
 ```
 combined/
-  skills/                  33 skills, one folder each (SKILL.md plus support files):
-                           26 model-invoked, 7 user-invoked programmer commands
+  skills/                  34 skills, one folder each (SKILL.md plus support files):
+                           27 model-invoked, 7 user-invoked programmer commands
     using-godmode/         the router the hook injects at session start
   hooks/
     session-start          bash script that injects using-godmode into the session
@@ -232,7 +232,7 @@ If you get code with no skill announcement, the router did not load. Check the h
 
 - **Plugin install:** `/plugin uninstall godmode` (Claude Code) or `devin plugins remove godmode` (Devin CLI).
 - **Installer:** re-run it with `--uninstall` (removes only the skills in `.godmode-manifest.json`, and the bootstrap block).
-- **Manual install:** delete `~/.claude/godmode`, the 33 godmode skill folders in your skills directory, and the SessionStart hook entry or bootstrap line you added.
+- **Manual install:** delete `~/.claude/godmode`, the 34 godmode skill folders in your skills directory, and the SessionStart hook entry or bootstrap line you added.
 
 ## Troubleshooting
 

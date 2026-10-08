@@ -15,3 +15,8 @@ Thumbs.db
 # npm pack output
 *.tgz
 node_modules/
+
+# agent eval output
+tests/agent-eval/runs/
+tests/agent-eval/devin-test-config.json
+tests/agent-eval/results/

@@ -70,7 +70,7 @@ You don't call pipeline skills by hand. A session-start hook (plugin install) or
 
 ## Skills
 
-33 skills: 26 the agent uses on its own, and 7 commands only you can run.
+34 skills: 27 the agent uses on its own, and 7 commands only you can run.
 
 ### Pipeline (from Superpowers)
 
@@ -106,6 +106,7 @@ You don't call pipeline skills by hand. A session-start hook (plugin install) or
 | `improve-codebase-architecture` | "Refactor / make testable" requests: HTML report of deepening opportunities, then grilling on the one you pick |
 | `wizard` | A step only a human can do (credentials, CI secrets, dashboards, cutovers): generates a guided script instead of pasting steps or asking for secrets |
 | `writing-for-agents` | Writing skills, AGENTS.md, CLAUDE.md, plans and briefs for agent readers |
+| `ste-writing` | Simplified Technical English (based on ASD-STE100 Issue 9, not certified). All godmode output follows it by default; it also rewrites any text on request. Includes the `ste-lint.py` linter and the godmode glossary |
 
 ### Security (used automatically)
 
@@ -226,7 +227,7 @@ On Devin, `devin skills list` (or `devin plugins list`) shows the installed skil
 
 ```
 godmode/
-├── skills/                    33 skills, one folder each (SKILL.md + support files)
+├── skills/                    34 skills, one folder each (SKILL.md + support files)
 │   ├── using-godmode/         router (harness-neutral: no skill names a specific agent tool)
 │   ├── subagent-driven-development/   prompts + scripts/ (task-brief, review-package, sdd-workspace)
 │   ├── executing-plans/       scripts/ (task-start, task-done)
@@ -237,7 +238,9 @@ godmode/
 │   └── ...
 ├── bin/godmode.mjs            npx entry point (calls the installer)
 ├── package.json               makes `npx github:annt07/godmode` work; private, never published
-├── tests/                     node --test tests/ (installer), uv run --with pytest pytest tests (provider script)
+├── tests/                     node --test tests/ (installer); uv run --with pytest pytest tests (provider script, STE linter, STE conformance)
+│   ├── ste/                   advisory baseline, trigger phrases, meaning-diff script, rewrite and review briefs
+│   └── agent-eval/            real-session eval: 19 trigger cases, design-gate rate, 4 pressure scenarios
 ├── hooks/
 │   ├── session-start          injects the router into every session
 │   ├── run-hook.cmd           Windows/Unix wrapper that finds bash
@@ -262,6 +265,7 @@ godmode/
 - **Real Devin CLI sessions:** godmode installed as a Devin plugin, with no bootstrap line, so the hook alone had to load the router. 23 scenarios covered every model-invoked skill, both invocation checks for the user-only commands, and the hook. **All 23 pass** on this version: the right skill fires, the approval gates hold, tests pass, and the repo is left in the expected state.
 - **Trigger eval (real Devin sessions, installed with `setup-godmode`):** 17 real-world phrasings, each of which should fire one specific skill, with design-gate cases also failing if any file changed. **17/17** on this version, including `vuln-scan` on every review request. User-only commands never fired on their own. Without the bootstrap, research and brainstorming were dropped, which is why the installer always writes it. The eval also caught the agent treating "that is the whole spec" as design approval (3 of 4 runs wrote code); after the fix, 6 of 6 runs stopped for approval, and the "yes" turn then ran TDD and verification.
 - **`/mr-full-review` without a token:** detects the provider, names the missing variable, never echoes token variables, leaves the repo clean.
+- **STE rewrite (October 2026):** every agent-read file under `skills/` (86 text units, about 53,000 words) is in Simplified Technical English. `tests/test_ste_conformance.py` lints each file with `skills/ste-writing/scripts/ste-lint.py` and fails on any hard finding, on a rise in advisory findings, or on a description that loses a trigger phrase. Each batch passed a structure diff against the `ste-base` tag and a fresh meaning reviewer. Real sessions before and after: trigger eval 18/19 and 18-19/19, design gate 6/6 and 6/6, pressure scenarios 4/4 and 4/4, hard STE findings in final replies 0.77 and 0.56 per 100 words, semicolons 7 and 0. Details: `tests/agent-eval/README.md`.
 - **Unit tests:** 27 offline pytest tests for the provider script (detection for all four providers, normalisation, pagination, CI, read-only) and 16 `node --test` tests for the installer (local-only writes, shared files untouched, tracked-file refusal, git status clean, idempotency, BOM/CRLF, foreign skills, stale removal, uninstall, global scope, conflict reports, the npx entry point). The packed package was also run through `npx` in a scratch repo.
 - **Automated file checks:** valid hook JSON for Claude Code, Cursor and generic formats; all shell scripts pass `bash -n`; skill names match their folders; every `godmode:` reference points to a real skill; no broken links.
 
@@ -288,6 +292,7 @@ Problems found and fixed while testing:
 | Per-task review: one reviewer with two verdicts; final review: two parallel reviewers | Keeps the per-task cost flat (Superpowers' single task reviewer) while keeping the axes separate (Matt Pocock's two-axis review) |
 | `to-spec` and `improve-codebase-architecture` changed from user-invoked to automatic | The pipeline needs them at fixed points; a refactor still goes back through brainstorming's approval gates |
 | `diagnosing-godmode` writes local reports only | Godmode is a local skill set; bug reports never go to the upstream trackers |
+| All godmode text follows STE (based on ASD-STE100 Issue 9, not certified) | An agent cannot ask the author what a sentence means. STE removes words with two meanings and sentences with two structures. The router carries the core rules, and a test lints every skill file |
 
 ---
 

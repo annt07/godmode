@@ -1,144 +1,154 @@
 ---
 name: using-godmode
-description: Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions
+description: Use when starting any conversation. This skill tells you how to find and use skills. It requires skill invocation before ANY response, including a clarifying question.
 ---
 
 <SUBAGENT-STOP>
-If you were dispatched as a subagent to execute a specific task, ignore this skill.
+If you are a subagent with a specific task, ignore this skill.
 </SUBAGENT-STOP>
 
 <EXTREMELY-IMPORTANT>
-If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
+If you think that there is even a 1% chance that a skill applies to your work, you ABSOLUTELY MUST invoke the skill.
 
 IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
 
-This is not negotiable. You cannot rationalize your way out of this.
+You cannot negotiate this rule. You cannot find a reason to avoid it.
 </EXTREMELY-IMPORTANT>
 
 ## The Rule
 
-**Invoke relevant or requested skills BEFORE any response or action** — including clarifying questions, exploring the codebase, or checking files. If it turns out wrong for the situation, you don't have to use it.
+**Invoke each relevant or requested skill BEFORE any response or action.** This includes a clarifying question, an exploration of the codebase and a look at a file. If the skill is wrong for the situation, you do not have to use it.
 
-**Before entering plan mode:** if you haven't already brainstormed, invoke the brainstorming skill first.
+**Before you enter plan mode:** if you did not brainstorm yet, invoke the brainstorming skill first.
 
-Then announce "Using [skill] to [purpose]" and follow the skill exactly. If it has a checklist, create a todo per item.
+Then announce "Using [skill] to [purpose]". Follow the skill exactly. If the skill has a checklist, make one todo for each item.
 
 ## Skill Catalog
 
-This combined skill set merges Superpowers (autonomous pipeline driver) with Matt Pocock's engineering and productivity skills (deep modules, grilling, domain modeling). Every skill is model-invocable unless noted.
+This skill set joins Superpowers (the autonomous pipeline) with the engineering and productivity skills of Matt Pocock (deep modules, grilling, domain modeling). The model can invoke each skill, unless the table says otherwise.
 
-### Pipeline Skills (Superpowers core — drive the full lifecycle)
-
-| Situation | Skill |
-|-----------|-------|
-| Starting any build/feature/change | `godmode:brainstorming` |
-| Have approved spec, need implementation plan | `godmode:writing-plans` |
-| Executing plan with independent tasks | `godmode:subagent-driven-development` |
-| Executing plan inline (no subagent tool) | `godmode:executing-plans` |
-| Implementing any feature or bugfix | `godmode:test-driven-development` |
-| Encountering any bug, failure, unexpected behavior | `godmode:systematic-debugging` |
-| About to claim work is complete | `godmode:verification-before-completion` |
-| Requesting a code review | `godmode:requesting-code-review` |
-| Receiving a code review | `godmode:receiving-code-review` |
-| Finishing a development branch | `godmode:finishing-a-development-branch` |
-| Working with git worktrees | `godmode:using-git-worktrees` |
-| Dispatching parallel agents | `godmode:dispatching-parallel-agents` |
-| Creating or editing skills | `godmode:writing-skills` |
-| Diagnosing a godmode session problem | `godmode:diagnosing-godmode` |
-
-### Design and Requirements Skills (Matt Pocock — depth and precision)
+### Pipeline Skills (Superpowers core: they drive the full lifecycle)
 
 | Situation | Skill |
 |-----------|-------|
-| Stress-testing a plan, design, or decision with relentless questions | `godmode:grilling` |
-| Designing or reviewing any module interface, seam, or testability structure | `godmode:codebase-design` |
-| Resolving domain terminology, creating/editing CONTEXT.md, recording an ADR | `godmode:domain-modeling` |
-| Spike: answering a design or feasibility question with throwaway code | `godmode:prototype` |
-| Writing a structured spec from a resolved design | `godmode:to-spec` |
-| Researching a factual question against primary sources | `godmode:research` |
-| Scanning a codebase for architecture improvement opportunities | `godmode:improve-codebase-architecture` |
-| Encountering a git merge or rebase conflict | `godmode:resolving-merge-conflicts` |
-| Blocked on a step only a human can do (credentials, CI secrets, a dashboard, a one-off cutover) | `godmode:wizard` |
-| Creating or editing a skill, an agent instructions file (AGENTS.md or equivalent), or another agent-read document | `godmode:writing-for-agents` |
-| The security pass of any code review; or a request to scan code for vulnerabilities, secrets or PHI/PII exposure | `godmode:vuln-scan` |
+| The start of any build, feature or change | `godmode:brainstorming` |
+| You have an approved spec and need an implementation plan | `godmode:writing-plans` |
+| You execute a plan with independent tasks | `godmode:subagent-driven-development` |
+| You execute a plan inline (no subagent tool) | `godmode:executing-plans` |
+| You implement any feature or bugfix | `godmode:test-driven-development` |
+| You find any bug, failure or unexpected behavior | `godmode:systematic-debugging` |
+| You are about to say that work is complete | `godmode:verification-before-completion` |
+| You request a code review | `godmode:requesting-code-review` |
+| You receive a code review | `godmode:receiving-code-review` |
+| You finish a development branch | `godmode:finishing-a-development-branch` |
+| You work with git worktrees | `godmode:using-git-worktrees` |
+| You dispatch parallel agents | `godmode:dispatching-parallel-agents` |
+| You make or edit a skill | `godmode:writing-skills` |
+| You diagnose a problem in a godmode session | `godmode:diagnosing-godmode` |
+
+### Design and Requirements Skills (Matt Pocock: depth and precision)
+
+| Situation | Skill |
+|-----------|-------|
+| A stress test of a plan, design or decision with relentless questions | `godmode:grilling` |
+| The design or review of any module interface, seam or testability structure | `godmode:codebase-design` |
+| Domain terminology, a new or changed CONTEXT.md, or an ADR | `godmode:domain-modeling` |
+| Spike: an answer to a design or feasibility question with throwaway code | `godmode:prototype` |
+| A structured spec from a resolved design | `godmode:to-spec` |
+| Research of a factual question against primary sources | `godmode:research` |
+| A scan of a codebase for architecture improvement opportunities | `godmode:improve-codebase-architecture` |
+| A git merge or rebase conflict | `godmode:resolving-merge-conflicts` |
+| A step that only a human can do (credentials, CI secrets, a dashboard, a one-off cutover) blocks you | `godmode:wizard` |
+| You make or edit a skill, an agent instructions file (AGENTS.md or equivalent), or another document that an agent reads | `godmode:writing-for-agents` |
+| The security pass of any code review, or a request to scan code for vulnerabilities, secrets or PHI/PII exposure | `godmode:vuln-scan` |
+| A request to rewrite a text in STE (all godmode output follows STE by default) | `godmode:ste-writing` |
 
 ### Programmer Commands (user-invoked only)
 
-These are your human partner's tools. They are never model-invoked and no skill calls them. When one would help, tell your partner it exists; do not run its steps yourself.
+These commands are tools of your human partner. The model never invokes them, and no skill calls them. When a command can help, tell your partner that it exists. Do not do its steps yourself.
 
 | Command | When your partner types it |
 |---------|----------------------------|
-| `/wait-what` | Your last message did not land: re-pitch it with the missing context, in plain English, using CONTEXT.md terms |
-| `/handoff` | The work has to travel (new harness, new directory, a colleague, or a side fork such as a prototype detour) |
-| `/grill-me` | A stateless grilling session with no repo under it: writes no files |
-| `/to-questionnaire` | A decision needs someone else's knowledge: turns it into a questionnaire for them |
-| `/teach` | Learn a concept over several sessions, using the directory as a teaching workspace |
-| `/mr-full-review` | Only when your partner types the command: a full, read-only MR/PR review written to `.scratch/` as a numbered round. Every other review request, including ones that mention an MR or PR number, invokes `godmode:requesting-code-review` |
-| `/setup-godmode` | Install, update or remove godmode for a repo or for every repo, and wire the bootstrap |
+| `/wait-what` | Your last message was not clear. Explain it again with the missing context, in plain English, with CONTEXT.md terms |
+| `/handoff` | The work must move to a new harness, a new directory, a colleague or a side fork (for example, a prototype detour) |
+| `/grill-me` | A stateless grilling session with no repository. It writes no files |
+| `/to-questionnaire` | A decision needs the knowledge of a different person. The command makes a questionnaire for that person |
+| `/teach` | Learn a concept over several sessions. The command uses the directory as a teaching workspace |
+| `/mr-full-review` | Only when your partner types the command: a full, read-only MR/PR review that it writes to `.scratch/` as a numbered round. Each other review request invokes `godmode:requesting-code-review`, also when the request names an MR or PR number |
+| `/setup-godmode` | Install, update or remove godmode for one repository or for all repositories, and write the bootstrap |
 
 ## Skill Priority
 
-When multiple skills apply, process skills come first — they set the approach, then implementation skills carry it out.
+When more than one skill applies, the process skills come first. They set the approach. Then the implementation skills do the work.
 
-- "Let's build X" → `godmode:brainstorming` first, then implementation skills.
-- "Fix this bug" → `godmode:systematic-debugging` first, then domain skills.
+- "Let's build X" → `godmode:brainstorming` first, then the implementation skills.
+- "Fix this bug" → `godmode:systematic-debugging` first, then the domain skills.
 - "Design this module" → `godmode:codebase-design` + `godmode:domain-modeling` before any code.
 - "Grill me on this plan" → `godmode:grilling` immediately.
 - "Refactor / clean up / make this more testable" → `godmode:improve-codebase-architecture`.
-- "Review this / review MR 46 / act as an independent reviewer" → invoke `godmode:requesting-code-review` (which runs `godmode:vuln-scan`). Knowing how the review goes is not a substitute for the skill call.
-- Merge or rebase conflict → `godmode:resolving-merge-conflicts` before anything else.
+- "Review this / review MR 46 / act as an independent reviewer" → invoke `godmode:requesting-code-review` (it runs `godmode:vuln-scan`). Knowledge of the review method does not replace the skill call.
+- A merge or rebase conflict → `godmode:resolving-merge-conflicts` before all other work.
 
 ## Lifecycle Map
 
-Superpowers drives the pipeline. At each stage, the Matt Pocock engineering skill listed is not optional: the pipeline skill requires it.
+Superpowers drives the pipeline. At each stage, the pipeline skill requires the Matt Pocock engineering skill in the table. The engineering skill is not optional.
 
-| Stage | Pipeline skill | Engineering skills it must pull in |
+| Stage | Pipeline skill | Engineering skills that it must use |
 |-------|----------------|------------------------------------|
-| Understand the request | `godmode:brainstorming` | `godmode:grilling` for every clarifying question; `godmode:domain-modeling` when a term is fuzzy or a decision is ADR-worthy; `godmode:research` for facts |
+| Understand the request | `godmode:brainstorming` | `godmode:grilling` for each clarifying question. `godmode:domain-modeling` when a term is fuzzy or a decision needs an ADR. `godmode:research` for facts |
 | Feasibility spike | `godmode:brainstorming` (Spike path) | `godmode:prototype` |
-| Design | `godmode:brainstorming` (Architectural path) | `godmode:codebase-design` for every module boundary and seam |
+| Design | `godmode:brainstorming` (Architectural path) | `godmode:codebase-design` for each module boundary and seam |
 | Written spec | `godmode:brainstorming` | `godmode:to-spec` |
-| Plan | `godmode:writing-plans` | `godmode:codebase-design` for file boundaries; a named seam per task |
-| Implement | `godmode:subagent-driven-development` or `godmode:executing-plans` | `godmode:test-driven-development` at the task's seam; `godmode:research` on factual gaps |
-| Review | `godmode:requesting-code-review` | Two axes (Standards with the Fowler baseline, Spec) plus the `godmode:vuln-scan` security pass; refactoring happens here, not in TDD |
-| Debug | `godmode:systematic-debugging` | Feedback loop first; no correct seam means recommend `godmode:improve-codebase-architecture` |
-| Blocked on a human-only step | `godmode:subagent-driven-development` or `godmode:executing-plans` | `godmode:wizard`, then stop and hand over the script |
+| Plan | `godmode:writing-plans` | `godmode:codebase-design` for file boundaries. A named seam for each task |
+| Implement | `godmode:subagent-driven-development` or `godmode:executing-plans` | `godmode:test-driven-development` at the seam of the task. `godmode:research` for missing facts |
+| Review | `godmode:requesting-code-review` | Two axes (Standards with the Fowler baseline, and Spec) and the `godmode:vuln-scan` security pass. Refactoring occurs here, not in TDD |
+| Debug | `godmode:systematic-debugging` | The feedback loop comes first. If no correct seam exists, recommend `godmode:improve-codebase-architecture` |
+| A step that only a human can do | `godmode:subagent-driven-development` or `godmode:executing-plans` | `godmode:wizard`. Then stop and give the script to the human |
 | Integrate | `godmode:finishing-a-development-branch` | `godmode:resolving-merge-conflicts` |
-| Improve structure | `godmode:improve-codebase-architecture` | `godmode:codebase-design`, `godmode:grilling`, `godmode:domain-modeling`, then back into `godmode:brainstorming` with the Grilling Summary |
+| Improve structure | `godmode:improve-codebase-architecture` | `godmode:codebase-design`, `godmode:grilling`, `godmode:domain-modeling`. Then go back into `godmode:brainstorming` with the Grilling Summary |
 | Write skills or agent docs | `godmode:writing-skills` | `godmode:writing-for-agents` |
 
-The precision decisions stay with your human partner and are made while they are present: requirements (grilling), test seams (the Bounded design or the spec's Testing Decisions), and the spec and plan approvals. Everything after the plan is approved runs without stopping and reuses those decisions.
+Your human partner makes the precision decisions while they are present. These decisions are:
+
+- the requirements (grilling)
+- the test seams (the Bounded design or the Testing Decisions of the spec)
+- the approvals of the spec and the plan
+ After your partner approves the plan, all work continues without a stop and uses those decisions.
+
+## Writing
+
+Write all godmode output in STE (`godmode:ste-writing`): chat replies, reports, reviews, plans and commit messages. Use no semicolons. Keep each sentence at 25 words or fewer, in active voice, with the condition first. Use one command in each step. Keep quotes, code and logs unchanged.
 
 ## Red Flags
 
-These thoughts mean STOP — you are rationalizing:
+These thoughts mean STOP. You are looking for a reason to skip a rule:
 
 | Thought | Reality |
 |---------|---------|
-| "This is just a simple question" | Questions are tasks. Check for skills. |
-| "I need more context first" | Skill check comes BEFORE clarifying questions. |
-| "Let me explore the codebase first" | Skills tell you HOW to explore. Check first. |
-| "I can check git/files quickly" | Files lack conversation context. Check for skills. |
-| "Let me gather information first" | Skills tell you HOW to gather information. |
+| "This is just a simple question" | A question is a task. Look for a skill that applies. |
+| "I need more context first" | Look for a skill BEFORE you ask a clarifying question. |
+| "Let me explore the codebase first" | Skills tell you HOW to explore. Look for a skill first. |
+| "I can check git/files quickly" | Files do not have the context of the conversation. Look for a skill that applies. |
+| "Let me gather information first" | Skills tell you HOW to get information. |
 | "This doesn't need a formal skill" | If a skill exists, use it. |
-| "I remember this skill" | Skills evolve. Read current version. |
-| "This doesn't count as a task" | Action = task. Check for skills. |
-| "The skill is overkill" | Simple things become complex. Use it. |
-| "I'll just do this one thing first" | Check BEFORE doing anything. |
-| "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
-| "I know what that means" | Knowing the concept is not the same as using the skill. Invoke it. |
-| "They gave me the whole spec, so I can skip brainstorming" | A complete spec makes brainstorming fast (empty frontier, a four-line design), not optional. Invoke it: its approval gate still applies before any code. |
-| "It's small and clear, I'll go straight to TDD" | TDD comes after the design is approved. Any change to behavior starts in `godmode:brainstorming`. |
-| "The design (or plan) is approved, I know TDD, I'll just write the test" | Approval hands off to skills, not to memory. Invoke `godmode:test-driven-development` before the first test and `godmode:verification-before-completion` before saying it's done, including inside `executing-plans` and `subagent-driven-development`. |
-| "The grilling will slow things down" | Ungrilled requirements cause rework. Grill first, always. |
-| "The design is obvious, no need for codebase-design" | Obvious designs have non-obvious seams. Check. |
+| "I remember this skill" | Skills change. Read the current version. |
+| "This doesn't count as a task" | An action is a task. Look for a skill that applies. |
+| "The skill is overkill" | Simple work becomes complex. Use the skill. |
+| "I'll just do this one thing first" | Look for a skill BEFORE you do anything. |
+| "This feels productive" | Action without discipline wastes time. Skills prevent this. |
+| "I know what that means" | Knowledge of a concept is not the use of the skill. Invoke the skill. |
+| "They gave me the whole spec, so I can skip brainstorming" | A complete spec makes brainstorming fast (an empty frontier, a four-line design). It does not make brainstorming optional. Invoke it. Its approval gate still applies before any code. |
+| "It's small and clear, I'll go straight to TDD" | TDD comes after the approval of the design. Each change to behavior starts in `godmode:brainstorming`. |
+| "The design (or plan) is approved, I know TDD, I'll just write the test" | After the approval, the skills take the work, not your memory. Invoke `godmode:test-driven-development` before the first test. Invoke `godmode:verification-before-completion` before you say that you finished the work. This also applies inside `executing-plans` and `subagent-driven-development`. |
+| "The grilling will slow things down" | Requirements without grilling cause rework. Always grill first. |
+| "The design is obvious, no need for codebase-design" | An obvious design has seams that are not obvious. Look at them. |
 
 ## Platform Adaptation
 
-Skills name actions, not tools: "read the file", "dispatch a subagent", "track tasks", "invoke the skill". Use whatever tool your environment provides for each. If an action has no equivalent (for example no subagent tool), follow the skill's stated fallback; most say what to do inline instead.
+Skills name actions, not tools: "read the file", "dispatch a subagent", "track tasks", "invoke the skill". For each action, use the tool that your environment gives. If an action has no equivalent (for example, no subagent tool), use the fallback that the skill gives. Most skills tell you what to do inline instead.
 
-**Windows:** skills run helper scripts with `bash` (for example `subagent-driven-development/scripts/*`, `executing-plans/scripts/*`). A plain `bash` on Windows may resolve to WSL (`C:\Windows\System32\bash.exe`), which cannot run these scripts from their Windows paths. Run them with Git Bash instead: `& "C:\Program Files\Git\bin\bash.exe" <script> <args>`. If Git Bash is missing, do the script's steps by hand and ledger that you did.
+**Windows:** skills run helper scripts with `bash` (for example, `subagent-driven-development/scripts/*` and `executing-plans/scripts/*`). On Windows, a plain `bash` can start WSL (`C:\Windows\System32\bash.exe`). WSL cannot run these scripts from their Windows paths. Run the scripts with Git Bash instead: `& "C:\Program Files\Git\bin\bash.exe" <script> <args>`. If Git Bash is not installed, do the steps of the script by hand and ledger that you did them.
 
 ## User Instructions
 
-User instructions (the repo's or user's agent instructions files such as AGENTS.md, and direct requests) take precedence over skills, which in turn override default behavior. Only skip skill workflows or instructions when your human partner has explicitly told you to.
+User instructions have priority over skills, and skills have priority over default behavior. User instructions are the agent instructions files of the repository or the user (for example, AGENTS.md) and direct requests. Skip a skill workflow or an instruction only when your human partner tells you to skip it.

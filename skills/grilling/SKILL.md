@@ -1,15 +1,15 @@
 ---
 name: grilling
-description: Use when clarifying requirements, stress-testing a plan or design, or resolving decision dependencies. Use inside brainstorming's clarifying-questions step, and whenever a design tree needs walking to reach shared understanding.
+description: Use when clarifying requirements, stress-testing a plan or design, or resolving decision dependencies. Use it inside the clarifying-questions step of brainstorming. Also use it when you must walk a design tree to reach shared understanding.
 ---
 
 # Grilling
 
-Interview relentlessly until you reach a shared understanding. Map the work as a **design tree**: every decision branches into the decisions that hang off it.
+Ask questions relentlessly until you and your human partner reach a shared understanding. Show the work as a **design tree**: each decision has branches, which are the decisions that depend on it.
 
-Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask *now* without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for your human partner's answers before the next round.
+Work through the tree in **rounds**. The **frontier** is each decision whose prerequisites are already settled. These are the questions that you can ask *now*, without a guess about answers that you did not hear yet. Ask the full frontier in one round. Give each question a number and your recommended answer. Then wait for the answers of your human partner before the next round.
 
-Format a round like this:
+Use this format for a round:
 
 ```
 ❓ **Q1** - **<question title>**: <question body>
@@ -23,17 +23,17 @@ Format a round like this:
 ➡️ <your recommended answer>
 ```
 
-Each round of answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a *later* round, not this one.
+Each round of answers changes the tree. Settled decisions move the frontier out, and the questions that depended on them become open. Find the new frontier and ask the next round. A question can depend on a different question that is still open in this round. That question goes into a *later* round, not this round.
 
-**Finding facts is your job, never your human partner's.** When a frontier question needs a fact from the environment (filesystem, tools, existing code, docs), dispatch a sub-agent to find it via `godmode:research`; don't ask your partner for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The *decisions* are your partner's: put each to them and wait. When a decision needs knowledge neither of you holds (another team, a stakeholder, a vendor), mark it Open in the summary and tell your partner they can run `/to-questionnaire` to get it answered; continue with the rest of the frontier.
+**To find facts is your job, never the job of your human partner.** A frontier question can need a fact from the environment (filesystem, tools, existing code, docs). Then dispatch a subagent to find it with `godmode:research`. Do not ask your partner for anything that you can find yourself. Do not wait for the subagent. A running exploration is a prerequisite that is not settled. Thus only the questions that depend on it wait for the report of the subagent. Ask the remaining questions of the frontier now. The *decisions* belong to your partner. Ask your partner each decision and wait. A decision can need knowledge that neither of you has (a different team, a stakeholder, a vendor). Then mark it Open in the summary. Tell your partner that they can run `/to-questionnaire` to get the answer. Continue with the remaining questions of the frontier.
 
-**Write the docs as you go.** When an answer pins down a domain term, or settles a decision that is hard to reverse, surprising without context, and the result of a real trade-off, invoke `godmode:domain-modeling` right then: update CONTEXT.md inline and offer the ADR. Do not batch this to the end of the session. When a question is about a module boundary or where a test seam goes, frame the options with `godmode:codebase-design` vocabulary.
+**Write the docs during the session.** An answer can settle the meaning of a domain term. It can also settle a decision that is hard to reverse, surprising without context and the result of a real trade-off. Then invoke `godmode:domain-modeling` immediately: update CONTEXT.md inline and offer the ADR. Do not keep these updates for the end of the session. When a question is about a module boundary or the location of a test seam, show the options with the vocabulary of `godmode:codebase-design`.
 
-The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until your human partner confirms you have reached a shared understanding.
+The session is complete when the frontier is empty. Then you visited each branch of the design tree, and you assumed nothing silently. Do not act on the result until your human partner agrees that you reached a shared understanding.
 
 ## Completion Handoff
 
-When the frontier is empty and your human partner confirms shared understanding, produce a **Grilling Summary** before asking what comes next:
+When the frontier is empty and your human partner agrees to the shared understanding, write a **Grilling Summary**. Write it before you ask what comes next:
 
 ```
 ## Grilling Summary
@@ -50,20 +50,20 @@ Open items (deferred by mutual agreement):
 - [item]: [why deferred]
 ```
 
-Then ask: "What would you like to do next?" Do not assume the next step — your partner may want to proceed to a spec, a prototype, a plan, or simply record the decisions.
+Then ask: "What would you like to do next?" Do not assume the next step. Your partner can want a spec, a prototype, a plan, or only a record of the decisions.
 
 ## Red Flags
 
 | Thought | Reality |
 |---------|---------|
 | "I can guess this answer" | Guesses become bugs. Ask. |
-| "This question depends on too many things" | Map the dependencies; ask what you can now, defer the rest. |
-| "One question at a time is enough" | The frontier may have three settled questions. Ask all three. |
-| "We've covered the main points" | The frontier is empty or it isn't. Check every branch. |
-| "I'll resolve this during implementation" | Assumptions resolved during implementation are bugs discovered in review. |
-| "My recommended answer is obviously right" | State it, but wait for confirmation. Obvious answers are often wrong. |
-| "The user seems sure, so I don't need to grill" | Confidence is not shared understanding. Grill anyway. |
-| "I'll just write the spec now and grill later" | Grilling reveals what goes in the spec. Grill first. |
-| "This is a small decision, not worth a round" | Small decisions accumulate into large misalignments. Every unsettled branch gets asked. |
-| "For anything they skip, I'll take my recommendation" | Silence is not a decision. A skipped question stays open and comes back next round. Only an explicit "go with your recommendations" settles it. |
-| "I'll ask everything now to save a round" | A question whose answer depends on another open question (purpose drives scope, scope drives testing) waits for the next round. Asking it now makes your partner answer on a guess. |
+| "This question depends on too many things" | Show the dependencies. Ask what you can ask now, and keep the rest for later. |
+| "One question at a time is enough" | The frontier can have three settled questions. Ask all three. |
+| "We've covered the main points" | The frontier is empty or it is not. Look at each branch. |
+| "I'll resolve this during implementation" | An assumption that you resolve during implementation is a bug that review finds. |
+| "My recommended answer is obviously right" | Give it, but wait until your partner approves it. Obvious answers are often wrong. |
+| "The user seems sure, so I don't need to grill" | Confidence is not shared understanding. Grill. |
+| "I'll just write the spec now and grill later" | Grilling shows what goes in the spec. Grill first. |
+| "This is a small decision, not worth a round" | Small decisions add up to large misalignments. Ask each branch that is not settled. |
+| "For anything they skip, I'll take my recommendation" | Silence is not a decision. A skipped question stays open and comes back in the next round. Only an explicit "go with your recommendations" settles it. |
+| "I'll ask everything now to save a round" | A question can depend on a different open question (purpose drives scope, scope drives testing). That question waits for the next round. If you ask it now, your partner answers from a guess. |

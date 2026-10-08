@@ -1,31 +1,31 @@
 ---
 name: research
-description: Use when a factual question needs primary-source investigation before implementation decisions are made. Use when official docs, source code, or API facts need to be gathered, or when reading legwork should be delegated to a background agent.
+description: Use when a factual question needs primary-source investigation before you make implementation decisions. Use when you must collect facts from official docs, source code or an API, or when a background agent should do the reading work.
 ---
 
 # Research
 
-Spin up a **background agent** to do the research, so you keep working while it reads.
+Start a **background agent** to do the research, so that you can continue your work while it reads.
 
 ## Process
 
 ### 1. Frame the Question
 
-State the question precisely before dispatching. A vague question produces a vague answer. Good framing: "Does [library] version [X] support [feature], and what is the documented behavior when [edge case]?" Bad framing: "How does [library] work?"
+Before you dispatch the agent, state the question precisely. A vague question gives a vague answer. Good framing: "Does [library] version [X] support [feature], and what is the documented behavior when [edge case]?" Bad framing: "How does [library] work?"
 
 ### 2. Dispatch the Research Agent
 
-The agent's job:
+The work of the agent:
 
-1. Investigate the question against **primary sources** (official docs, source code, specs, first-party APIs), not a secondary write-up of them. Follow every claim back to the source that owns it.
-2. For each finding, record: the claim, the primary source URL or file path, and the exact version or commit the source applies to.
-3. If the primary source is ambiguous or contradicts another primary source, report both and flag the contradiction.
+1. Examine the question against **primary sources** (official docs, source code, specs, first-party APIs), not against a secondary text about them. Follow each claim back to the source that owns it.
+2. For each finding, record the claim, the primary source URL or file path, and the exact version or commit of the source.
+3. If the primary source is ambiguous or contradicts a different primary source, report both and flag the contradiction.
 
 ### 3. Output Format
 
-The agent writes findings to a single Markdown file. Save it where the repo already keeps research notes; match the existing convention. If there is none, put it in `docs/research/<topic>-<YYYY-MM-DD>.md` and report the path.
+The agent writes the findings to a single Markdown file. Save it where the repo already keeps research notes, and use the existing convention. If there is no such location, put it in `docs/research/<topic>-<YYYY-MM-DD>.md` and report the path.
 
-The file must follow this structure:
+The file must have this structure:
 
 ```markdown
 # Research: [Question]
@@ -52,31 +52,39 @@ The file must follow this structure:
 [Direct answer to the original question, in one or two sentences.]
 ```
 
+Write the research note in descriptive STE (`godmode:ste-writing`). Keep quotes from sources unchanged. After you save the note, lint it: Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding.
+
 ### 4. Completion Criterion
 
-The research is done when the original question has a direct answer in the Conclusion section, every claim in Findings cites a primary source, and the file is committed or saved. Report the file path to the controller.
+The research is complete when all of these conditions are true:
+
+- The Conclusion section gives a direct answer to the original question.
+- Each claim in Findings cites a primary source.
+- The agent committed or saved the file.
+
+Report the file path to the controller.
 
 ## What Counts as a Primary Source
 
 - Official documentation for the technology (MDN, Python docs, official framework docs)
-- The library or tool's source code itself
+- The source code of the library or tool itself
 - First-party API specifications (OpenAPI specs, GraphQL schemas)
 - RFCs and standards documents
 - Official release notes and changelogs
 
-What does NOT count: blog posts, Stack Overflow answers, AI-generated summaries, tutorials. These may be used as navigation aids to find the primary source, but every claim must trace back to a primary.
+These do NOT count: blog posts, Stack Overflow answers, AI-generated summaries, tutorials. You may use them as navigation aids to find the primary source. But each claim must go back to a primary source.
 
 ## When to Use
 
-- "Is this API available in version X?" before writing code that depends on it
-- "What does this library actually do when Y happens?" before assuming behavior
-- "What are the performance characteristics of Z?" before making architectural choices
-- Any factual question where implementation risk is non-trivial if the answer is wrong
+- "Is this API available in version X?" before you write code that depends on it
+- "What does this library actually do when Y happens?" before you assume a behavior
+- "What are the performance characteristics of Z?" before you make architectural choices
+- Any factual question where a wrong answer gives a non-trivial implementation risk
 
 ## Red Flags
 
 | Thought | Reality |
 |---------|---------|
-| "I am fairly confident this is how it works" | Confidence is not a source. Spin up the research agent. |
-| "The docs are probably up to date" | Verify against the version in use. |
-| "A blog post explained this clearly" | Follow the blog post's claim back to the primary source. |
+| "I am fairly confident this is how it works" | Confidence is not a source. Start the research agent. |
+| "The docs are probably up to date" | Verify them against the version that you use. |
+| "A blog post explained this clearly" | Follow the claim of the blog post back to the primary source. |

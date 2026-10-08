@@ -1,6 +1,6 @@
 # Report template
 
-Read by Phase 7 of `SKILL.md`. Fill every section on every run: a section with nothing to report still renders, with its content or an explicit `Skipped: <reason>` / "None found.". Never drop a section because it felt inapplicable; say why instead.
+Phase 7 of `SKILL.md` reads this file. Fill each section on each run. A section with nothing to report still shows, with its content or an explicit `Skipped: <reason>` / "None found.". Never remove a section because it seemed not applicable. Say why instead.
 
 ```markdown
 # Review round <N>: <title> (<!iid | #number>)

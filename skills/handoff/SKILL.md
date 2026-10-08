@@ -1,16 +1,18 @@
 ---
 name: handoff
-description: Compact the current conversation into a handoff document for another agent to pick up.
+description: Compact the current conversation into a handoff document that another agent can continue from.
 argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS - not the current workspace.
+Write a handoff document that summarizes the current conversation, so that a new agent can continue the work. Save it to the temporary directory of the OS of the user, not to the current workspace.
 
-Include a "suggested skills" section in the document, naming which godmode skills the next agent should call the Skill tool for (for example `brainstorming`, `prototype`, `executing-plans`), and the path of any plan ledger under `.godmode/sdd/`.
+Include a "suggested skills" section in the document. In it, name the godmode skills that the next agent should call the Skill tool for (for example `brainstorming`, `prototype`, `executing-plans`). Also give the path of each plan ledger under `.godmode/sdd/`.
 
-Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
+Do not copy content that other artifacts already record (specs, plans, ADRs, issues, commits, diffs). Refer to them by path or URL instead.
 
-Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
+Remove all sensitive information, such as API keys, passwords, or personally identifiable information.
 
-If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.
+If the user gave arguments, use them as a description of the focus of the next session. Adapt the document to that focus.
+
+Write the handoff document in descriptive STE (`godmode:ste-writing`).

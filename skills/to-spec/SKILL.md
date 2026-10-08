@@ -1,30 +1,31 @@
 ---
 name: to-spec
-description: Use when turning a resolved design into a structured written spec. Use after brainstorming's design has been approved, before invoking writing-plans. Do NOT interview the user; synthesize what you already discussed.
+description: Use when turning a resolved design into a structured written spec. Use it after the user approved the brainstorming design, before you invoke writing-plans. Do NOT interview the user. Make the spec from what you already discussed.
 ---
 
 # To Spec
 
-Take the current conversation context and codebase understanding and produce a structured spec. Do NOT interview the user; just synthesize what you already know. This skill runs at the end of the brainstorming architectural path, after design approval, as the final artifact before writing-plans.
+Use the context of the current conversation and your understanding of the codebase to write a structured spec. Do NOT interview the user. Make the spec only from what you already know. This skill runs at the end of the architectural path of brainstorming, after the approval of the design. The spec is the last artifact before writing-plans.
 
 ## Cold Start
 
-If no prior design conversation exists in this session (the user invoked this skill directly with no preceding brainstorm or grilling), do not synthesize from nothing. Instead:
+Sometimes no design conversation occurred in this session before (the user invoked this skill directly, with no brainstorm or grilling first). Then do not make a spec from nothing. Do these steps instead:
 
-1. Invoke `godmode:grilling` to reach shared understanding before writing the spec. The grilling session produces a Grilling Summary of settled decisions.
-2. Once the grilling frontier is empty and the summary is confirmed, return to Step 1 of the Process below.
+1. Invoke `godmode:grilling` to reach shared understanding before you write the spec. The grilling session gives a Grilling Summary of the settled decisions.
+2. When the grilling frontier is empty and the user approves the summary, go back to Step 1 of the Process below.
 
-If a prior design conversation or grilling session already exists, proceed directly to the Process.
+If a design conversation or a grilling session already exists, go directly to the Process.
 
 ## Process
 
-1. **Explore the repo** to understand the current state of the codebase, if you have not already. Use the project's domain glossary vocabulary (CONTEXT.md) throughout the spec, and respect any ADRs in the area you are touching. Use `godmode:domain-modeling` to sharpen any fuzzy terms before writing.
+1. **Explore the repository** to understand the current state of the codebase, if you did not do this already. Use the vocabulary of the project glossary (CONTEXT.md) in all of the spec. Obey each ADR in the area that you change. Before you write, use `godmode:domain-modeling` to make each fuzzy term clear.
 
-2. **Sketch out the seams** at which you are going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better. Consult `godmode:codebase-design` for seam vocabulary if needed.
+2. **Sketch the seams** where you will test the feature. Prefer existing seams to new seams. Use the highest possible seam. If you need new seams, propose them at the highest possible point. Fewer seams across the codebase are better. If you need the seam vocabulary, use `godmode:codebase-design`.
 
-   Check with your human partner that these seams match their expectations. This is the moment seams get agreed: once the spec is approved, the plan copies them into each task's "Seam under test", and execution uses them without asking again. Record the agreed seams in the spec's Testing Decisions.
+   Ask your human partner whether these seams agree with what they expect. At this point, you and your partner agree the seams. After your partner approves the spec, the plan copies the seams into the "Seam under test" of each task. The execution then uses them without a new question. Record the agreed seams in the Testing Decisions of the spec.
 
-3. **Write the spec** using the template below. Save it to `docs/godmode/specs/YYYY-MM-DD-<topic>-design.md` and commit.
+3. **Write the spec** with the template below. Save it to `docs/godmode/specs/YYYY-MM-DD-<topic>-design.md` and commit it.
+4. **Lint the spec.** Write the spec in descriptive STE (`godmode:ste-writing`). Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding. Then commit the fixes.
 
 ---
 

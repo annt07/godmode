@@ -1,21 +1,23 @@
 ---
 name: finishing-a-development-branch
-description: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work
+description: Use when implementation is complete, all tests pass, and you must decide how to integrate the work. Also use it when the user asks to "push", "rebase", "merge" or "open a PR".
 ---
 
 # Finishing a Development Branch
 
 ## Overview
 
-**Core principle:** Verify tests, resolve any conflicts, detect environment, present options, execute choice, clean up.
+**Core principle:** Verify the tests. Resolve all conflicts. Find the environment. Show the options. Execute the choice. Clean the workspace.
 
 **Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
 
+Write commit messages, PR descriptions and your report in descriptive STE (`godmode:ste-writing`).
+
 ## Step 1: Verify Tests
 
-Run the project's full test suite (`npm test` / `cargo test` / `pytest` / `go test ./...`).
+Run the full test suite of the project (`npm test` / `cargo test` / `pytest` / `go test ./...`).
 
-**If tests fail**, report the failures and stop — the menu comes after a green suite:
+**If tests fail**, report the failures and stop. The menu comes after a green suite:
 
 ```
 Tests failing (<N> failures). Must fix before completing:
@@ -23,11 +25,13 @@ Tests failing (<N> failures). Must fix before completing:
 [Show failures]
 ```
 
-**If tests pass:** continue to Step 2.
+**If tests pass:** Continue to Step 2.
 
+<!-- ste:off -->
 ## Step 2: Check for Merge Conflicts
+<!-- ste:on -->
 
-Before attempting to integrate, check whether merging or rebasing with the base branch would produce conflicts:
+Before you try to integrate, verify if a merge or rebase with the base branch would cause conflicts:
 
 ```bash
 git fetch origin
@@ -36,9 +40,9 @@ git merge-tree $(git merge-base HEAD origin/<base-branch>) HEAD origin/<base-bra
 
 **If conflicts exist:**
 
-**REQUIRED SUB-SKILL:** Invoke `godmode:resolving-merge-conflicts` to resolve every conflict before proceeding. The skill walks you through finding primary sources for each side, preserving both intents where possible, and running the automated checks afterward.
+**REQUIRED SUB-SKILL:** Invoke `godmode:resolving-merge-conflicts` to resolve each conflict before you continue. The skill guides you to find primary sources for each side and to keep both intents where possible. It also tells you to run each automated check after the resolution.
 
-Only continue to Step 3 after all conflicts are resolved and tests still pass.
+Continue to Step 3 only after you resolve all conflicts and the tests still pass.
 
 ## Step 3: Detect Environment
 
@@ -48,21 +52,21 @@ GIT_COMMON=$(cd "$(git rev-parse --git-common-dir)" 2>/dev/null && pwd -P)
 WORKTREE_PATH=$(git rev-parse --show-toplevel)
 ```
 
-This determines which menu to show and how cleanup works:
+This result decides which menu to show and how the cleanup works:
 
 | State | Menu | Cleanup |
 |-------|------|---------|
-| `GIT_DIR == GIT_COMMON` (normal repo) | Standard 3 options | No worktree to clean up |
-| `GIT_DIR != GIT_COMMON`, named branch | Standard 3 options | Provenance-based (see Step 7) |
-| `GIT_DIR != GIT_COMMON`, detached HEAD | Reduced 2 options (no merge) | Externally managed — leave in place |
+| `GIT_DIR == GIT_COMMON` (normal repo) | Standard 3 options | No worktree to clean |
+| `GIT_DIR != GIT_COMMON`, named branch | Standard 3 options | Based on provenance (see Step 7) |
+| `GIT_DIR != GIT_COMMON`, detached HEAD | Reduced 2 options (no merge) | An external system manages it. Leave it in place. |
 
 ## Step 4: Determine Base Branch
 
-The base branch is whatever this work forked from — usually named in the plan, the conversation, or the branch's upstream. If it is not already known, ask: "This branch split from <your best guess> — is that correct?" Confirm before merging: merging into the wrong base is expensive to undo.
+The base branch is the branch where this work started. Usually the plan, the conversation or the upstream of the branch names it. If you do not know it yet, ask: "This branch split from <your best guess> — is that correct?" Get approval before you merge. A merge into the wrong base is expensive to undo.
 
 ## Step 5: Present Options
 
-**Normal repo and named-branch worktree — present exactly these 3 options:**
+**Normal repo and named-branch worktree: show exactly these 3 options:**
 
 ```
 Implementation complete. What would you like to do?
@@ -74,7 +78,7 @@ Implementation complete. What would you like to do?
 Which option?
 ```
 
-**Detached HEAD — present exactly these 2 options:**
+**Detached HEAD: show exactly these 2 options:**
 
 ```
 Implementation complete. You're on a detached HEAD (externally managed workspace).
@@ -85,7 +89,7 @@ Implementation complete. You're on a detached HEAD (externally managed workspace
 Which option?
 ```
 
-Present the menu exactly as written. Wait for their answer; the integration decision is theirs.
+Show the menu word for word. Wait for their answer. The integration decision is theirs.
 
 ## Step 6: Execute Choice
 
@@ -100,11 +104,11 @@ git pull
 git merge <feature-branch>
 ```
 
-If the merge produces additional conflicts, invoke `godmode:resolving-merge-conflicts` again before proceeding.
+If the merge causes more conflicts, invoke `godmode:resolving-merge-conflicts` again before you continue.
 
-Verify tests on the merged result. If tests fail: stop, leave the worktree and branch in place, and investigate — nothing has been pushed, so the merge is local and recoverable.
+Verify the tests on the merged result. If the tests fail, stop. Leave the worktree and the branch in place, and investigate. You did not push anything, so the merge is local and recoverable.
 
-Once the merged result is green: clean up the worktree (Step 7), then delete the branch:
+When the merged result is green, clean the worktree (Step 7). Then remove the branch:
 
 ```bash
 git branch -d <feature-branch>
@@ -116,9 +120,9 @@ git branch -d <feature-branch>
 git push -u origin <feature-branch>
 ```
 
-Then create the pull/merge request against <base-branch> with the forge's tooling, following the repo's PR template and conventions if present, and report the URL to your human partner.
+Then make the pull/merge request against <base-branch> with the tooling of the forge. If the repository has a PR template, obey it. If it has conventions, obey them too. Report the URL to your human partner.
 
-Keep the worktree — your human partner iterates on PR feedback there.
+Keep the worktree. Your human partner works on the PR feedback there.
 
 ### Option 3: Keep As-Is
 
@@ -126,7 +130,7 @@ Report: "Keeping branch <name>. Worktree preserved at <path>."
 
 ### If Your Human Partner Asks to Discard the Work
 
-Confirm first:
+First, get their approval:
 
 ```
 This will permanently delete:
@@ -137,7 +141,7 @@ This will permanently delete:
 Type 'discard' to confirm.
 ```
 
-Wait for that exact confirmation. When it arrives, clean up the worktree (Step 7) and force-delete the branch:
+Wait for that exact approval. When it comes, clean the worktree (Step 7). Then force the removal of the branch:
 
 ```bash
 git branch -D <feature-branch>
@@ -145,18 +149,18 @@ git branch -D <feature-branch>
 
 ## Step 7: Cleanup Workspace
 
-**Runs for Option 1 and confirmed discards.** Options 2 and 3 always preserve the worktree.
+**This step runs for Option 1 and for approved discards.** Options 2 and 3 always keep the worktree.
 
-**If `GIT_DIR == GIT_COMMON`:** Normal repo, no worktree to clean up. Done.
+**If `GIT_DIR == GIT_COMMON`:** This is a normal repository, with no worktree to clean. The step is complete.
 
-**If `WORKTREE_PATH` is under `.worktrees/` or `worktrees/`:** We own cleanup:
+**If `WORKTREE_PATH` is under `.worktrees/` or `worktrees/`:** We own the cleanup:
 
 ```bash
 git worktree remove "$WORKTREE_PATH"
 git worktree prune
 ```
 
-**If removal is refused** (`contains modified or untracked files`): Never `--force` on your own initiative. Show your human partner what is at stake and ask:
+**If git refuses the removal** (`contains modified or untracked files`): Never use `--force` on your own decision. Show your human partner what they can lose, and ask:
 
 ```bash
 git -C "$WORKTREE_PATH" status --porcelain -uall
@@ -174,9 +178,9 @@ Worktree removal refused — these files were never committed:
 Which?
 ```
 
-Carry out the choice, then remove the worktree.
+Do what they chose. Then remove the worktree.
 
-**Otherwise:** The host environment owns this workspace — leave it in place.
+**Otherwise:** The host environment owns this workspace. Leave it in place.
 
 ## Quick Reference
 
@@ -191,8 +195,8 @@ Carry out the choice, then remove the worktree.
 
 | Excuse | Reality |
 |--------|---------|
-| "Tests passed earlier this session" | Run the suite on the tree you are about to integrate. A green run only proves the tree it ran on. |
-| "The conflict looks minor, I can just pick one side" | Invoke `godmode:resolving-merge-conflicts`. Minor-looking conflicts encode intent that only the history reveals. |
-| "They obviously want it merged" | Integration is your human partner's decision. Present the menu and wait. |
-| "The merged-result failure is probably flaky" | A failing merged result stops everything. Branch and worktree stay put while you investigate. |
-| "The base branch is obviously main" | Confirm the fork point or ask. Merging into the wrong base is expensive to undo. |
+| "Tests passed earlier this session" | Run the suite on the tree that you will integrate. A green run proves only the tree that it ran on. |
+| "The conflict looks minor, I can just pick one side" | Invoke `godmode:resolving-merge-conflicts`. Conflicts that look minor contain intent that only the history shows. |
+| "They obviously want it merged" | Integration is the decision of your human partner. Show the menu and wait. |
+| "The merged-result failure is probably flaky" | A merged result that fails stops all work. The branch and the worktree stay in place while you investigate. |
+| "The base branch is obviously main" | Verify the fork point, or ask. A merge into the wrong base is expensive to undo. |

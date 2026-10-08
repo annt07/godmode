@@ -1,87 +1,94 @@
 ---
 name: executing-plans
-description: Use when executing an implementation plan in the current session as the implementer yourself — your human partner chose inline execution, or no subagent tool is available
+description: Use when you execute an implementation plan in the current session as the implementer yourself. This applies only when your human partner chose inline execution, or when no subagent tool is available.
 ---
 
 # Executing Plans
 
-Execute the plan yourself, task by task, in this session: no implementer
-subagent per task, no reviewer per task. One fresh-context review of the
-whole branch at the end.
+Execute the plan yourself, one task at a time, in this session. Do not use
+an implementer subagent or a reviewer for each task. At the end, one
+reviewer with a fresh context reviews the whole branch.
 
 **Why inline:** Subagent-driven development pays for a fresh implementer
-and a fresh reviewer on every task, each re-reading the codebase from zero.
-Inline execution pays for one context (yours) plus one reviewer at the end.
-What it gives up is a fresh context per task and a second pair of eyes per
-task. This skill keeps what those two things bought, by other means: the
-brief is the spec, the ledger is your memory, TDD is the per-task gate, and
-the final reviewer is the second pair of eyes.
+and a fresh reviewer on each task. Each of them reads the codebase again
+from zero. Inline execution pays for one context (yours) and one reviewer
+at the end. It loses a fresh context for each task and a second pair of
+eyes for each task. This skill keeps what those two things gave, with
+other methods. The brief is the spec, and the ledger is your memory. TDD
+is the gate for each task, and the final reviewer is the second pair of
+eyes.
 
-**Core principle:** The plan already did the thinking. Execute it exactly,
-prove each step with a test you watched fail and then pass, and leave a
-record that survives your own forgetting.
+**Core principle:** The plan already did the thinking. Execute it exactly.
+Prove each step with a test that you saw fail and then pass. Leave a
+record that stays when you forget.
 
-**Skill calls, not recollections.** Your first action after reading the plan is a skill call to `godmode:test-driven-development`, before Task 1, even when you know TDD and the plan's steps already spell out RED and GREEN. Before the final review, and before any message that says the work is done, call `godmode:verification-before-completion`.
+**Skill calls, not recollections.** After you read the plan, your first action is a skill call to `godmode:test-driven-development`. Do it before Task 1, also when you know TDD and the steps of the plan already state RED and GREEN. Before the final review, call `godmode:verification-before-completion`. Also call it before each message that says that the work is complete.
 
-**Narration:** between tool calls, narrate at most one short line — the
-ledger and the tool results carry the record.
+**Narration:** Between tool calls, write one short line or less. The
+ledger and the tool results keep the record.
 
-**Continuous execution:** Do not pause to check in with your human partner
-between tasks. They chose inline execution to spend less, not to answer
-"should I continue?" after every task. Execute all tasks from the plan
-without stopping.
+**Continuous execution:** Between tasks, do not stop to ask your human
+partner for a status talk. They chose inline execution to spend less. They
+did not choose it to answer "should I continue?" after each task. Execute
+all tasks from the plan without a stop.
 
-**Rulings, not stalls.** Conflicts, ambiguities, plan defects — decide them.
-The spec is the binding authority, the plan is its argument, and your
-judgment settles what neither answers. Record every decision in the ledger
-as `Ruling: <what you decided> — <why> — <what it costs if wrong>`, and keep
-going. Deviating from the plan without a ledgered ruling is a decision made
-in secret.
+**Rulings, not stalls.** Decide conflicts, ambiguities and plan defects
+yourself. The spec is the binding authority, and the plan is its argument.
+Your judgment decides what neither of them answers. Record each decision in
+the ledger as `Ruling: <what you decided> — <why> — <what it costs if wrong>`.
+Then continue. A deviation from the plan without a ruling in the ledger is
+a decision made in secret.
 
-Four things stop you, and only these: an irreversible or destructive
-operation; a security-sensitive action; a side effect outside this worktree
-that norms say you ask about first (a merge, a push to a shared branch, a
-publish); and a plan so broken that every path forward is a guess. For
-those, stop and ask.
+Four things stop you, and only these four:
 
-When what blocks you is a step only a human can perform (minting a
-credential, setting a CI secret, clicking through a third-party dashboard,
-running a one-off cutover), invoke godmode:wizard to generate the script
-that walks them through it and statically check it. Then:
+- An irreversible or destructive operation.
+- A security-sensitive action.
+- A side effect outside this worktree that norms say you ask about first
+  (a merge, a push to a shared branch, a publish).
+- A plan so broken that each path forward is a guess.
+
+For those four things, stop and ask.
+
+Sometimes a step that only a human can do blocks you. Examples are: make a
+credential, set a CI secret, click through a third-party dashboard or run a
+one-off cutover. Then invoke godmode:wizard to make the script that guides them
+through the step. Do a static check of the script. Then:
 
 - Ledger the task as `Task <N>: blocked on human: <step> — wizard at <path>`.
-  It is not complete: no placeholder values, no mocked stand-in for the
-  real credential, no completion line.
+  The task is not complete. Do not use placeholder values. Do not use a
+  mock in place of the real credential. Do not write a completion line.
 - Continue with the remaining tasks that do not depend on it, in plan
-  order. Stop before the first task that consumes what the blocked task
-  produces, and before the final review: a branch with a blocked task
-  never reaches the final review or finishing-a-development-branch.
+  order. Stop before the first task that uses the output of the blocked
+  task. Also stop before the final review. A branch with a blocked task
+  never goes to the final review or to finishing-a-development-branch.
 - Put the wizard path and the blocked task at the top of your final
   message, before the rulings list.
 
 Never paste the manual steps into chat, and never ask your partner to paste
 a secret to you.
 
+**Writing:** Write ledger lines, rulings and your final message in descriptive STE (`godmode:ste-writing`).
+
 ## When to Use
 
-- You have a plan from godmode:writing-plans and your human partner
+- You have a plan from godmode:writing-plans, and your human partner
   chose inline execution at the handoff.
-- Your harness has no subagent tool (see the per-platform references in
-  `../using-godmode/references/`). Never fabricate a dispatch; run
+- Your harness has no subagent tool (see the references for each platform in
+  `../using-godmode/references/`). Never make up a dispatch. Run
   the plan here.
-- Tasks are mostly independent — the same precondition as
+- Most tasks are independent. This is the same precondition as
   godmode:subagent-driven-development.
 
-A fully specified plan makes inline execution transcription plus testing:
-it runs well on a mid-tier session model, and the one place the most
-capable model earns its cost is the final review, which this skill
-dispatches separately. Tell your human partner so when they choose inline.
+With a fully specified plan, inline execution is transcription and tests.
+It runs well on a mid-tier session model. The most capable model is worth
+its cost in one place only: the final review. This skill dispatches that
+review separately. Tell your human partner this when they choose inline.
 
 Prefer godmode:subagent-driven-development when your human partner
-wants a review gate on every task, or when the plan is long enough that
-its later tasks would run on a compacted context. Inline execution over a
-long plan still works — the ledger is what makes it recoverable — but the
-last tasks get the least of you.
+wants a review gate on each task. Also prefer it when the plan is so long that
+its later tasks would run on a compacted context. Inline execution on a
+long plan still works, because the ledger makes it recoverable. But the
+last tasks get the least of your attention.
 
 ## The Process
 
@@ -127,216 +134,224 @@ digraph process {
 
 ## Setup
 
-Ensure the work happens in an isolated workspace: use
-godmode:using-git-worktrees to create one or verify the existing one.
-Never start implementation on a main/master branch without your human
-partner's explicit consent.
+Make sure that the work occurs in an isolated workspace. Use
+godmode:using-git-worktrees to make one or to verify the existing one.
+Never start implementation on a main/master branch without the explicit
+consent of your human partner.
 
-Conversation memory does not survive compaction. An inline executor that
-loses its place re-implements tasks whose commits already exist — the same
-failure as a controller re-dispatching them, paid for in your own context.
-Track progress in a ledger file, not only in todos. Harness todos are a
-live view; the ledger is the record.
+Conversation memory does not stay after compaction. An inline executor that
+loses its place implements tasks again when their commits already exist.
+This is the same failure as a controller that dispatches them again, but
+you pay for it in your own context. Record progress in a ledger file, not
+only in todos. Harness todos are a live view. The ledger is the record.
 
-The workspace and ledger are shared with godmode:subagent-driven-development
-— same directory, same format — so a plan can change executors mid-flight
-and the new one resumes from the same ledger.
+This skill and godmode:subagent-driven-development share the workspace and
+the ledger, with the same directory and the same format. Thus a plan can
+change executors during the work, and the new executor continues from the
+same ledger.
 
-- Each plan owns a workspace: at skill start, run
-  `../subagent-driven-development/scripts/sdd-workspace PLAN_FILE` — it
-  prints the plan's git-ignored directory
-  (`<repo-root>/.godmode/sdd/<plan-basename>/`), home to every
-  artifact for THIS plan: ledger, briefs, review packages. Another plan's
-  directory is never yours to read or write.
-- Check for this plan's ledger at `<workspace>/progress.md`. If its first
+- Each plan has its own workspace. At skill start, run
+  `../subagent-driven-development/scripts/sdd-workspace PLAN_FILE`. It
+  prints the git-ignored directory of the plan
+  (`<repo-root>/.godmode/sdd/<plan-basename>/`). This directory holds each
+  artifact for THIS plan: ledger, briefs, review packages. The directory of a
+  different plan is never yours to read or write.
+- Look for the ledger of this plan at `<workspace>/progress.md`. If its first
   line names your plan file, tasks with a `Task <N>: complete` line are
-  DONE — do not redo them; resume at the first task without one. Their
-  commits exist in git even when your context no longer remembers making
-  them: after compaction, trust the ledger and `git log` over your own
-  recollection. A ledger whose first line names a different plan file is
-  another plan's progress: leave it and start your own, fresh.
-- Create the ledger with its identity as the first line:
+  DONE. Do not do them again. Continue at the first task without one. Their
+  commits exist in git, also when your context does not remember them.
+  After compaction, trust the ledger and `git log` more than your own
+  memory. A ledger whose first line names a different plan file is the
+  progress of a different plan. Leave it, and start a new ledger of your own.
+- Make the ledger with its identity as the first line:
   `# SDD ledger — plan: <plan file path>`.
-- `git clean -fdx` will destroy the workspace (it's git-ignored scratch);
-  if that happens, recover from `git log`.
+- `git clean -fdx` will destroy the workspace (it is git-ignored scratch).
+  If that occurs, recover from `git log`.
 
-Read the plan once, note its context and Global Constraints, and create a
-todo per task. If the plan names a Spec, read that too: the spec is the
-authority the plan argues from, and conflicts inside the plan resolve
-against it. A plan with no reachable spec gets a ledger note saying so —
-rulings made without one are provisional.
+Read the plan one time. Note its context and Global Constraints, and make
+a todo for each task. If the plan names a Spec, read it too. The spec is
+the authority for the argument of the plan, and it decides conflicts in the
+plan. If the plan has no spec that you can get, write a ledger note that
+says so. Rulings without a spec are provisional.
 
-**REQUIRED SUB-SKILL:** load godmode:test-driven-development now,
-before Task 1. It governs every step of every task below; a plan whose
-steps already say "write the failing test first" does not exempt you
-from reading it.
+**REQUIRED SUB-SKILL:** Load godmode:test-driven-development now,
+before Task 1. It controls each step of each task below. A plan whose
+steps already say "write the failing test first" does not let you skip
+it.
 
-Before Task 1, scan the plan for conflicts between tasks. The plan's
-Interfaces blocks tell you where to look: for every task that consumes
-what an earlier task produces, one ledger row — the two tasks, what one
-produces against what the other consumes, and what you found. Tasks that
-share nothing get no row; a plan whose tasks share nothing gets the single
-line `Pre-flight: no shared interfaces`. Rule on each conflict a row
-surfaces with the spec as the binding authority, record the ruling beside
-its row, and start Task 1. Each task's own text is checked when you read
-its brief, not here.
+Before Task 1, look for conflicts between tasks in the plan. The
+Interfaces blocks of the plan tell you where to look. For each task that
+uses the output of an earlier task, write one ledger row. The row gives the
+two tasks, the output of one compared with the input of the other, and what
+you found. Tasks that share nothing get no row. If no tasks share
+anything, write the single line `Pre-flight: no shared interfaces`. Rule on
+each conflict that a row shows, with the spec as the binding authority.
+Record the ruling next to its row, and start Task 1. You verify the text
+of each task when you read its brief, not here.
 
 ## The Task Loop
 
-Everything you print, and every tool result, stays resident in your
-context for the rest of the session. Redirect long test output to a file
-in the workspace and read its tail; read a brief, not the whole plan.
+All that you print, and each tool result, stays in your context for the
+rest of the session. Send long test output to a file in the workspace, and
+read its tail. Read a brief, not the whole plan.
 
 ### 1. Take the task
 
-- Run this skill's `scripts/task-start PLAN_FILE N`. It prints the brief
-  path and BASE (the commit the task's range is cut from) in one call.
-  Read the brief for every task, including ones you remember from setup:
-  what you remember is a summary, the brief has the exact values,
-  signatures, and test cases.
-- Mark the task's todo in_progress.
+- Run the `scripts/task-start PLAN_FILE N` of this skill. In one call, it
+  prints the brief path and BASE (the commit where the range of the task
+  starts). Read the brief for each task, also for tasks that you remember
+  from setup. What you remember is a summary. The brief has the exact values,
+  signatures and test cases.
+- Mark the todo of the task in_progress.
 
-Every tool call is a turn that re-reads your whole context. Bookkeeping
-rides along with work — a ledger append in the same call as the commit,
-never in a call of its own.
+Each tool call is a turn that reads your whole context again. Do the
+bookkeeping in the same call as the work. Append to the ledger in the same
+call as the commit, never in a call of its own.
 
 ### 2. Work the steps
 
-The plan's steps are already in RED-GREEN order; follow them in that
-order under godmode:test-driven-development, loaded at setup. Start each
-task by confirming its "Seam under test": every test goes through that
-public interface. If the seam cannot reach the behavior, that is a plan
-defect: rule on a seam using godmode:codebase-design vocabulary and
-ledger it. Run the typechecker (if the project has one) and the focused
-test file regularly; the full suite runs at `task-done`. Smells you notice
-outside the minimal change go to the ledger as
+The steps of the plan are already in RED-GREEN order. Do them in that
+order under godmode:test-driven-development, which you loaded at setup.
+At the start of each task, verify its "Seam under test". Each test goes
+through that public interface. If the seam cannot get to the behavior, the
+plan has a defect. Rule on a seam with the godmode:codebase-design
+vocabulary, and ledger it. Run the typechecker (if the project has one)
+and the focused test file regularly. The full suite runs at `task-done`.
+If you see smells outside the minimal change, write them in the ledger as
 `Task <N>: refactor note: <one-liner>` for the final Standards review,
-never into the current task. A factual question about a library or API
-gets godmode:research, not a guess. A test
-step's code is written first and run first. Watching it fail is a step,
-not a formality — a test that passes before the implementation exists is
-a finding about the test.
+never into the current task. For a factual question about a
+library or API, use godmode:research, not a guess. Write the code of a test
+step first and run it first. To see it fail is a step, not a formality.
+If a test passes before the implementation exists, that is a finding
+about the test.
 
-Every step that runs a command has an `Expected:` line. Run the command,
-read its output, and compare. Three outcomes:
+Each step that runs a command has an `Expected:` line. Run the command.
+Read its output. Compare it with the `Expected:` line. There are three outcomes:
 
-- **Matches.** Next step.
+- **Matches.** Go to the next step.
 - **The code is wrong.** Use godmode:systematic-debugging. Find the
-  cause; never patch the symptom to make the step's output match.
-- **The plan is wrong** — a step contradicts the spec, an interface from an
-  earlier task doesn't match what this task consumes, a command that
-  cannot work. Rule on the smallest change that satisfies the spec, ledger
-  it as `Task <N>: Ruling: <finding> — <what you decided and why>`, and
-  continue. The ruling is carried, not remembered: later tasks that touch
-  the same interface read it from the ledger.
+  cause, and never patch the symptom to make the output of the step match.
+- **The plan is wrong.** For example, a step contradicts the spec. Or, an
+  interface from an earlier task does not match the input of this task. Or,
+  a command cannot work. Rule on the smallest change that satisfies the
+  spec. Ledger it as `Task <N>: Ruling: <finding> — <what you decided and why>`,
+  and continue. The ledger carries the ruling, not your memory. Later tasks
+  that touch the same interface read it from the ledger.
 
-Commit as the plan's commit steps say. A task that spans several commits
-is fine; BASE is what the review range is cut from, never `HEAD~1`.
+Commit as the commit steps of the plan say. A task can have several
+commits. The review range starts at BASE, never at `HEAD~1`.
 
 ### 3. The completion contract
 
-Before a task's ledger line, all of the following are true, with evidence
-in this session — not inferred from the diff looking right:
+Before you write the ledger line of a task, all of these must be true.
+You must have evidence from this session. A diff that looks right is not
+evidence.
 
-- Every test the brief names exists and ran in this task, and you read
+- Each test that the brief names exists and ran in this task, and you read
   the output.
-- The final test run for the task passed — `task-done` is that run, and
-  it writes the command and result into the ledger line.
-- Every `Expected:` line in the brief was compared against real output.
-- Every deviation from the brief has a `Ruling:` line in the ledger.
+- The final test run for the task passed. `task-done` is that run, and
+  it writes the command and the result into the ledger line.
+- You compared each `Expected:` line in the brief with real output.
+- Each deviation from the brief has a `Ruling:` line in the ledger.
 
-**REQUIRED SUB-SKILL:** godmode:verification-before-completion governs
-the claim. If any item is missing, the task is not complete: finish it.
+**REQUIRED SUB-SKILL:** godmode:verification-before-completion controls
+the claim. If one item is missing, the task is not complete. Finish it.
 
 ### 4. Complete the task
 
-Run this skill's `scripts/task-done PLAN_FILE N BASE -- <test command>`
-with the test command the brief names for the whole task. It runs the
-tests, keeps the full output in the workspace, prints the tail, and — only
-if they pass — appends the completion line to the ledger:
+Run the `scripts/task-done PLAN_FILE N BASE -- <test command>` of this
+skill. Use the test command that the brief names for the whole task. The
+script runs the tests and keeps the full output in the workspace. It prints
+the tail. Only if the tests pass, it appends the completion line to the
+ledger:
 
 `Task <N>: complete (commits <base7>..<head7>, tests: <command> → <result>)`
 
-A failing run records nothing; the task is not complete. When it records,
-mark the todo complete and take the next task.
+A run that fails records nothing, and the task is not complete. When the
+script records the line, mark the todo complete and take the next task.
 
 ## Final Review
 
 Run `../subagent-driven-development/scripts/review-package PLAN_FILE MERGE_BASE HEAD`
-(MERGE_BASE = the commit the branch started from, e.g.
-`git merge-base main HEAD`) and review from the file it prints.
+(MERGE_BASE is the commit where the branch started, for example
+`git merge-base main HEAD`). Review from the file that it prints.
 
-**With a subagent tool:** run godmode:requesting-code-review's two-axis
-review, a Standards sub-agent and a Spec sub-agent in parallel, both on
-the most capable available model — the whole-branch review is a
-judgment task — both built on
-[code-reviewer.md](../requesting-code-review/code-reviewer.md), the
-Standards one also carrying
+**With a subagent tool:** Run the two-axis review of
+godmode:requesting-code-review. Start a Standards subagent and a Spec
+subagent in parallel. Use the most capable available model for both,
+because the whole-branch review is a judgment task. Make both from
+[code-reviewer.md](../requesting-code-review/code-reviewer.md). Give the
+Standards subagent also
 [fowler-smells.md](../requesting-code-review/fowler-smells.md) and the
-ledger's `refactor note` lines. Give both the
-package path, the plan and spec paths, the plan's Review Focus section
-verbatim if it has one (the input classes and failure modes the plan's
-tests do not exercise — the reviewer checks each deliberately), and a
-pointer to the ledger's `Ruling:` lines so it can weigh the calls you
-made. Specify the model
-explicitly; an omitted model inherits the session's, which may not be the
-most capable. This is the one fresh context the whole run buys. Do not
-skip it, and do not replace it with your own read of the diff. Dispatch
-the security pass (`godmode:vuln-scan` in review mode over
-MERGE_BASE..HEAD) as a third parallel sub-agent; it always runs here.
+`refactor note` lines of the ledger. Give both subagents these items:
 
-**Without a subagent tool:** read code-reviewer.md and fowler-smells.md
-and perform that review yourself against the package, as a separate pass
-after the last task's ledger line, then run `godmode:vuln-scan` in review
-mode yourself, reporting Standards, Spec and Security under separate
-headings with separate verdicts. Write `Final review: self-review (no subagent tool)` to the
-ledger, and say so in your final message: a self-review by the author is
-weaker than a fresh reviewer, and your human partner decides whether that
-is enough before merge.
+- The package path.
+- The plan path and the spec path.
+- The Review Focus section of the plan word for word, if it has one. This
+  section gives the input classes and failure modes that the tests of the
+  plan do not exercise. The reviewer examines each of them on purpose.
+- A pointer to the `Ruling:` lines of the ledger, so that the reviewer can
+  weigh your decisions.
 
-Sort the findings before you act on any of them. The reviewer's severity
-labels are advice; the gate is yours. Its "Declined to judge" list is
-yours too: every line there is a ruling you make and ledger, exactly like
-a plan conflict — `Final: Ruling: <behavior the reviewer set aside> —
-<what a reasonable person using this software gets, and why that stands
-or why it is now a finding> — <cost if wrong>`. Re-grade first, by effect: the
-spec is a vision document, and a finding's grade is what a reasonable
-person using this software gets if it ships, not whether the spec names
-the input that triggers it — a reviewer who set a finding at Minor
-because the spec was silent has graded the spec, not the effect. Then:
+Specify the model explicitly. If you do not give a model, the subagent
+gets the model of the session, which may not be the most capable. This is
+the one fresh context that the whole run pays for. Do not skip it. Do not
+replace it with your own read of the diff. Dispatch the security pass
+(`godmode:vuln-scan` in review mode on MERGE_BASE..HEAD) as a third
+parallel subagent. It always runs here.
 
-- **Critical and Important** enter the fix pass.
-- **Minor** goes to the ledger as `Final: minor (deferred): <one-liner>`
-  and to your final message under "Deferred minors". Minors never enter
-  the fix pass, and never become rulings — a ruling is a decision about a
-  conflict, not a note that you declined a polish suggestion.
+**Without a subagent tool:** Read code-reviewer.md and fowler-smells.md.
+Do that review yourself on the package, as a separate pass after the
+ledger line of the last task. Then run `godmode:vuln-scan` in review mode
+yourself. Report Standards, Spec and Security under separate headings with
+separate verdicts. Write `Final review: self-review (no subagent tool)` to the
+ledger, and say so in your final message. A self-review by the author is
+weaker than a fresh reviewer. Your human partner decides if that is
+sufficient before merge.
 
-Fix the Critical and Important findings yourself — you are the
-implementer here — in ONE pass. Each fix is verified by TDD, not by a
-second reviewer: write the test that reproduces the finding, watch it
-fail, make it pass, then run the whole suite. Record each in the ledger as
-`Final: fixed <finding> — <test name> RED→GREEN, suite <N>/<N>`. A fix
-without a test that failed first is not verified; a suite that is not
-green after the pass means the pass is not over. Do not dispatch a
-re-review: it would re-read a diff whose covering tests already answer
-"addressed" and whose suite run already answers "broke nothing".
+Sort the findings before you act on one of them. The severity labels of
+the reviewer are advice. You control the gate. The "Declined to judge" list
+of the reviewer is also yours. Each line in it is a ruling that you make
+and ledger, the same as a plan conflict:
+`Final: Ruling: <behavior the reviewer set aside> — <what a reasonable person using this software gets, and why that stands or why it is now a finding> — <cost if wrong>`. First, grade again by
+effect. The spec is a vision document. The grade of a finding is what a
+reasonable person who uses this software gets if it ships. It is not
+whether the spec names the input that causes it. If a reviewer set a
+finding at Minor because the spec said nothing, that reviewer graded the
+spec, not the effect. Then:
 
-A finding you decide not to fix is a ruling — `Final: Ruling: <finding> —
-<why the code stands> — <cost if wrong>` — and reaches your human partner
+- **Critical and Important** findings go into the fix pass.
+- **Minor** findings go to the ledger as `Final: minor (deferred): <one-liner>`
+  and to your final message under "Deferred minors". Minors never go into
+  the fix pass, and never become rulings. A ruling is a decision about a
+  conflict, not a note that you refused a polish suggestion.
+
+Fix the Critical and Important findings yourself, because you are the
+implementer here. Do it in ONE pass. TDD verifies each fix, not a
+second reviewer. Write the test that reproduces the finding, and see it
+fail. Make it pass, and then run the whole suite. Record each fix in the
+ledger as `Final: fixed <finding> — <test name> RED→GREEN, suite <N>/<N>`.
+A fix without a test that failed first is not verified. If the suite is
+not green after the pass, the pass is not complete. Do not dispatch a
+second review. It would read a diff again when its tests already answer
+"addressed" and its suite run already answers "broke nothing".
+
+If you decide not to fix a finding, that is a ruling:
+`Final: Ruling: <finding> — <why the code stands> — <cost if wrong>`. It goes to your human partner
 in the rulings list. There is no second fix pass.
 
 ## Finish
 
-Before you delete anything, collect every ledger line containing
-`Ruling:` into your final message under "Rulings I made", in the order you
-made them, each with what it costs if wrong, and every `minor (deferred)`
-line under "Deferred minors". Both lists are exhaustive. Your final
-message is the only place the decisions you took on your human partner's
-behalf — and the findings you chose not to act on — reach them.
+Before you remove anything, find each ledger line with `Ruling:` in it.
+Put these lines into your final message under "Rulings I made".
+Keep the order in which you made them, and give the cost if wrong for each. Put each
+`minor (deferred)` line under "Deferred minors". Both lists are complete.
+Your human partner sees the decisions that you made for them only in your
+final message. The same is true for the findings that you did not act on.
 
-When the final review is clean and its fixes are committed, delete this
-plan's workspace directory — the git history is the record now. Sibling
-directories belong to other plans; leave them alone.
+When the final review is clean and you committed its fixes, remove the
+workspace directory of this plan. The git history is now the record. The
+sibling directories belong to other plans. Do not touch them.
 
 Use godmode:finishing-a-development-branch.
 
@@ -345,17 +360,17 @@ Use godmode:finishing-a-development-branch.
 | Excuse | Reality |
 |--------|---------|
 | "I remember what Task N says" | You remember a summary. The brief has the exact values. Read it. |
-| "The plan's code is right, skip watching the test fail" | A test you never saw fail proves nothing. It is one step. Run it. |
-| "I'll run the full suite at the end instead of per step" | Per-step runs are how you learn which step broke it. The end-of-task run is the contract, not a substitute. |
-| "The plan is wrong here, I'll just do the right thing" | Do the right thing and ledger the ruling. Unledgered deviation is a decision made in secret. |
-| "I'll write the ledger lines after a few tasks" | Compaction does not wait for a convenient moment. One line per task, in the same message as the commit. |
-| "Let me check in before the next task" | They chose inline to spend less. Progress prompts spend their time instead. Only the four stops stop you. |
-| "I read my own diff carefully; the final reviewer is redundant" | Same author, same blind spots. The reviewer is the only fresh context this run buys. |
+| "The plan's code is right, skip watching the test fail" | A test that you never saw fail proves nothing. It is one step. Run it. |
+| "I'll run the full suite at the end instead of per step" | Runs after each step show which step broke it. The run at the end of the task is the contract, not a replacement. |
+| "The plan is wrong here, I'll just do the right thing" | Do the right thing and ledger the ruling. A deviation that is not in the ledger is a decision made in secret. |
+| "I'll write the ledger lines after a few tasks" | Compaction does not wait for a good moment. Write one line for each task, in the same message as the commit. |
+| "Let me check in before the next task" | They chose inline to spend less. Progress questions spend their time. Only the four stops stop you. |
+| "I read my own diff carefully; the final reviewer is redundant" | The same author has the same blind spots. The reviewer is the only fresh context that this run pays for. |
 | "Tests should pass, the change was trivial" | "Should" is not evidence. The contract requires the command and its output. |
-| "Subagents are slow and expensive, I'll skip the final review too" | Inline already removed the per-task reviewers. One review of the whole branch is the floor, not the ceiling. |
-| "The reviewer said Minor, so it's Minor" | The label graded the spec's silence. Grade what the person gets. Re-grade, then gate. |
-| "The fix is obvious, no need for a failing test first" | The failing test is the only proof the finding was real and is now gone. Without it you have a diff and a hope. |
-| "I'll fix the minors too while I'm in there" | Every minor you fix is a test, a fix, and a suite run your partner did not ask for. Ledger them; your partner decides. |
+| "Subagents are slow and expensive, I'll skip the final review too" | Inline already removed the reviewers for each task. One review of the whole branch is the minimum, not the maximum. |
+| "The reviewer said Minor, so it's Minor" | The label graded the silence of the spec. Grade what the person gets. Grade again, then use the gate. |
+| "The fix is obvious, no need for a failing test first" | The failing test is the only proof that the finding was real and is now gone. Without it, you have a diff and a hope. |
+| "I'll fix the minors too while I'm in there" | Each minor that you fix is a test, a fix and a suite run that your partner did not ask for. Ledger them. Your partner decides. |
 
 ## Example Workflow
 

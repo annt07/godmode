@@ -1,0 +1,38 @@
+{
+ "skills/diagnosing-godmode/prompts/scrub-audit.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/improve-codebase-architecture/HTML-REPORT.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/mr-full-review/references/checklist.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/setup-godmode/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/ste-writing/LICENSE-asd-ste100.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/subagent-driven-development/SKILL.md": {
+  "passive-voice": 2,
+  "present-perfect": 1
+ },
+ "skills/systematic-debugging/SKILL.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/vuln-scan/SKILL.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/writing-for-agents/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ }
+}

@@ -1,8 +1,10 @@
 # Code Reviewer Prompt Template
 
-Use this template when dispatching a code reviewer subagent.
+Use this template when you dispatch a code reviewer subagent.
 
-**Purpose:** Review completed work against requirements and code quality standards before it cascades into more work.
+**Purpose:** Review completed work against the requirements and the code quality standards before it spreads into more work.
+
+Add this line to each reviewer prompt: "Write your review in descriptive STE (`godmode:ste-writing`)."
 
 ```
 Subagent (general-purpose):
@@ -152,10 +154,10 @@ Subagent (general-purpose):
 ```
 
 **Placeholders:**
-- `[DESCRIPTION]` — brief summary of what was built
-- `[PLAN_OR_REQUIREMENTS]` — what it should do (plan file path, task text, or requirements)
-- `[BASE_SHA]` — starting commit
-- `[HEAD_SHA]` — ending commit
+- `[DESCRIPTION]`: a short summary of what the implementer made
+- `[PLAN_OR_REQUIREMENTS]`: what it should do (plan file path, task text or requirements)
+- `[BASE_SHA]`: the first commit
+- `[HEAD_SHA]`: the last commit
 
 **Reviewer returns:** Strengths, Issues (Critical / Important / Minor), Recommendations, Assessment
 

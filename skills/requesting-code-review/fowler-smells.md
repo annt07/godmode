@@ -2,22 +2,22 @@
 
 Source: _Refactoring_ by Martin Fowler, ch. 3.
 
-These 12 smells apply to every Standards review in godmode, on top of any repo-documented standards. Two rules bind them:
+These 12 smells apply to each Standards review in godmode, in addition to the documented standards of the repository. Two rules control them:
 
-- **The repo overrides.** A documented repo standard always wins. Where it endorses something the baseline would flag, suppress the smell.
-- **Always a judgement call.** Each smell is a labelled heuristic ("possible Feature Envy"), never a hard violation. Skip anything tooling already enforces.
+- **The repo overrides.** A documented standard of the repository always wins. If it endorses something that the baseline would flag, do not report the smell.
+- **Always a judgement call.** Each smell is a labeled heuristic ("possible Feature Envy"), never a hard violation. Skip each item that tooling already enforces.
 
 ---
 
-- **Mysterious Name**: a function, variable, or type whose name does not reveal what it does or holds. Rename it; if no honest name comes, the design is murky.
-- **Duplicated Code**: the same logic shape appears in more than one hunk or file. Extract the shared shape, call it from both.
-- **Feature Envy**: a method that reaches into another object's data more than its own. Move the method onto the data it envies.
-- **Data Clumps**: the same few fields or params keep travelling together (a type wanting to be born). Bundle them into one type.
-- **Primitive Obsession**: a primitive or string standing in for a domain concept that deserves its own type. Give the concept its own small type.
-- **Repeated Switches**: the same switch/if-cascade on the same type recurs across the change. Replace with polymorphism, or one map both sites share.
-- **Shotgun Surgery**: one logical change forces scattered edits across many files. Gather what changes together into one module.
-- **Divergent Change**: one file or module is edited for several unrelated reasons. Split so each module changes for one reason.
-- **Speculative Generality**: abstraction, parameters, or hooks added for needs the spec does not have. Delete it; inline back until a real need shows.
-- **Message Chains**: long `a.b().c().d()` navigation the caller should not depend on. Hide the walk behind one method on the first object.
-- **Middle Man**: a class or function that mostly just delegates onward. Cut it, call the real target direct.
-- **Refused Bequest**: a subclass or implementer that ignores or overrides most of what it inherits. Drop the inheritance, use composition.
+- **Mysterious Name**: A function, variable or type whose name does not show what it does or holds. Rename it. If no honest name comes, the design is not clear.
+- **Duplicated Code**: The same logic shape occurs in more than one hunk or file. Extract the shared shape, and call it from both.
+- **Feature Envy**: A method that uses the data of a different object more than its own data. Move the method to the data that it envies.
+- **Data Clumps**: The same few fields or parameters go together again and again (a type that wants to exist). Put them into one type.
+- **Primitive Obsession**: A primitive or string that stands in for a domain concept that should have its own type. Give the concept its own small type.
+- **Repeated Switches**: The same switch/if-cascade on the same type occurs again in the change. Replace it with polymorphism, or with one map that both sites share.
+- **Shotgun Surgery**: One logical change causes scattered edits in many files. Put the parts that change together into one module.
+- **Divergent Change**: One file or module gets edits for several unrelated reasons. Split it, so that each module changes for one reason.
+- **Speculative Generality**: Abstraction, parameters or hooks for needs that the spec does not have. Remove it. Inline it again until a real need occurs.
+- **Message Chains**: Long `a.b().c().d()` navigation that the caller should not depend on. Hide the navigation behind one method on the first object.
+- **Middle Man**: A class or function that mostly only sends calls to a different target. Remove it, and call the real target directly.
+- **Refused Bequest**: A subclass or implementer that ignores or overrides most of what it inherits. Remove the inheritance, and use composition.
