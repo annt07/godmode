@@ -63,6 +63,9 @@ def main(argv):
         print(__doc__)
         return 2
     base, files, changed = argv[0], argv[1:], 0
+    if not re.fullmatch(r"[A-Za-z0-9._/-]+", base) or base.startswith("-"):
+        print(f"error: base ref {base!r} is not a plain git ref")
+        return 2
     for path in files:
         old = subprocess.run(["git", "show", f"{base}:{path}"], capture_output=True,
                              text=True, encoding="utf-8").stdout

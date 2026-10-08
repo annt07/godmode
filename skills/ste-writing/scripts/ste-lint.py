@@ -78,6 +78,10 @@ CHECK_NOUN_BEFORE = {"a", "an", "the", "this", "that", "each", "every", "no", "o
                      "my", "your", "its", "our", "their", "spot"}
 CHECK_OBJECT_AFTER = {"the", "that", "whether", "if", "for", "each", "every", "it", "them",
                       "its", "your", "their", "all", "any"}
+# Words after which a bare "check" is a verb: subjects, modals, adverbs, "to" and conjunctions.
+CHECK_VERB_BEFORE = {"then", "always", "never", "also", "first", "please", "you", "we", "i", "they", "to",
+                     "and", "or", "must", "should", "can", "will", "would", "could", "may", "might", "not",
+                     "do", "don't", "please", "now", "again", "carefully"}
 CHECK_TOKEN = re.compile(r"(?<![\w-])(check(?:s|ed)?)\b|(?<=\w)-(check(?:s|ed)?)\b", re.I)
 SENTENCE_START = re.compile(r"(?:^|[.!?:]\s+|^\s*(?:[-*+]|\d+[.)])\s+)\s*$")
 
@@ -96,7 +100,7 @@ def _check_verb_matches(line):
             out.append(m)
         elif prev in CHECK_NOUN_BEFORE:
             continue
-        elif (word in ("checks", "checked") or nxt in CHECK_OBJECT_AFTER
+        elif (word in ("checks", "checked") or nxt in CHECK_OBJECT_AFTER or prev in CHECK_VERB_BEFORE
               or SENTENCE_START.search(line[:m.start()])):
             out.append(m)
     return out
@@ -354,6 +358,7 @@ def _yaml_scalar(first, more):
     if first in (">", "|", ">-", "|-", ">+", "|+"):
         return " ".join(l.strip() for l in more if l.strip())
     value = " ".join([first] + [l.strip() for l in more if l.strip()]).strip()
+    value = re.sub(r"""^((["']).*\2)\s+#.*$""", r"\1", value)  # drop a trailing YAML comment
     if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
         inner = value[1:-1]
         if value[0] == "'":

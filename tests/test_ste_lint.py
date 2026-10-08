@@ -167,3 +167,13 @@ def test_glossary_reads_only_the_do_not_use_table(tmp_path):
 def test_sentence_end_inside_bold_or_quotes_splits():
     assert rules(f"**{W15}.** {W15}.") == []
     assert rules(f"He said: {W15}.) {W15}.") == []
+
+
+def test_check_verb_before_common_objects_and_adverbs():
+    for s in ["Then check results.", "Always check output.", "Check logs first.", "You check carefully."]:
+        assert "check-verb" in rules(s), s
+
+
+def test_yaml_description_with_trailing_comment_is_linted():
+    text = '---\nname: x\ndescription: "Use when a; b." # note\n---\n'
+    assert rules(text) == ["semicolon"]

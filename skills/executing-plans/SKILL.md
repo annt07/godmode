@@ -225,8 +225,8 @@ step first and run it first. To see it fail is a step, not a formality.
 If a test passes before the implementation exists, that is a finding
 about the test.
 
-Each step that runs a command has an `Expected:` line. Run the command,
-read its output, and compare. There are three outcomes:
+Each step that runs a command has an `Expected:` line. Run the command.
+Read its output. Compare it with the `Expected:` line. There are three outcomes:
 
 - **Matches.** Go to the next step.
 - **The code is wrong.** Use godmode:systematic-debugging. Find the

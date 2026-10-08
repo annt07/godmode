@@ -19,7 +19,7 @@ A **wizard** is a bash script that guides a human, step by step, through a manua
 
 **Your job is only to scope the procedure and author its stages.** The library above the `STAGES` marker is identical in each wizard. That consistency is the point. Do not edit it by hand.
 
-By default, a wizard is temporary. You build it for one run, save it to a scratch or `scripts/` path, and remove it when the job ends. Commit it only when the user wants a repeatable setup path in the repo.
+By default, a wizard is temporary. You build it for one run. You save it to a scratch or `scripts/` path. When the job ends, you remove it. Commit it only when the user wants a repeatable setup path in the repo.
 
 ## Process
 

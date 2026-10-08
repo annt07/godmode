@@ -30,3 +30,7 @@ def test_each_structural_change_is_reported():
     }
     for kind, new in cases.items():
         assert any(c.startswith(kind) for c in md.compare(OLD, new)), kind
+
+
+def test_base_ref_that_looks_like_an_option_is_rejected():
+    assert md.main(["--output=x", "skills/grill-me/SKILL.md"]) == 2

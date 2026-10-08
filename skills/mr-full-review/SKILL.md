@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Run the phases below on one merge request (GitLab) or pull request (GitHub, Bitbucket Cloud, Bitbucket Server/Data Center). Write the report to `.scratch/` as the next numbered round. Each phase states its own gate. When a gate is not met, write `Skipped: <reason>` in the report. Do not leave the row out. Read `references/checklist.md` before Phase 6 and `references/report-template.md` before Phase 7.
 
-**Read-only, always.** Never post comments, approve, change descriptions, push, or check out branches in the working tree of the user. Put suggested comments in the report. The user posts them.
+**Read-only, always.** Never post comments, approve, change descriptions, push, or run `git checkout` in the working tree of the user. Put suggested comments in the report. The user posts them.
 
 ## Requirements
 

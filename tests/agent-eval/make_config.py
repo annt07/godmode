@@ -13,7 +13,9 @@ home = pathlib.Path(os.environ.get("APPDATA", "")) / "devin" if platform.system(
 src = home / "config.json"
 cfg = json.loads(src.read_text(encoding="utf-8")) if src.exists() else {}
 allow = cfg.setdefault("permissions", {}).setdefault("allow", [])
-for entry in [f"Write({here})", f"Read({here})", "Exec(git)", "Exec(bash)", "Exec(ls)", "Exec(cat)", "Exec(uv)",
+# Only the run folders, never this folder: the generated config sits here and can hold credentials.
+runs = here / "runs"
+for entry in [f"Write({runs})", f"Read({runs})", "Exec(git)", "Exec(ls)", "Exec(cat)", "Exec(uv)",
               "Exec(python)", "Exec(pytest)", "Exec(node)", "Exec(Get-ChildItem)", "Exec(Where-Object)",
               "Exec(Select-Object)", "Exec(Get-Content)", "Exec(Test-Path)", "Exec(Set-Location)",
               "Exec(New-Item)", "Exec(Write-Output)", "Exec(Measure-Object)", "Exec(Select-String)",

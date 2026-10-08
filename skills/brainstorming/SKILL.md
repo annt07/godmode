@@ -34,10 +34,10 @@ A reply approves only the stage that you showed. Only a reply after the presenta
 Before your first question, classify the request. Say the class aloud, so that your human partner can change it. For example: "this looks bounded, so I'll present a short design here rather than write a spec".
 
 - **Spike**: a feasibility question ("can we...", "is it possible...", "quick and dirty is fine"). Its result is an answer, not code that you keep. Show the question and what you will try in 2-3 sentences. Get a nod. Then investigate as cheaply as correctness permits. Use `godmode:prototype` to make any throwaway code. Report the findings as a recommendation. Label anything that you made as throwaway.
-- **Bounded**: a small, clear change to code that already exists in this repository: a new flag, a small endpoint, a fix in one file. Knowledge of the kind of app is not sufficient. Bounded means that the flow that you change is already here and you can read it. If no flow exists to change, the task is not bounded. Run the grilling skill (see below), show a short design IN CHAT, and STOP. Implementation starts only after your human partner says yes.
+- **Bounded**: a small, clear change to code that already exists in this repository: a new flag, a small endpoint, a fix in one file. Knowledge of the kind of app is not sufficient. Bounded means that the flow that you change is already here and you can read it. If no flow exists to change, the task is not bounded. Run the grilling skill (see below). Show a short design IN CHAT. Then STOP. Implementation starts only after your human partner says yes.
 - **Architectural**: new projects, new subsystems, and changes to how components fit together or to interfaces that others use. Follow the full process: grilling, approaches, a design in sections, a written spec through `godmode:to-spec`, then the writing-plans skill.
 
-If you are not sure which of two paths applies, take the heavier path. A path can only go up. If you find hidden complexity during the task, the path goes up: stop, say so, and go to the heavier path. A path never goes down during a task.
+If you are not sure which of two paths applies, take the heavier path. A path can only go up. If you find hidden complexity during the task, the path goes up. Stop. Say so. Go to the heavier path. A path never goes down during a task.
 
 ## Clarifying Questions: Use Grilling
 
