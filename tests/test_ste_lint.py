@@ -116,3 +116,34 @@ def test_cli_glossary_and_max_words(tmp_path):
     r = subprocess.run([sys.executable, str(LINT), "--glossary", str(g), "--max-words", "20", str(f)],
                        capture_output=True, text=True)
     assert r.returncode == 1 and "glossary-word" in r.stdout
+
+
+W15 = " ".join(["word"] * 15)
+
+
+def test_wrapped_sentence_counted_once_at_start_line():
+    found = sl.lint(f"Intro line.\n\n{W15}\n{W15}.\n")[0]
+    assert [(f["rule"], f["line"]) for f in found] == [("long-sentence", 3)]
+
+
+def test_list_items_and_blockquote_boundaries_not_joined():
+    assert rules(f"- {W15}.\n- {W15}.\n") == []
+    assert rules(f"> {W15}\n> {W15}.\n") == ["long-sentence"]
+    assert rules(f"{W15}.\n> {W15}.\n") == []
+    assert rules(f"{W15}\n<!-- note -->\n{W15}.\n") == []
+
+
+def test_list_item_continuation_is_joined():
+    assert rules(f"- {W15}\n  {W15}.\n") == ["long-sentence"]
+
+
+def test_table_rows_and_headings_end_paragraphs():
+    assert rules(f"# {W15}\n{W15}.\n") == []
+    assert rules(f"| {W15} |\n|---|\n| {W15} |\n") == []
+
+
+def test_report_states_limits(tmp_path):
+    f = tmp_path / "a.md"
+    f.write_text("Good text.\n")
+    out = subprocess.run([sys.executable, str(LINT), str(f)], capture_output=True, text=True).stdout
+    assert "can be wrong" in out and "does not prove" in out

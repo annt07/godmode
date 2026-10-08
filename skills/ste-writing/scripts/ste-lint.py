@@ -288,6 +288,43 @@ def _dangling_conjunction_findings(text, filename):
     return findings
 
 
+PARA_BREAK = re.compile(r"^\s*(?:$|#|```|~~~|<!--|\|)")
+LIST_ITEM = re.compile(r"^\s{0,3}(?:[-*+]|\d+[.)])\s+(.*)$")
+
+
+def _paragraphs(lines):
+    """Return (start_line, text) for each paragraph of prose (godmode, spec D2 item 8).
+
+    A paragraph ends at a blank line, a heading, a list marker, a table row,
+    a code fence, a line that starts with <!--, or the start or end of a
+    blockquote. The > prefix of a blockquote line is removed before the join.
+    Indented lines after a list item continue that item.
+    """
+    out, start, buf, quoted = [], None, [], None
+
+    def flush():
+        if buf:
+            out.append((start, " ".join(buf)))
+
+    for n, line in enumerate(lines, 1):
+        is_quote = line.lstrip().startswith(">")
+        body = re.sub(r"^\s*>\s?", "", line) if is_quote else line
+        item = LIST_ITEM.match(body)
+        if PARA_BREAK.match(body) or item or (quoted is not None and is_quote != quoted):
+            flush()
+            buf, start, quoted = [], None, None
+            if item:
+                start, buf, quoted = n, [INLINE_CODE.sub("", item.group(1))], is_quote
+            elif not PARA_BREAK.match(body) and body.strip():
+                start, buf, quoted = n, [INLINE_CODE.sub("", body.strip())], is_quote
+            continue
+        if start is None:
+            start, quoted = n, is_quote
+        buf.append(INLINE_CODE.sub("", body.strip()))
+    flush()
+    return out
+
+
 FRONT_KEY = re.compile(r"^([A-Za-z_][\w-]*):\s?(.*)$")
 QUOTE_PAIR = re.compile(r'"[^"\n]*"|\u201c[^\u201c\u201d\n]*\u201d')
 OFF, ON = "<!-- ste:off -->", "<!-- ste:on -->"
@@ -419,6 +456,8 @@ def lint(text, filename="<stdin>", glossary=None, max_words=MAX_WORDS):
                         seen_synonyms[(gi, base)] = (
                             lineno, source_column + m.start() + 1, m.group(0)
                         )
+            if lineno - 1 not in table_cells:
+                continue  # prose sentences are counted per paragraph below
             for sent in re.split(r"(?<=[.!?])\s+", line):
                 n = len(sent.split())
                 if n > max_words:
@@ -438,6 +477,23 @@ def lint(text, filename="<stdin>", glossary=None, max_words=MAX_WORDS):
                                  "rule": "synonym-rotation", "level": "advisory-free",
                                  "match": match,
                                  "message": f"'{base}' and '{first_base}' name the same action. Pick one and use it every time."})
+    prose, fence = [], False
+    for raw in lines:
+        if CODE_FENCE.match(raw.strip()):
+            fence = not fence
+            prose.append("```")
+        elif fence or (len(prose) in table_cells):
+            prose.append("```")
+        else:
+            prose.append(raw)
+    for start, para in _paragraphs(prose):
+        for sent in re.split(r"(?<=[.!?])\s+", para):
+            n = len(sent.split())
+            if n > max_words:
+                findings.append({"file": filename, "line": start, "col": 1,
+                                 "rule": "long-sentence", "level": "advisory-free",
+                                 "match": f"{n} words",
+                                 "message": f"Sentence has {n} words (cap {max_words}). Split it."})
     findings.extend(_dangling_conjunction_findings(text, filename))
     if unclosed:
         findings.append({"file": filename, "line": len(lines), "col": 1,
@@ -459,6 +515,7 @@ def report(findings, words_total, as_json, hard_count, baseline):
     print(f"\n{len(findings)} violations ({hard_count} hard, baseline {baseline}), "
           f"{words_total} words, {rate} per 100 words")
     print("Hedges/modality (may, might, could) are never flagged: confidence is content.")
+    print("Limits: a finding can be wrong, and a clean result does not prove that the text is STE.")
 
 
 def selftest():
