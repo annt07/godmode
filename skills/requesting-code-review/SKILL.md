@@ -119,6 +119,7 @@ Write the review report in descriptive STE (`godmode:ste-writing`). Tell each re
 | "The reviewer needs my whole session history" | Give it a precisely made context, never the history of your session. That keeps the reviewer on the work product. |
 | "It's simple, no need for a formal review" | Simple changes grow into complex bugs. Review early. |
 | "One reviewer is enough" | One reviewer cannot evaluate both spec and standards independently. The two axes need isolation, so that one does not hide the other. |
+| "The diff is small, so I'll do the security pass myself" | Invoke `godmode:vuln-scan` for each review, also for a small diff. A security section that you write without the skill does not replace the skill call. |
 | "This change isn't security-related, skip vuln-scan" | Injection, leaked PHI and secrets in logs come in "harmless" changes. The scan covers only the diff and is cheap. It always runs. |
 | "The repo is internal, so security findings are Minor" | Internal services also hold credentials and PHI. Grade by the severity from vuln-scan, not by where the code runs. |
 
