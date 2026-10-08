@@ -1,0 +1,202 @@
+{
+ "skills/brainstorming/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/codebase-design/DEEPENING.md": {
+  "passive-voice": 4,
+  "present-perfect": 0
+ },
+ "skills/codebase-design/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/diagnosing-godmode/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 2
+ },
+ "skills/diagnosing-godmode/prompts/plan-adherence.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/diagnosing-godmode/prompts/scrub-audit.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/diagnosing-godmode/references/redaction-policy.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/diagnosing-godmode/templates/bundle-README.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/dispatching-parallel-agents/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/domain-modeling/ADR-FORMAT.md": {
+  "passive-voice": 3,
+  "present-perfect": 0
+ },
+ "skills/domain-modeling/CONTEXT-FORMAT.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/domain-modeling/SKILL.md": {
+  "passive-voice": 4,
+  "present-perfect": 0
+ },
+ "skills/executing-plans/SKILL.md": {
+  "passive-voice": 8,
+  "present-perfect": 1
+ },
+ "skills/finishing-a-development-branch/SKILL.md": {
+  "passive-voice": 3,
+  "present-perfect": 1
+ },
+ "skills/grilling/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 1
+ },
+ "skills/improve-codebase-architecture/HTML-REPORT.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/improve-codebase-architecture/SKILL.md": {
+  "passive-voice": 6,
+  "present-perfect": 0
+ },
+ "skills/mr-full-review/SKILL.md": {
+  "passive-voice": 7,
+  "present-perfect": 0
+ },
+ "skills/mr-full-review/references/checklist.md": {
+  "passive-voice": 5,
+  "present-perfect": 0
+ },
+ "skills/prototype/LOGIC.md": {
+  "passive-voice": 3,
+  "present-perfect": 1
+ },
+ "skills/prototype/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/prototype/UI.md": {
+  "passive-voice": 5,
+  "present-perfect": 1
+ },
+ "skills/requesting-code-review/SKILL.md": {
+  "passive-voice": 4,
+  "present-perfect": 0
+ },
+ "skills/requesting-code-review/code-reviewer.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/requesting-code-review/fowler-smells.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/research/SKILL.md": {
+  "passive-voice": 3,
+  "present-perfect": 0
+ },
+ "skills/resolving-merge-conflicts/SKILL.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/setup-godmode/SKILL.md": {
+  "passive-voice": 4,
+  "present-perfect": 0
+ },
+ "skills/ste-writing/LICENSE-asd-ste100.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/subagent-driven-development/SKILL.md": {
+  "passive-voice": 7,
+  "present-perfect": 1
+ },
+ "skills/subagent-driven-development/re-review-prompt.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/systematic-debugging/SKILL.md": {
+  "passive-voice": 5,
+  "present-perfect": 0
+ },
+ "skills/teach/GLOSSARY-FORMAT.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/teach/LEARNING-RECORD-FORMAT.md": {
+  "passive-voice": 4,
+  "present-perfect": 0
+ },
+ "skills/teach/MISSION-FORMAT.md": {
+  "passive-voice": 0,
+  "present-perfect": 1
+ },
+ "skills/teach/RESOURCES-FORMAT.md": {
+  "passive-voice": 0,
+  "present-perfect": 1
+ },
+ "skills/teach/SKILL.md": {
+  "passive-voice": 8,
+  "present-perfect": 2
+ },
+ "skills/test-driven-development/SKILL.md": {
+  "passive-voice": 7,
+  "present-perfect": 1
+ },
+ "skills/to-questionnaire/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/to-spec/SKILL.md": {
+  "passive-voice": 4,
+  "present-perfect": 1
+ },
+ "skills/using-git-worktrees/SKILL.md": {
+  "passive-voice": 1,
+  "present-perfect": 1
+ },
+ "skills/using-godmode/SKILL.md": {
+  "passive-voice": 4,
+  "present-perfect": 1
+ },
+ "skills/vuln-scan/SKILL.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/wizard/SKILL.md": {
+  "passive-voice": 4,
+  "present-perfect": 0
+ },
+ "skills/writing-for-agents/SKILL-MECHANICS.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ },
+ "skills/writing-for-agents/SKILL.md": {
+  "passive-voice": 5,
+  "present-perfect": 0
+ },
+ "skills/writing-plans/SKILL.md": {
+  "passive-voice": 3,
+  "present-perfect": 1
+ },
+ "skills/writing-skills/SKILL.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/writing-skills/persuasion-principles.md": {
+  "passive-voice": 2,
+  "present-perfect": 0
+ },
+ "skills/writing-skills/testing-skills-with-subagents.md": {
+  "passive-voice": 1,
+  "present-perfect": 0
+ }
+}
