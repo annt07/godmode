@@ -81,3 +81,7 @@ def test_descriptions_keep_trigger_phrases():
 def test_finished_list_names_real_files():
     real = {p for p, _ in targets()}
     assert finished() <= real, finished() - real
+
+
+def test_all_targets_finished():
+    assert {p for p, _ in targets()} == finished()
