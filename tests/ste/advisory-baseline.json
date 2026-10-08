@@ -103,23 +103,7 @@
   "passive-voice": 4,
   "present-perfect": 0
  },
- "skills/writing-for-agents/SKILL-MECHANICS.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
  "skills/writing-for-agents/SKILL.md": {
-  "passive-voice": 5,
-  "present-perfect": 0
- },
- "skills/writing-skills/SKILL.md": {
-  "passive-voice": 2,
-  "present-perfect": 0
- },
- "skills/writing-skills/persuasion-principles.md": {
-  "passive-voice": 2,
-  "present-perfect": 0
- },
- "skills/writing-skills/testing-skills-with-subagents.md": {
   "passive-voice": 1,
   "present-perfect": 0
  }
