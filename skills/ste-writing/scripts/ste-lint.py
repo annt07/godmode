@@ -128,6 +128,8 @@ def load_glossary(path):
 
 MAX_WORDS = 25  # descriptions cap; instructions cap is 20 but undetectable without context
 
+# A sentence ends at . ! or ? and any closing bold, italic, quote or bracket marks.
+SENTENCE_SPLIT = re.compile(r"(?<=[.!?])[*_)\]\"'”]*\s+")
 CODE_FENCE = re.compile(r"^(```|~~~)")
 INLINE_CODE = re.compile(r"`[^`]*`")
 LIST_ITEM_START = re.compile(
@@ -464,7 +466,7 @@ def lint(text, filename="<stdin>", glossary=None, max_words=MAX_WORDS):
                         )
             if lineno - 1 not in table_cells:
                 continue  # prose sentences are counted per paragraph below
-            for sent in re.split(r"(?<=[.!?])\s+", line):
+            for sent in SENTENCE_SPLIT.split(line):
                 n = len(sent.split())
                 if n > max_words:
                     findings.append({"file": filename, "line": lineno,
@@ -493,7 +495,7 @@ def lint(text, filename="<stdin>", glossary=None, max_words=MAX_WORDS):
         else:
             prose.append(raw)
     for start, para in _paragraphs(prose):
-        for sent in re.split(r"(?<=[.!?])\s+", para):
+        for sent in SENTENCE_SPLIT.split(para):
             n = len(sent.split())
             if n > max_words:
                 findings.append({"file": filename, "line": start, "col": 1,

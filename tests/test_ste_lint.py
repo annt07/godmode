@@ -162,3 +162,8 @@ def test_glossary_reads_only_the_do_not_use_table(tmp_path):
     g.write_text("| Use | Do not use |\n|---|---|\n| remove | delete |\n\n"
                  "| Term | Meaning |\n|---|---|\n| seam | A public interface, the test seam |\n")
     assert sl.load_glossary(g) == ["delete"]
+
+
+def test_sentence_end_inside_bold_or_quotes_splits():
+    assert rules(f"**{W15}.** {W15}.") == []
+    assert rules(f"He said: {W15}.) {W15}.") == []
