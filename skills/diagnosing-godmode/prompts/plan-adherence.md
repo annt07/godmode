@@ -1,29 +1,32 @@
-Read `prompts/analyst-common.md` first; it gives your role, inputs,
+Read `prompts/analyst-common.md` first. It gives your role, inputs,
 context-safety rules, and the return format. This file adds the dimension.
 
 Dimension: Plan adherence
 
-Recover the plan the session agreed to, then map each plan step to what
-happened. "Plan" here means any agreed course of action, not git commits.
+Find the plan that the session agreed to. Then map each plan step to what
+happened. Here, "Plan" means any agreed course of action, not git commits.
 
-1. Find the agreed plan: a design or plan agreed in chat (look for the
-   assistant text preceding a human "yes/ok/go ahead"), a spec or plan file
-   written during the session (tool calls that write under `docs/`,
-   `plans/`, `specs/`, or any file the human named), a todo-list record whose
-   meaning was established in the case file, or any numbered checklist in
-   assistant text. Quote each plan step with its `path:line`.
-2. Mark structural events between the plan and its execution: compaction
-   events identified during discovery, resumes, aborted turns, and associated
-   session dispatches. Note their line numbers; plan drift right after one of
-   these is a distinct finding.
+1. Find the agreed plan. It can be one of these:
+   - a design or plan agreed in chat (look for the assistant text before a
+     human "yes/ok/go ahead"),
+   - a spec or plan file that the session wrote (tool calls that write
+     under `docs/`, `plans/`, `specs/`, or any file that the human named),
+   - a todo-list record with a meaning that the case file established,
+   - any numbered checklist in assistant text.
+
+   Quote each plan step with its `path:line`.
+2. Mark the structural events between the plan and its execution:
+   compaction events that discovery identified, resumes, aborted turns,
+   and dispatches of associated sessions. Write down their line numbers.
+   Plan drift immediately after one of these events is a separate finding.
 3. For each plan step, find the tool calls and assistant text that
-   executed it, or establish that none did. Report:
-   - steps skipped (no execution found; quote the plan step);
-   - steps executed out of order (line numbers show the order);
-   - steps silently changed (execution differs from the plan step in a
-     way the assistant never announced; quote both);
-   - steps invented (work done that no plan step covers);
-   - drift immediately after a structural event (cite the event line and
-     the first divergent action).
-4. If there is no recoverable plan, say so as the only finding, with
-   the lines you checked.
+   executed it, or show that none did. Report:
+   - steps skipped (you found no execution). Quote the plan step.
+   - steps executed out of order (the line numbers show the order).
+   - steps changed silently (the execution is different from the plan
+     step, and the assistant never announced it). Quote both.
+   - steps invented (work that no plan step covers).
+   - drift immediately after a structural event. Cite the event line and
+     the first divergent action.
+4. If you cannot find a plan, say so as the only finding. Give the lines
+   that you examined.

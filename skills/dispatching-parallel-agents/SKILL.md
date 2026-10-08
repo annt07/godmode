@@ -1,17 +1,17 @@
 ---
 name: dispatching-parallel-agents
-description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
+description: Use when you have 2+ independent tasks that agents can do without shared state or sequential dependencies.
 ---
 
 # Dispatching Parallel Agents
 
 ## Overview
 
-You delegate tasks to specialized agents with isolated context. By precisely crafting their instructions and context, you ensure they stay focused and succeed at their task. They should never inherit your session's context or history — you construct exactly what they need. This also preserves your own context for coordination work.
+You give tasks to specialized agents that have an isolated context. You write their instructions and context precisely, so they stay focused and complete their task. They should never inherit the context or history of your session. You construct exactly what they need. This also keeps your own context free for coordination work.
 
-When you have multiple unrelated failures (different test files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.
+You can have more than one unrelated failure (different test files, different subsystems, different bugs). If you investigate them one after the other, you lose time. Each investigation is independent, and the investigations can occur in parallel.
 
-**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently.
+**Core principle:** Dispatch one agent for each independent problem domain. Let them work at the same time.
 
 ## When to Use
 
@@ -33,39 +33,39 @@ digraph when_to_use {
 }
 ```
 
-**Use when:**
-- 3+ test files failing with different root causes
-- Multiple subsystems broken independently
-- Each problem can be understood without context from others
-- No shared state between investigations
+**Use this skill in these conditions:**
+- 3+ test files fail with different root causes.
+- More than one subsystem is broken independently.
+- An agent can understand each problem without context from the other problems.
+- The investigations have no shared state.
 
-**Don't use when:**
-- Failures are related (fix one might fix others)
-- Need to understand full system state
-- Agents would interfere with each other
+**Do not use this skill in these conditions:**
+- The failures have a relation (a fix for one failure can fix the others).
+- You must understand the full system state.
+- The agents can interfere with each other.
 
 ## The Pattern
 
 ### 1. Identify Independent Domains
 
-Group failures by what's broken:
+Put the failures into groups by the broken part:
 - File A tests: Tool approval flow
 - File B tests: Batch completion behavior
 - File C tests: Abort functionality
 
-Each domain is independent - fixing tool approval doesn't affect abort tests.
+Each domain is independent. A fix to tool approval does not affect the abort tests.
 
 ### 2. Create Focused Agent Tasks
 
 Each agent gets:
 - **Specific scope:** One test file or subsystem
 - **Clear goal:** Make these tests pass
-- **Constraints:** Don't change other code
-- **Expected output:** Summary of what you found and fixed
+- **Constraints:** Do not change other code
+- **Expected output:** A summary of what you found and fixed
 
 ### 3. Dispatch in Parallel
 
-Issue all three subagent dispatches in the same response — they run in parallel:
+Send all three subagent dispatches in the same response. Then they run in parallel:
 
 ```text
 Subagent (general-purpose): "Fix agent-tool-abort.test.ts failures"
@@ -74,22 +74,22 @@ Subagent (general-purpose): "Fix tool-approval-race-conditions.test.ts failures"
 # All three run concurrently.
 ```
 
-Multiple dispatch calls in one response = parallel execution. One per response = sequential.
+More than one dispatch call in one response = parallel execution. One call in each response = sequential execution.
 
 ### 4. Review and Integrate
 
-When agents return:
-- Read each summary
-- Verify fixes don't conflict
-- Run full test suite
-- Integrate all changes
+When the agents return:
+- Read each summary.
+- Verify that the fixes do not conflict.
+- Run the full test suite.
+- Integrate all changes.
 
 ## Agent Prompt Structure
 
 Good agent prompts are:
 1. **Focused** - One clear problem domain
-2. **Self-contained** - All context needed to understand the problem
-3. **Specific about output** - What should the agent return?
+2. **Self-contained** - All the context that the agent needs to understand the problem
+3. **Specific about output** - What must the agent return?
 
 ```markdown
 Fix the 3 failing tests in src/agents/agent-tool-abort.test.ts:
@@ -114,35 +114,35 @@ Return: Summary of what you found and what you fixed.
 
 ## Common Mistakes
 
-**❌ Too broad:** "Fix all the tests" - agent gets lost
-**✅ Specific:** "Fix agent-tool-abort.test.ts" - focused scope
+**❌ Too broad:** "Fix all the tests" - the agent gets lost
+**✅ Specific:** "Fix agent-tool-abort.test.ts" - the scope is narrow
 
-**❌ No context:** "Fix the race condition" - agent doesn't know where
+**❌ No context:** "Fix the race condition" - the agent does not know where
 **✅ Context:** Paste the error messages and test names
 
-**❌ No constraints:** Agent might refactor everything
+**❌ No constraints:** The agent can refactor all the code
 **✅ Constraints:** "Do NOT change production code" or "Fix tests only"
 
-**❌ Vague output:** "Fix it" - you don't know what changed
+**❌ Vague output:** "Fix it" - you do not know what changed
 **✅ Specific:** "Return summary of root cause and changes"
 
 ## When NOT to Use
 
-**Related failures:** Fixing one might fix others - investigate together first
-**Need full context:** Understanding requires seeing entire system
-**Exploratory debugging:** You don't know what's broken yet
-**Shared state:** Agents would interfere (editing same files, using same resources)
+**Related failures:** A fix for one failure can fix the others. Investigate them together first.
+**Need full context:** To understand the problem, you must see the full system.
+**Exploratory debugging:** You do not know yet which part is broken.
+**Shared state:** The agents can interfere (they edit the same files or use the same resources).
 
 ## Real Example from Session
 
-**Scenario:** 6 test failures across 3 files after major refactoring
+**Scenario:** 6 test failures in 3 files after a large refactor
 
 **Failures:**
 - agent-tool-abort.test.ts: 3 failures (timing issues)
-- batch-completion-behavior.test.ts: 2 failures (tools not executing)
+- batch-completion-behavior.test.ts: 2 failures (tools do not execute)
 - tool-approval-race-conditions.test.ts: 1 failure (execution count = 0)
 
-**Decision:** Independent domains - abort logic separate from batch completion separate from race conditions
+**Decision:** Independent domains. The abort logic, the batch completion and the race conditions are separate.
 
 **Dispatch:**
 ```
@@ -152,16 +152,16 @@ Agent 3 → Fix tool-approval-race-conditions.test.ts
 ```
 
 **Results:**
-- Agent 1: Replaced timeouts with event-based waiting
-- Agent 2: Fixed event structure bug (threadId in wrong place)
-- Agent 3: Added wait for async tool execution to complete
+- Agent 1: Replaced the timeouts with event-based waits
+- Agent 2: Fixed an event structure bug (threadId in the wrong place)
+- Agent 3: Added a wait for the async tool execution to complete
 
-**Integration:** All fixes independent, no conflicts, full suite green
+**Integration:** All fixes were independent, with no conflicts. The full suite was green.
 
 ## Verification
 
-After agents return:
-1. **Review each summary** - Understand what changed
-2. **Check for conflicts** - Did agents edit same code?
-3. **Run full suite** - Verify all fixes work together
-4. **Spot check** - Agents can make systematic errors
+After the agents return:
+1. **Review each summary** - Understand what changed.
+2. **Look for conflicts** - Did the agents edit the same code?
+3. **Run the full suite** - Verify that all fixes work together.
+4. **Spot check** - Agents can make systematic errors.

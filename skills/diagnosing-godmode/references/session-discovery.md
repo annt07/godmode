@@ -1,31 +1,43 @@
 # Discover the session history
 
-Resolve the session your human partner named using the tools and information
-available in this environment. Your knowledge can suggest where to look; verify
-the result against the actual history.
+Use the tools and information available in this environment to resolve the
+session that your human partner named. Your knowledge can suggest where to
+look. Verify the result against the actual history.
 
-Use the harness's exposed session tools, configured storage, local help,
-documentation, or bounded filesystem inspection. Measure files before reading
-their content and follow context-safety.md. Inspect archives or indexes when the
-environment points to them. A supplied usable path does not need another search.
+Use the session tools that the harness exposes, the configured storage, the
+local help, the documentation, or a bounded filesystem inspection. Measure
+files before you read their content, and follow context-safety.md. If the
+environment points to archives or indexes, examine them. If you have a
+usable path, you do not need a different search.
 
-Confirm identity using the available session id, working directory, timestamps,
-and matching conversation content. Recency alone is not confirmation. Distinguish
-the requested session from its children and unrelated candidates. Ask for a
-missing identifying fact when the available evidence cannot distinguish them.
+Verify the identity with the available session id, working directory,
+timestamps, and matching conversation content. Recency alone does not
+verify the identity. Separate the requested session from its children and
+from unrelated candidates. If the available evidence cannot separate them,
+ask for the missing identifying fact.
 
-For each filesystem source, obtain its full absolute path from the environment,
-with home-directory shorthand and variables expanded. Use that same path in the
-case record and in the discovery answer you give your human partner.
+For each filesystem source, get its full absolute path from the environment.
+Expand the home-directory shorthand and the variables. Use that same path in
+the case record and in the discovery answer that you give your human
+partner.
 
-Establish the record meanings needed for the requested investigation from
-observed records or documentation. Distinguish human messages from injected
-messages, tool results, and a parent agent's dispatch. Match tool calls to their
-results. Establish usage-counter semantics before calculating totals. Do not
-infer a format from another harness or turn a missing field into a zero.
+Find the record meanings that the investigation needs from observed records
+or documentation. Separate human messages from injected messages, tool
+results, and the dispatch of a parent agent. Match tool calls to their
+results. Find the meaning of the usage counters before you calculate totals.
+Do not infer a format from a different harness. Do not change a missing
+field into a zero.
 
-Record the exact sources, relevant field meanings, supporting record locations,
-associated sessions, rejected plausible candidates, and unresolved information
-in the case file. Subsequent readers use that record rather than repeating
-discovery. If history is missing, inaccessible, or ambiguous, state the specific
-limitation and ask for the missing path, export, or identifying detail.
+Record these items in the case file:
+
+- the exact sources,
+- the relevant field meanings,
+- the locations of the supporting records,
+- the associated sessions,
+- the rejected plausible candidates,
+- the unresolved information.
+
+ Later
+readers use that record and do not do the discovery again. The history can
+be missing, inaccessible, or ambiguous. Then state the specific limitation,
+and ask for the missing path, export, or identifying detail.

@@ -7,27 +7,7 @@
   "passive-voice": 1,
   "present-perfect": 0
  },
- "skills/diagnosing-godmode/SKILL.md": {
-  "passive-voice": 1,
-  "present-perfect": 2
- },
- "skills/diagnosing-godmode/prompts/plan-adherence.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
  "skills/diagnosing-godmode/prompts/scrub-audit.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
- "skills/diagnosing-godmode/references/redaction-policy.md": {
-  "passive-voice": 2,
-  "present-perfect": 0
- },
- "skills/diagnosing-godmode/templates/bundle-README.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
- "skills/dispatching-parallel-agents/SKILL.md": {
   "passive-voice": 1,
   "present-perfect": 0
  },
@@ -88,7 +68,7 @@
   "present-perfect": 1
  },
  "skills/systematic-debugging/SKILL.md": {
-  "passive-voice": 5,
+  "passive-voice": 2,
   "present-perfect": 0
  },
  "skills/teach/GLOSSARY-FORMAT.md": {

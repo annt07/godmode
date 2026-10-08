@@ -23,9 +23,9 @@ what would raise it. No statement about what godmode should do.>
 - Other plugins, extensions, MCP servers:
 - Instruction files present (paths only):
 
-Label every environment field and skill observation as historical evidence,
-unverified snapshot, current observation, or unknown, and record its
-supporting evidence location.
+Label each environment field and skill observation as historical evidence,
+unverified snapshot, current observation, or unknown. Record the location
+of its supporting evidence.
 
 ## 4. Sessions examined (REQUIRED)
 
@@ -36,8 +36,9 @@ Rejected candidates: <id — path — why>, or "none".
 
 ## 5. Timeline (REQUIRED)
 
-One row per human-typed prompt. Events column lists skills invoked,
-subagents dispatched, compaction, errors, resumes, aborts.
+Write one row for each human-typed prompt. The Events column lists the
+skills invoked, subagents dispatched, compactions, errors, resumes and
+aborts.
 
 | Turn | Line | Time | Request (one line) | Events |
 |---|---|---|---|---|
@@ -51,7 +52,7 @@ Each finding:
   turns: <first>–<last>
   confidence: high | medium | low
 ```
-A dimension with nothing to report says `none found — checked: <what was checked>`.
+If a dimension has nothing to report, it says `none found — checked: <what was checked>`.
 
 ### 6.1 Skill timeline
 ### 6.2 Plan adherence
@@ -66,15 +67,15 @@ A dimension with nothing to report says `none found — checked: <what was check
 
 not indicated | possible | likely
 
-Evidence lines: <path:line list>. This section states involvement only. It
-does not name a defect and does not propose a change.
+Evidence lines: <path:line list>. This section states the involvement only.
+It does not name a defect and does not propose a change.
 
 ## 8. Coverage notes (REQUIRED)
 
 - Not read: <ranges, files, and why>
 - Harness features unavailable: <list or none>
 - Session was in progress at read time: yes/no
-- For your human partner to double-check: <list or none>
+- For your human partner to verify again: <list or none>
 
 ## 9. Similar sessions (only when requested)
 
