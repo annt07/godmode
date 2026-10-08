@@ -110,6 +110,8 @@ In round 2 and later rounds, first read the previous round. Add a **Since round 
 
 Show the verdict, the blocking findings and the report path in chat.
 
+Write the report in descriptive STE (`godmode:ste-writing`). Keep quoted MR/PR text, code and log lines unchanged. After you write the report file, lint it: Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding.
+
 ## Phase 8: Cleanup
 
 Remove the review worktree (`git worktree remove --force "<tmp>/godmode-review-<label>"`, then `git worktree prune`). Do this also when an earlier phase failed. This skill creates nothing else outside `.scratch/` and `.godmode/security/`.

@@ -109,6 +109,8 @@ End with:
 - Write down Minor issues and refactoring suggestions for the next code review cycle
 - If the reviewer is wrong, disagree (with reasons)
 
+Write the review report in descriptive STE (`godmode:ste-writing`). Tell each reviewer subagent to do the same.
+
 ## Common Rationalizations
 
 | Excuse | Reality |

@@ -67,6 +67,8 @@ through the step. Do a static check of the script. Then:
 Never paste the manual steps into chat, and never ask your partner to paste
 a secret to you.
 
+**Writing:** Write ledger lines, rulings and your final message in descriptive STE (`godmode:ste-writing`).
+
 ## When to Use
 
 - You have a plan from godmode:writing-plans, and your human partner

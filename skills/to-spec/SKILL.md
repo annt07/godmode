@@ -25,6 +25,7 @@ If a design conversation or a grilling session already exists, go directly to th
    Ask your human partner whether these seams agree with what they expect. At this point, you and your partner agree the seams. After your partner approves the spec, the plan copies the seams into the "Seam under test" of each task. The execution then uses them without a new question. Record the agreed seams in the Testing Decisions of the spec.
 
 3. **Write the spec** with the template below. Save it to `docs/godmode/specs/YYYY-MM-DD-<topic>-design.md` and commit it.
+4. **Lint the spec.** Write the spec in descriptive STE (`godmode:ste-writing`). Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding. Then commit the fixes.
 
 ---
 

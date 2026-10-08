@@ -27,6 +27,8 @@ The process has these steps:
 
 **Prose guidance:** for how to write skill text (structure, wording, what to cut), use `godmode:writing-for-agents`. This skill covers how to test it.
 
+**STE:** Write each skill in STE (`godmode:ste-writing`). A skill change is not complete until the linter finds 0 hard findings in each changed file. Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding.
+
 ## What is a Skill?
 
 A **skill** is a reference guide for proven techniques, patterns or tools. Skills help future agents find and apply effective approaches.

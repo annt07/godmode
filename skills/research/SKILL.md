@@ -52,6 +52,8 @@ The file must have this structure:
 [Direct answer to the original question, in one or two sentences.]
 ```
 
+Write the research note in descriptive STE (`godmode:ste-writing`). Keep quotes from sources unchanged. After you save the note, lint it: Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding.
+
 ### 4. Completion Criterion
 
 The research is complete when all of these conditions are true:

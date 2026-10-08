@@ -58,6 +58,8 @@ Keep the standard of the template:
 
 Each `stage` clears the screen, so only the current step shows. Keep each stage to one focused task, so that nothing that the human needs scrolls away. Do not touch the library above the marker.
 
+Write the instructions that the wizard shows to the human in procedural STE (`godmode:ste-writing`).
+
 ### 4. Verify and hand off
 
 - `bash -n <script>`. If `shellcheck` is available, run it.

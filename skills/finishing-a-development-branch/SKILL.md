@@ -11,6 +11,8 @@ description: Use when implementation is complete, all tests pass, and you must d
 
 **Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
 
+Write commit messages, PR descriptions and your report in descriptive STE (`godmode:ste-writing`).
+
 ## Step 1: Verify Tests
 
 Run the full test suite of the project (`npm test` / `cargo test` / `pytest` / `go test ./...`).

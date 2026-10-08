@@ -2,6 +2,8 @@
 
 Use this template when dispatching an implementer subagent.
 
+Add this line to each brief: "Write your report in descriptive STE (`godmode:ste-writing`)."
+
 ```
 Subagent (general-purpose):
   description: "Implement Task N: [task name]"

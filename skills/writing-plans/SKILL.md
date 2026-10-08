@@ -24,6 +24,8 @@ Assume that they are a skilled developer who knows almost nothing about our tool
 
 **Save plans to:** `docs/godmode/plans/YYYY-MM-DD-<feature-name>.md`
 
+**Language:** Write the plan in STE (`godmode:ste-writing`). Use the procedural rules for steps and briefs, and the descriptive rules for all other text. After you save the plan, lint it: Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding.
+
 ## Scope Check
 
 If the spec covers more than one independent subsystem, brainstorming must have divided it into sub-project specs. If brainstorming did not do this, propose separate plans: one plan for each subsystem. Each plan must make software that works and that you can test on its own.

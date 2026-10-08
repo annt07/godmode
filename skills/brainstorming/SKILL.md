@@ -61,6 +61,10 @@ To find facts during grilling (filesystem, existing code, tool capabilities), di
 
 Each path ends when your human partner approves the required design, before implementation. A bounded change can need only two sentences in chat. A new project is architectural. It needs the written spec and the planning handoffs. Make the artifact the right size for the selected path. Complete the reviews of that path before implementation.
 
+## Writing
+
+Write each design note, design section and spec in descriptive STE (`godmode:ste-writing`).
+
 ## Red Flags
 
 | Thought | Reality |

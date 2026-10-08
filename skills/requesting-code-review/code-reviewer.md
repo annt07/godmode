@@ -4,6 +4,8 @@ Use this template when you dispatch a code reviewer subagent.
 
 **Purpose:** Review completed work against the requirements and the code quality standards before it spreads into more work.
 
+Add this line to each reviewer prompt: "Write your review in descriptive STE (`godmode:ste-writing`)."
+
 ```
 Subagent (general-purpose):
   description: "Review code changes"

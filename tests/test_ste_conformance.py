@@ -85,3 +85,19 @@ def test_finished_list_names_real_files():
 
 def test_all_targets_finished():
     assert {p for p, _ in targets()} == finished()
+
+
+WIRED = ["using-godmode/SKILL.md", "brainstorming/SKILL.md", "to-spec/SKILL.md", "writing-plans/SKILL.md",
+         "subagent-driven-development/SKILL.md", "subagent-driven-development/implementer-prompt.md",
+         "executing-plans/SKILL.md", "requesting-code-review/SKILL.md", "requesting-code-review/code-reviewer.md",
+         "mr-full-review/SKILL.md", "research/SKILL.md", "wizard/SKILL.md", "handoff/SKILL.md",
+         "domain-modeling/SKILL.md", "finishing-a-development-branch/SKILL.md", "writing-skills/SKILL.md",
+         "writing-for-agents/SKILL.md"]
+LINT_STEP = ["to-spec/SKILL.md", "writing-plans/SKILL.md", "research/SKILL.md", "mr-full-review/SKILL.md",
+             "domain-modeling/SKILL.md", "writing-skills/SKILL.md", "writing-for-agents/SKILL.md"]
+
+
+def test_output_wiring():
+    skills = ROOT / "skills"
+    assert [p for p in WIRED if "godmode:ste-writing" not in (skills / p).read_text(encoding="utf-8")] == []
+    assert [p for p in LINT_STEP if "ste-lint.py" not in (skills / p).read_text(encoding="utf-8")] == []

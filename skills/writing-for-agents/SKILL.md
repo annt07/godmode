@@ -7,6 +7,8 @@ This is the reference for each document that an agent reads. Examples are a skil
 
 When the document that you write is a skill, read [`SKILL-MECHANICS.md`](SKILL-MECHANICS.md) for frontmatter, the invocation choice and router skills.
 
+Write the sentences of each agent document in STE (`godmode:ste-writing`). STE controls the form of each sentence. This skill controls the structure of the document. A change is not complete until the linter finds 0 hard findings in each changed file. Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding.
+
 ## Context pointers
 
 A **context pointer** is a reference in the context of the agent. It names some out-of-context material and encodes the condition to reach it. The description of a skill is one. A line in `AGENTS.md` that names a doc is the same object. The _wording_ of the pointer, not its target, decides when the agent reaches the material, and how reliably. A must-have target behind a weakly worded pointer is a variance bug. Sharpen the wording first. Inline the material only if the sharpened wording fails.

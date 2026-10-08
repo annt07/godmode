@@ -145,6 +145,10 @@ Skills name actions, not tools: "read the file", "dispatch a subagent", "track t
 
 **Windows:** skills run helper scripts with `bash` (for example, `subagent-driven-development/scripts/*` and `executing-plans/scripts/*`). On Windows, a plain `bash` can start WSL (`C:\Windows\System32\bash.exe`). WSL cannot run these scripts from their Windows paths. Run the scripts with Git Bash instead: `& "C:\Program Files\Git\bin\bash.exe" <script> <args>`. If Git Bash is not installed, do the steps of the script by hand and ledger that you did them.
 
+## Writing
+
+All text that you write when you use godmode follows `godmode:ste-writing`. Use the procedural rules for steps, commands and briefs. Use the descriptive rules for all other text. Keep quoted user text, code, logs and error output unchanged.
+
 ## User Instructions
 
 User instructions have priority over skills, and skills have priority over default behavior. User instructions are the agent instructions files of the repository or the user (for example, AGENTS.md) and direct requests. Skip a skill workflow or an instruction only when your human partner tells you to skip it.

@@ -25,6 +25,8 @@ If a CONTEXT-MAP.md exists at the root, the repo has more than one context. The 
 
 Create files only when you have something to write in them. If no CONTEXT.md exists, create one when you resolve the first term. If no docs/adr/ exists, create it when you need the first ADR.
 
+Write `CONTEXT.md` entries and ADRs in descriptive STE (`godmode:ste-writing`). After you change one of these files, lint it: Run `python <ste-writing>/scripts/ste-lint.py --glossary <ste-writing>/glossary.md <file>`, where `<ste-writing>` is the folder of the `godmode:ste-writing` skill. Fix each hard finding.
+
 ## During the Session
 
 ### Challenge Against the Glossary

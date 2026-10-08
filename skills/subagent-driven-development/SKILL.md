@@ -49,6 +49,8 @@ step. Then verify the script statically yourself. Then:
 Never paste the manual steps into chat, and never ask your partner to paste
 a secret to you.
 
+**Writing:** Write briefs, ledger lines and reports in STE (`godmode:ste-writing`). Use the procedural rules for briefs. Tell each subagent to write its report in descriptive STE.
+
 ## When to Use
 
 ```dot
