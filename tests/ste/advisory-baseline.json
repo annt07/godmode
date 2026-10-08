@@ -7,16 +7,12 @@
   "passive-voice": 1,
   "present-perfect": 0
  },
- "skills/mr-full-review/SKILL.md": {
-  "passive-voice": 7,
-  "present-perfect": 0
- },
  "skills/mr-full-review/references/checklist.md": {
-  "passive-voice": 5,
+  "passive-voice": 1,
   "present-perfect": 0
  },
  "skills/setup-godmode/SKILL.md": {
-  "passive-voice": 4,
+  "passive-voice": 1,
   "present-perfect": 0
  },
  "skills/ste-writing/LICENSE-asd-ste100.md": {
@@ -31,36 +27,8 @@
   "passive-voice": 2,
   "present-perfect": 0
  },
- "skills/teach/GLOSSARY-FORMAT.md": {
-  "passive-voice": 2,
-  "present-perfect": 0
- },
- "skills/teach/LEARNING-RECORD-FORMAT.md": {
-  "passive-voice": 4,
-  "present-perfect": 0
- },
- "skills/teach/MISSION-FORMAT.md": {
-  "passive-voice": 0,
-  "present-perfect": 1
- },
- "skills/teach/RESOURCES-FORMAT.md": {
-  "passive-voice": 0,
-  "present-perfect": 1
- },
- "skills/teach/SKILL.md": {
-  "passive-voice": 8,
-  "present-perfect": 2
- },
- "skills/to-questionnaire/SKILL.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
  "skills/vuln-scan/SKILL.md": {
   "passive-voice": 2,
-  "present-perfect": 0
- },
- "skills/wizard/SKILL.md": {
-  "passive-voice": 4,
   "present-perfect": 0
  },
  "skills/writing-for-agents/SKILL.md": {
