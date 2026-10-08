@@ -1,5 +1,12 @@
 skills/brainstorming/SKILL.md
+skills/executing-plans/SKILL.md
+skills/finishing-a-development-branch/SKILL.md
 skills/grilling/SKILL.md
+skills/receiving-code-review/SKILL.md
+skills/requesting-code-review/SKILL.md
+skills/requesting-code-review/code-reviewer.md
+skills/requesting-code-review/fowler-smells.md
+skills/resolving-merge-conflicts/SKILL.md
 skills/ste-writing/SKILL.md
 skills/ste-writing/examples/before-after.md
 skills/ste-writing/glossary.md
@@ -12,6 +19,7 @@ skills/test-driven-development/SKILL.md
 skills/test-driven-development/mocking.md
 skills/test-driven-development/tests.md
 skills/to-spec/SKILL.md
+skills/using-git-worktrees/SKILL.md
 skills/using-godmode/SKILL.md
 skills/verification-before-completion/SKILL.md
 skills/writing-plans/SKILL.md

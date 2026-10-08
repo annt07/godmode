@@ -1,15 +1,15 @@
 ---
 name: receiving-code-review
-description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
+description: Use when you get code review feedback, before you implement suggestions. Use it especially when the feedback seems unclear or technically doubtful. It requires technical rigor and verification, not performative agreement or blind implementation.
 ---
 
 # Code Review Reception
 
 ## Overview
 
-Code review requires technical evaluation, not emotional performance.
+Code review requires a technical evaluation, not an emotional performance.
 
-**Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
+**Core principle:** Verify before you implement. Ask before you assume. Technical correctness is more important than social comfort.
 
 ## The Response Pattern
 
@@ -34,8 +34,8 @@ WHEN receiving code review feedback:
 **INSTEAD:**
 - Restate the technical requirement
 - Ask clarifying questions
-- Push back with technical reasoning if wrong
-- Just start working (actions > words)
+- If the feedback is wrong, disagree with technical reasons
+- Start the work (actions > words)
 
 ## Handling Unclear Feedback
 
@@ -59,10 +59,10 @@ You understand 1,2,3,6. Unclear on 4,5.
 ## Source-Specific Handling
 
 ### From your human partner
-- **Trusted** - implement after understanding
-- **Still ask** if scope unclear
+- **Trusted**: implement after you understand
+- **Still ask** if the scope is unclear
 - **No performative agreement**
-- **Skip to action** or technical acknowledgment
+- **Go directly to action** or to a technical acknowledgment
 
 ### From External Reviewers
 ```
@@ -85,7 +85,9 @@ IF conflicts with your human partner's prior decisions:
 
 **your human partner's rule:** "External feedback - be skeptical, but check carefully"
 
+<!-- ste:off -->
 ## YAGNI Check for "Professional" Features
+<!-- ste:on -->
 
 ```
 IF reviewer suggests "implementing properly":
@@ -112,25 +114,25 @@ FOR multi-item feedback:
 
 ## When To Push Back
 
-Push back when:
-- Suggestion breaks existing functionality
-- Reviewer lacks full context
-- Violates YAGNI (unused feature)
-- Technically incorrect for this stack
+Disagree when:
+- The suggestion breaks existing functionality
+- The reviewer does not have the full context
+- The suggestion violates YAGNI (unused feature)
+- The suggestion is technically incorrect for this stack
 - Legacy/compatibility reasons exist
-- Conflicts with your human partner's architectural decisions
+- The suggestion conflicts with the architectural decisions of your human partner
 
 **How to push back:**
-- Use technical reasoning, not defensiveness
+- Use technical reasons, not a defensive tone
 - Ask specific questions
-- Reference working tests/code
-- Involve your human partner if architectural
+- Refer to tests/code that work
+- If the issue is architectural, include your human partner
 
-**If you're uncomfortable pushing back out loud:** Name that tension, then tell your partner about the issue you've seen. They'll appreciate your honesty.
+**If you're uncomfortable pushing back out loud:** Name that tension. Then tell your partner about the issue that you saw. They will value your honesty.
 
 ## Acknowledging Correct Feedback
 
-When feedback IS correct:
+When the feedback IS correct:
 ```
 ✅ "Fixed. [Brief description of what changed]"
 ✅ "Good catch - [specific issue]. Fixed in [location]."
@@ -143,13 +145,13 @@ When feedback IS correct:
 ❌ ANY gratitude expression
 ```
 
-**Why no thanks:** Actions speak. Just fix it. The code itself shows you heard the feedback.
+**Why no thanks:** Actions speak. Fix it. The code shows that you heard the feedback.
 
-**If you catch yourself about to write "Thanks":** DELETE IT. State the fix instead.
+**If you catch yourself about to write "Thanks":** REMOVE IT. State the fix instead.
 
 ## Gracefully Correcting Your Pushback
 
-If you pushed back and were wrong:
+If you disagreed and you were wrong:
 ```
 ✅ "You were right - I checked [X] and it does [Y]. Implementing now."
 ✅ "Verified this and you're correct. My initial understanding was wrong because [reason]. Fixing."
@@ -159,19 +161,19 @@ If you pushed back and were wrong:
 ❌ Over-explaining
 ```
 
-State the correction factually and move on.
+State the correction as a fact. Then continue.
 
 ## Common Mistakes
 
 | Mistake | Fix |
 |---------|-----|
-| Performative agreement | State requirement or just act |
-| Blind implementation | Verify against codebase first |
-| Batch without testing | One at a time, test each |
-| Assuming reviewer is right | Check if breaks things |
+| Performative agreement | State the requirement, or act |
+| Blind implementation | First, verify against the codebase |
+| Batch without testing | Do one item at a time, and test each |
+| Assuming reviewer is right | Verify if it breaks things |
 | Avoiding pushback | Technical correctness > comfort |
-| Partial implementation | Clarify all items first |
-| Can't verify, proceed anyway | State limitation, ask for direction |
+| Partial implementation | First, make all items clear |
+| Can't verify, proceed anyway | State the limit, and ask for direction |
 
 ## Real Examples
 
@@ -202,4 +204,4 @@ You understand 1,2,3,6. Unclear on 4,5.
 
 ## GitHub Thread Replies
 
-When replying to inline review comments on GitHub, reply in the comment thread (`gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies`), not as a top-level PR comment.
+When you reply to inline review comments on GitHub, reply in the comment thread (`gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies`). Do not reply as a top-level PR comment.
