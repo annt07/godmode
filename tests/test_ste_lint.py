@@ -64,3 +64,55 @@ def test_prepare_keeps_line_count():
     text = '---\nname: x\n---\n"a; b"\n<!-- ste:off -->\nx\n<!-- ste:on -->\n'
     prepared, unclosed = sl.prepare(text)
     assert len(prepared.splitlines()) == len(text.splitlines()) and unclosed is False
+
+
+GLOSSARY = """# Glossary
+<!-- ste:off -->
+| Use | Do not use |
+|---|---|
+| verify (the agent tests a fact) | confirm, validate, check (verb) |
+| remove | delete, erase |
+| fix | repair, correct (verb) |
+<!-- ste:on -->
+"""
+
+
+def test_check_verb_patterns():
+    for s in ["Check the log.", "Then check that it passes.", "It checks the file.",
+              "We checked it.", "- check each task", "Do a sanity-check first."]:
+        assert "check-verb" in rules(s), s
+
+
+def test_check_noun_not_flagged():
+    for s in ["Run a check for errors.", "The check the linter runs is fast.", "Use the checklist.",
+              "Each check passes.", "Their check failed.", "A spot check is enough."]:
+        assert "check-verb" not in rules(s), s
+
+
+def test_check_and_correct_left_synonym_groups():
+    assert "synonym-rotation" not in rules("Verify the file. Then do a check.")
+    assert "synonym-rotation" not in rules("Fix the bug. Use the correct seam.")
+
+
+def test_glossary_words_flagged_outside_exempt_text(tmp_path):
+    g = tmp_path / "glossary.md"
+    g.write_text(GLOSSARY)
+    banned = sl.load_glossary(g)
+    assert set(banned) == {"confirm", "validate", "delete", "erase", "repair"}
+    found = rules('Confirm the result. Delete the file. Run `delete-me`. He said "confirm it".', glossary=banned)
+    assert found.count("glossary-word") == 2
+
+
+def test_max_words_option():
+    s = " ".join(["word"] * 22) + "."
+    assert rules(s) == [] and rules(s, max_words=20) == ["long-sentence"]
+
+
+def test_cli_glossary_and_max_words(tmp_path):
+    g = tmp_path / "glossary.md"
+    g.write_text(GLOSSARY)
+    f = tmp_path / "a.md"
+    f.write_text("Delete the file.\n")
+    r = subprocess.run([sys.executable, str(LINT), "--glossary", str(g), "--max-words", "20", str(f)],
+                       capture_output=True, text=True)
+    assert r.returncode == 1 and "glossary-word" in r.stdout

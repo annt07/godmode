@@ -17,6 +17,7 @@ Godmode adds the hard rules ste-off-unclosed, check-verb and glossary-word.
 Advisory findings (passive voice, compound tenses) never fail the run.
 """
 import json
+import pathlib
 import re
 import sys
 
@@ -59,17 +60,65 @@ RULES = [
 # Only pairs where the members are genuinely interchangeable — error/fault/failure
 # are distinct concepts and stay out.
 SYNONYM_GROUPS = [
-    ("check", "verify", "confirm", "validate"),
+    # godmode: "check" is an STE noun only (see check-verb); "correct" is also an adjective.
+    ("verify", "confirm", "validate"),
     ("delete", "remove", "erase"),
     ("start", "launch", "begin", "initiate"),
     ("stop", "halt", "terminate"),
     ("show", "display"),
     ("use", "utilize", "employ"),
-    ("fix", "repair", "correct"),
+    ("fix", "repair"),
     ("send", "transmit"),
     ("get", "retrieve", "fetch", "obtain"),
     ("change", "modify", "alter"),
 ]
+
+# check-verb (godmode): STE approves "check" as a noun only. The godmode verb is "verify".
+CHECK_NOUN_BEFORE = {"a", "an", "the", "this", "that", "each", "every", "no", "one",
+                     "my", "your", "its", "our", "their", "spot"}
+CHECK_OBJECT_AFTER = {"the", "that", "whether", "if", "for", "each", "every", "it", "them",
+                      "its", "your", "their", "all", "any"}
+CHECK_TOKEN = re.compile(r"(?<![\w-])(check(?:s|ed)?)\b|(?<=\w)-(check(?:s|ed)?)\b", re.I)
+SENTENCE_START = re.compile(r"(?:^|[.!?:]\s+|^\s*(?:[-*+]|\d+[.)])\s+)\s*$")
+
+
+def _check_verb_matches(line):
+    """Return matches for 'check' used as a verb (spec D2 item 5)."""
+    out = []
+    for m in CHECK_TOKEN.finditer(line):
+        before = re.findall(r"[\w']+", line[:m.start()])
+        prev = before[-1].lower() if before else ""
+        nxt = re.match(r"\s+([\w']+)", line[m.end():])
+        nxt = nxt.group(1).lower() if nxt else ""
+        hyphen = m.group(2) is not None
+        word = (m.group(1) or m.group(2)).lower()
+        if hyphen:
+            out.append(m)
+        elif prev in CHECK_NOUN_BEFORE:
+            continue
+        elif (word in ("checks", "checked") or nxt in CHECK_OBJECT_AFTER
+              or SENTENCE_START.search(line[:m.start()])):
+            out.append(m)
+    return out
+
+
+def load_glossary(path):
+    """Return the do-not-use words from a glossary file.
+
+    Reads the raw file (the list sits between ste:off markers). A word with a
+    qualifier in parentheses, such as "check (verb)", needs a reviewer, not a
+    word match, so it is not returned.
+    """
+    banned = []
+    for line in pathlib.Path(path).read_text(encoding="utf-8").splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) != 2 or set(cells[1]) <= set("-: ") or cells[0].lower() == "use":
+            continue
+        for word in cells[1].split(","):
+            word = word.strip()
+            if word and "(" not in word:
+                banned.append(word.lower())
+    return banned
 
 MAX_WORDS = 25  # descriptions cap; instructions cap is 20 but undetectable without context
 
@@ -350,6 +399,17 @@ def lint(text, filename="<stdin>", glossary=None, max_words=MAX_WORDS):
                                      "col": source_column + m.start() + 1,
                                      "rule": rule_id, "level": level,
                                      "match": m.group(0), "message": msg})
+            for m in _check_verb_matches(line):
+                findings.append({"file": filename, "line": lineno,
+                                 "col": source_column + m.start() + 1,
+                                 "rule": "check-verb", "level": "advisory-free", "match": m.group(0),
+                                 "message": "'check' used as a verb. STE approves 'check' as a noun only. Use 'verify'."})
+            for word in glossary or ():
+                for m in _word_re(re.escape(word)).finditer(line):
+                    findings.append({"file": filename, "line": lineno,
+                                     "col": source_column + m.start() + 1,
+                                     "rule": "glossary-word", "level": "advisory-free", "match": m.group(0),
+                                     "message": f"'{word}' is on the glossary's do-not-use list. Use the glossary word."})
             for gi, group in enumerate(SYNONYM_GROUPS):
                 for base in group:
                     if (gi, base) in seen_synonyms:
@@ -361,12 +421,12 @@ def lint(text, filename="<stdin>", glossary=None, max_words=MAX_WORDS):
                         )
             for sent in re.split(r"(?<=[.!?])\s+", line):
                 n = len(sent.split())
-                if n > MAX_WORDS:
+                if n > max_words:
                     findings.append({"file": filename, "line": lineno,
                                      "col": source_column + 1,
                                      "rule": "long-sentence", "level": "advisory-free",
                                      "match": f"{n} words",
-                                     "message": f"Sentence has {n} words (cap {MAX_WORDS}). Split it."})
+                                     "message": f"Sentence has {n} words (cap {max_words}). Split it."})
     # synonym rotation: flag each member after the first, at its first occurrence
     for gi, group in enumerate(SYNONYM_GROUPS):
         present = [(seen_synonyms[(gi, b)], b) for b in group if (gi, b) in seen_synonyms]
@@ -522,9 +582,10 @@ def selftest():
     assert len(long_sentences) == 1, long_sentences
     assert long_sentences[0]["match"] == "26 words", long_sentences
     # synonym rotation: second member flagged, first named as the keeper
-    findings, _ = lint("Check the config file. Then verify the output. Verify twice.")
+    # godmode: "check" left this group (STE noun only), so the case uses verify/confirm.
+    findings, _ = lint("Verify the config file. Then confirm the output. Confirm twice.")
     rot = [f for f in findings if f["rule"] == "synonym-rotation"]
-    assert len(rot) == 1 and "'verify' and 'check'" in rot[0]["message"], rot
+    assert len(rot) == 1 and "'confirm' and 'verify'" in rot[0]["message"], rot
     # single consistent term: no flag
     findings, _ = lint("Check the config. Check the output.")
     assert not any(f["rule"] == "synonym-rotation" for f in findings)
@@ -541,6 +602,8 @@ def main(argv):
     as_json = "--json" in argv
     baseline = 0
     disabled = set()
+    glossary = None
+    max_words = MAX_WORDS
     paths = []
     i = 0
     while i < len(argv):
@@ -551,6 +614,12 @@ def main(argv):
         elif a == "--disable":
             i += 1
             disabled = set(argv[i].split(","))
+        elif a == "--glossary":
+            i += 1
+            glossary = load_glossary(argv[i])
+        elif a == "--max-words":
+            i += 1
+            max_words = int(argv[i])
         elif not a.startswith("--"):
             paths.append(a)
         i += 1
@@ -558,11 +627,11 @@ def main(argv):
     findings, words_total = [], 0
     if paths:
         for p in paths:
-            f, w = lint(open(p, encoding="utf-8").read(), filename=p)
+            f, w = lint(open(p, encoding="utf-8").read(), filename=p, glossary=glossary, max_words=max_words)
             findings.extend(f)
             words_total += w
     else:
-        findings, words_total = lint(sys.stdin.read())
+        findings, words_total = lint(sys.stdin.read(), glossary=glossary, max_words=max_words)
 
     findings = [f for f in findings if f["rule"] not in disabled]
     hard_count = sum(1 for f in findings if f["level"] == "advisory-free")
