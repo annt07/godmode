@@ -238,7 +238,9 @@ godmode/
 │   └── ...
 ├── bin/godmode.mjs            npx entry point (calls the installer)
 ├── package.json               makes `npx github:annt07/godmode` work; private, never published
-├── tests/                     node --test tests/ (installer), uv run --with pytest pytest tests (provider script)
+├── tests/                     node --test tests/ (installer); uv run --with pytest pytest tests (provider script, STE linter, STE conformance)
+│   ├── ste/                   advisory baseline, trigger phrases, meaning-diff script, rewrite and review briefs
+│   └── agent-eval/            real-session eval: 19 trigger cases, design-gate rate, 4 pressure scenarios
 ├── hooks/
 │   ├── session-start          injects the router into every session
 │   ├── run-hook.cmd           Windows/Unix wrapper that finds bash
@@ -289,6 +291,7 @@ Problems found and fixed while testing:
 | Per-task review: one reviewer with two verdicts; final review: two parallel reviewers | Keeps the per-task cost flat (Superpowers' single task reviewer) while keeping the axes separate (Matt Pocock's two-axis review) |
 | `to-spec` and `improve-codebase-architecture` changed from user-invoked to automatic | The pipeline needs them at fixed points; a refactor still goes back through brainstorming's approval gates |
 | `diagnosing-godmode` writes local reports only | Godmode is a local skill set; bug reports never go to the upstream trackers |
+| All godmode text follows STE (based on ASD-STE100 Issue 9, not certified) | An agent cannot ask the author what a sentence means. STE removes words with two meanings and sentences with two structures. The router carries the core rules, and a test lints every skill file |
 
 ---
 

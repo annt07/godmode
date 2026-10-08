@@ -115,6 +115,10 @@ Your human partner makes the precision decisions while they are present. These d
 - the approvals of the spec and the plan
  After your partner approves the plan, all work continues without a stop and uses those decisions.
 
+## Writing
+
+Write all godmode output in STE (`godmode:ste-writing`): chat replies, reports, reviews, plans and commit messages. Use no semicolons. Keep each sentence at 25 words or fewer, in active voice, with the condition first. Use one command in each step. Keep quotes, code and logs unchanged.
+
 ## Red Flags
 
 These thoughts mean STOP. You are looking for a reason to skip a rule:
@@ -144,20 +148,6 @@ These thoughts mean STOP. You are looking for a reason to skip a rule:
 Skills name actions, not tools: "read the file", "dispatch a subagent", "track tasks", "invoke the skill". For each action, use the tool that your environment gives. If an action has no equivalent (for example, no subagent tool), use the fallback that the skill gives. Most skills tell you what to do inline instead.
 
 **Windows:** skills run helper scripts with `bash` (for example, `subagent-driven-development/scripts/*` and `executing-plans/scripts/*`). On Windows, a plain `bash` can start WSL (`C:\Windows\System32\bash.exe`). WSL cannot run these scripts from their Windows paths. Run the scripts with Git Bash instead: `& "C:\Program Files\Git\bin\bash.exe" <script> <args>`. If Git Bash is not installed, do the steps of the script by hand and ledger that you did them.
-
-## Writing
-
-All text that you write when you use godmode follows `godmode:ste-writing`. This includes chat replies, reports, reviews, plans and commit messages. Apply these rules to each sentence that you write:
-
-- Use no semicolons. Write two sentences.
-- Use 25 words or fewer in a sentence. In steps and commands, use 20 words or fewer and one command in each sentence.
-- Use active voice. Name who acts.
-- Put a condition first: "If X, do Y."
-- Use a vertical list for 3 or more items, steps or conditions.
-- Use one word for one action: "verify", not "confirm" or "check" as a verb. Use "remove", not "delete".
-- Keep each hedge ("may", "can") as it is.
-
-Keep quoted user text, code, logs and error output unchanged. For a long document, also run the linter of `godmode:ste-writing` on the file.
 
 ## User Instructions
 
