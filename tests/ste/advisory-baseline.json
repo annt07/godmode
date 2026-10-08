@@ -1,34 +1,10 @@
 {
- "skills/codebase-design/DEEPENING.md": {
-  "passive-voice": 4,
-  "present-perfect": 0
- },
- "skills/codebase-design/SKILL.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
  "skills/diagnosing-godmode/prompts/scrub-audit.md": {
   "passive-voice": 1,
   "present-perfect": 0
  },
- "skills/domain-modeling/ADR-FORMAT.md": {
-  "passive-voice": 3,
-  "present-perfect": 0
- },
- "skills/domain-modeling/CONTEXT-FORMAT.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
- "skills/domain-modeling/SKILL.md": {
-  "passive-voice": 4,
-  "present-perfect": 0
- },
  "skills/improve-codebase-architecture/HTML-REPORT.md": {
   "passive-voice": 1,
-  "present-perfect": 0
- },
- "skills/improve-codebase-architecture/SKILL.md": {
-  "passive-voice": 6,
   "present-perfect": 0
  },
  "skills/mr-full-review/SKILL.md": {
@@ -37,22 +13,6 @@
  },
  "skills/mr-full-review/references/checklist.md": {
   "passive-voice": 5,
-  "present-perfect": 0
- },
- "skills/prototype/LOGIC.md": {
-  "passive-voice": 3,
-  "present-perfect": 1
- },
- "skills/prototype/SKILL.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
- "skills/prototype/UI.md": {
-  "passive-voice": 5,
-  "present-perfect": 1
- },
- "skills/research/SKILL.md": {
-  "passive-voice": 3,
   "present-perfect": 0
  },
  "skills/setup-godmode/SKILL.md": {
