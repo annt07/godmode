@@ -61,6 +61,7 @@ This combined skill set merges Superpowers (autonomous pipeline driver) with Mat
 | Blocked on a step only a human can do (credentials, CI secrets, a dashboard, a one-off cutover) | `godmode:wizard` |
 | Creating or editing a skill, an agent instructions file (AGENTS.md or equivalent), or another agent-read document | `godmode:writing-for-agents` |
 | The security pass of any code review; or a request to scan code for vulnerabilities, secrets or PHI/PII exposure | `godmode:vuln-scan` |
+| A request to rewrite a text in STE (all godmode output follows STE by default) | `godmode:ste-writing` |
 
 ### Programmer Commands (user-invoked only)
 

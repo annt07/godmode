@@ -1,0 +1,4 @@
+skills/ste-writing/SKILL.md
+skills/ste-writing/glossary.md
+skills/ste-writing/references/writing-rules.md
+skills/ste-writing/examples/before-after.md

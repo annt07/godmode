@@ -147,3 +147,18 @@ def test_report_states_limits(tmp_path):
     f.write_text("Good text.\n")
     out = subprocess.run([sys.executable, str(LINT), str(f)], capture_output=True, text=True).stdout
     assert "can be wrong" in out and "does not prove" in out
+
+
+def test_word_in_two_glossary_rows_reported_once(tmp_path):
+    g = tmp_path / "glossary.md"
+    g.write_text("| Use | Do not use |\n|---|---|\n| verify | confirm |\n| approve | confirm |\n")
+    banned = sl.load_glossary(g)
+    assert banned == ["confirm"]
+    assert rules("Confirm it.", glossary=banned) == ["glossary-word"]
+
+
+def test_glossary_reads_only_the_do_not_use_table(tmp_path):
+    g = tmp_path / "glossary.md"
+    g.write_text("| Use | Do not use |\n|---|---|\n| remove | delete |\n\n"
+                 "| Term | Meaning |\n|---|---|\n| seam | A public interface, the test seam |\n")
+    assert sl.load_glossary(g) == ["delete"]

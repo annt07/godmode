@@ -70,7 +70,7 @@ You don't call pipeline skills by hand. A session-start hook (plugin install) or
 
 ## Skills
 
-33 skills: 26 the agent uses on its own, and 7 commands only you can run.
+34 skills: 27 the agent uses on its own, and 7 commands only you can run.
 
 ### Pipeline (from Superpowers)
 
@@ -106,6 +106,7 @@ You don't call pipeline skills by hand. A session-start hook (plugin install) or
 | `improve-codebase-architecture` | "Refactor / make testable" requests: HTML report of deepening opportunities, then grilling on the one you pick |
 | `wizard` | A step only a human can do (credentials, CI secrets, dashboards, cutovers): generates a guided script instead of pasting steps or asking for secrets |
 | `writing-for-agents` | Writing skills, AGENTS.md, CLAUDE.md, plans and briefs for agent readers |
+| `ste-writing` | Simplified Technical English (based on ASD-STE100 Issue 9, not certified). All godmode output follows it by default; it also rewrites any text on request. Includes the `ste-lint.py` linter and the godmode glossary |
 
 ### Security (used automatically)
 
@@ -226,7 +227,7 @@ On Devin, `devin skills list` (or `devin plugins list`) shows the installed skil
 
 ```
 godmode/
-├── skills/                    33 skills, one folder each (SKILL.md + support files)
+├── skills/                    34 skills, one folder each (SKILL.md + support files)
 │   ├── using-godmode/         router (harness-neutral: no skill names a specific agent tool)
 │   ├── subagent-driven-development/   prompts + scripts/ (task-brief, review-package, sdd-workspace)
 │   ├── executing-plans/       scripts/ (task-start, task-done)

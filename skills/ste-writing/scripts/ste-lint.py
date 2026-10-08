@@ -49,7 +49,7 @@ RULES = [
      "Action frozen into a noun. Use the verb (analyze, not perform an analysis of)."),
     ("passive-voice", "advisory",
      re.compile(r"\b(is|are|was|were|been|being)\s+(\w+ed|" + PASSIVE_PARTICIPLES + r")\b(?!\s+(?:to|for|by)\s+\w+ing)", re.I),
-     "Possible passive voice. Name the actor and use an active verb, unless the actor is unknown or irrelevant."),
+     "Possible passive voice. Name the actor and use an active verb. STE permits passive voice only when the actor is unknown."),
     ("present-perfect", "advisory",
      # modal + perfect infinitive ("may have failed") is a protected hedge, not present perfect
      re.compile(r"(?<!\bmay )(?<!\bmight )(?<!\bcould )(?<!\bshould )(?<!\bwould )(?<!\bmust )\b(has|have|had)\s+(?:been\s+)?(?:\w+(?:ed|en)|" + IRREGULAR_PARTICIPLES + r")\b", re.I),
@@ -109,14 +109,20 @@ def load_glossary(path):
     qualifier in parentheses, such as "check (verb)", needs a reviewer, not a
     word match, so it is not returned.
     """
-    banned = []
+    banned, in_table = [], False
     for line in pathlib.Path(path).read_text(encoding="utf-8").splitlines():
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
-        if len(cells) != 2 or set(cells[1]) <= set("-: ") or cells[0].lower() == "use":
+        if [c.lower() for c in cells] == ["use", "do not use"]:
+            in_table = True
+            continue
+        if not line.strip().startswith("|"):
+            in_table = False
+            continue
+        if not in_table or len(cells) != 2 or set(cells[1]) <= set("-: "):
             continue
         for word in cells[1].split(","):
             word = word.strip()
-            if word and "(" not in word:
+            if word and "(" not in word and word.lower() not in banned:
                 banned.append(word.lower())
     return banned
 

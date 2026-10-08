@@ -1,35 +1,173 @@
 {
- "skills/brainstorming/SKILL.md": ["creative work", "features", "components", "functionality", "behavior"],
- "skills/codebase-design/SKILL.md": ["module interface", "seam", "testable", "boundary"],
- "skills/diagnosing-godmode/SKILL.md": ["went wrong", "bug report", "expensive", "didn't fire"],
- "skills/dispatching-parallel-agents/SKILL.md": ["2+ independent tasks", "shared state"],
- "skills/domain-modeling/SKILL.md": ["terminology", "CONTEXT.md", "ADR", "fuzzy"],
- "skills/executing-plans/SKILL.md": ["implementation plan", "current session", "inline execution"],
- "skills/finishing-a-development-branch/SKILL.md": ["implementation is complete", "tests pass", "integrate"],
- "skills/grill-me/SKILL.md": ["interview", "plan or design"],
- "skills/grilling/SKILL.md": ["requirements", "stress-testing", "plan or design"],
- "skills/handoff/SKILL.md": ["handoff document", "another agent"],
- "skills/improve-codebase-architecture/SKILL.md": ["architectural improvement", "shallow modules", "testability", "refactoring"],
- "skills/mr-full-review/SKILL.md": ["merge request", "pull request", "GitLab", "GitHub", "Bitbucket", "Read-only"],
- "skills/prototype/SKILL.md": ["spike", "throwaway", "feasibility", "UI"],
- "skills/receiving-code-review/SKILL.md": ["code review feedback", "suggestions"],
- "skills/requesting-code-review/SKILL.md": ["completing tasks", "major features", "merging", "requirements"],
- "skills/research/SKILL.md": ["factual question", "primary-source", "official docs", "background agent"],
- "skills/resolving-merge-conflicts/SKILL.md": ["merge or rebase conflict"],
- "skills/setup-godmode/SKILL.md": ["Install", "bootstrap"],
- "skills/subagent-driven-development/SKILL.md": ["implementation plans", "independent tasks", "current session"],
- "skills/systematic-debugging/SKILL.md": ["bug", "test failure", "unexpected behavior", "performance problem"],
- "skills/teach/SKILL.md": ["Teach", "concept"],
- "skills/test-driven-development/SKILL.md": ["feature or bugfix", "implementation code"],
- "skills/to-questionnaire/SKILL.md": ["questionnaire"],
- "skills/to-spec/SKILL.md": ["resolved design", "spec", "writing-plans"],
- "skills/using-git-worktrees/SKILL.md": ["feature work", "isolation", "worktree"],
- "skills/using-godmode/SKILL.md": ["starting any conversation", "skill invocation"],
- "skills/verification-before-completion/SKILL.md": ["complete, fixed, or passing", "committing", "evidence"],
- "skills/vuln-scan/SKILL.md": ["vulnerabilit", "code review", "secrets", "injection", "PHI/PII", "threat model"],
- "skills/wait-what/SKILL.md": ["re-pitch"],
- "skills/wizard/SKILL.md": ["wizard", "credentials", "CI secrets", "dashboard", "migration"],
- "skills/writing-for-agents/SKILL.md": ["skills", "AGENTS.md"],
- "skills/writing-plans/SKILL.md": ["spec or requirements", "multi-step task"],
- "skills/writing-skills/SKILL.md": ["creating new skills", "editing existing skills"]
+ "skills/brainstorming/SKILL.md": [
+  "creative work",
+  "features",
+  "components",
+  "functionality",
+  "behavior"
+ ],
+ "skills/codebase-design/SKILL.md": [
+  "module interface",
+  "seam",
+  "testable",
+  "boundary"
+ ],
+ "skills/diagnosing-godmode/SKILL.md": [
+  "went wrong",
+  "bug report",
+  "expensive",
+  "didn't fire"
+ ],
+ "skills/dispatching-parallel-agents/SKILL.md": [
+  "2+ independent tasks",
+  "shared state"
+ ],
+ "skills/domain-modeling/SKILL.md": [
+  "terminology",
+  "CONTEXT.md",
+  "ADR",
+  "fuzzy"
+ ],
+ "skills/executing-plans/SKILL.md": [
+  "implementation plan",
+  "current session",
+  "inline execution"
+ ],
+ "skills/finishing-a-development-branch/SKILL.md": [
+  "implementation is complete",
+  "tests pass",
+  "integrate"
+ ],
+ "skills/grill-me/SKILL.md": [
+  "interview",
+  "plan or design"
+ ],
+ "skills/grilling/SKILL.md": [
+  "requirements",
+  "stress-testing",
+  "plan or design"
+ ],
+ "skills/handoff/SKILL.md": [
+  "handoff document",
+  "another agent"
+ ],
+ "skills/improve-codebase-architecture/SKILL.md": [
+  "architectural improvement",
+  "shallow modules",
+  "testability",
+  "refactoring"
+ ],
+ "skills/mr-full-review/SKILL.md": [
+  "merge request",
+  "pull request",
+  "GitLab",
+  "GitHub",
+  "Bitbucket",
+  "Read-only"
+ ],
+ "skills/prototype/SKILL.md": [
+  "spike",
+  "throwaway",
+  "feasibility",
+  "UI"
+ ],
+ "skills/receiving-code-review/SKILL.md": [
+  "code review feedback",
+  "suggestions"
+ ],
+ "skills/requesting-code-review/SKILL.md": [
+  "completing tasks",
+  "major features",
+  "merging",
+  "requirements"
+ ],
+ "skills/research/SKILL.md": [
+  "factual question",
+  "primary-source",
+  "official docs",
+  "background agent"
+ ],
+ "skills/resolving-merge-conflicts/SKILL.md": [
+  "merge or rebase conflict"
+ ],
+ "skills/setup-godmode/SKILL.md": [
+  "Install",
+  "bootstrap"
+ ],
+ "skills/ste-writing/SKILL.md": [
+  "make this STE",
+  "simplify",
+  "disambiguate"
+ ],
+ "skills/subagent-driven-development/SKILL.md": [
+  "implementation plans",
+  "independent tasks",
+  "current session"
+ ],
+ "skills/systematic-debugging/SKILL.md": [
+  "bug",
+  "test failure",
+  "unexpected behavior",
+  "performance problem"
+ ],
+ "skills/teach/SKILL.md": [
+  "Teach",
+  "concept"
+ ],
+ "skills/test-driven-development/SKILL.md": [
+  "feature or bugfix",
+  "implementation code"
+ ],
+ "skills/to-questionnaire/SKILL.md": [
+  "questionnaire"
+ ],
+ "skills/to-spec/SKILL.md": [
+  "resolved design",
+  "spec",
+  "writing-plans"
+ ],
+ "skills/using-git-worktrees/SKILL.md": [
+  "feature work",
+  "isolation",
+  "worktree"
+ ],
+ "skills/using-godmode/SKILL.md": [
+  "starting any conversation",
+  "skill invocation"
+ ],
+ "skills/verification-before-completion/SKILL.md": [
+  "complete, fixed, or passing",
+  "committing",
+  "evidence"
+ ],
+ "skills/vuln-scan/SKILL.md": [
+  "vulnerabilit",
+  "code review",
+  "secrets",
+  "injection",
+  "PHI/PII",
+  "threat model"
+ ],
+ "skills/wait-what/SKILL.md": [
+  "re-pitch"
+ ],
+ "skills/wizard/SKILL.md": [
+  "wizard",
+  "credentials",
+  "CI secrets",
+  "dashboard",
+  "migration"
+ ],
+ "skills/writing-for-agents/SKILL.md": [
+  "skills",
+  "AGENTS.md"
+ ],
+ "skills/writing-plans/SKILL.md": [
+  "spec or requirements",
+  "multi-step task"
+ ],
+ "skills/writing-skills/SKILL.md": [
+  "creating new skills",
+  "editing existing skills"
+ ]
 }

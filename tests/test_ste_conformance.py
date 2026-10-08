@@ -24,6 +24,8 @@ GLOSSARY = sl.load_glossary(ROOT / "skills/ste-writing/glossary.md")
 def targets():
     """(repo-relative path, text) for every agent-read text unit."""
     for p in sorted((ROOT / "skills").rglob("*.md")):
+        if p.name.startswith("LICENSE"):
+            continue  # legal text stays verbatim
         yield p.relative_to(ROOT).as_posix(), p.read_text(encoding="utf-8")
     for p in sorted((ROOT / "skills").rglob("agents/openai.yaml")):
         m = re.search(r"^\s*short_description:\s*(.+)$", p.read_text(encoding="utf-8"), re.M)
