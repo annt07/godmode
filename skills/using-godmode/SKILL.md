@@ -147,7 +147,17 @@ Skills name actions, not tools: "read the file", "dispatch a subagent", "track t
 
 ## Writing
 
-All text that you write when you use godmode follows `godmode:ste-writing`. Use the procedural rules for steps, commands and briefs. Use the descriptive rules for all other text. Keep quoted user text, code, logs and error output unchanged.
+All text that you write when you use godmode follows `godmode:ste-writing`. This includes chat replies, reports, reviews, plans and commit messages. Apply these rules to each sentence that you write:
+
+- Use no semicolons. Write two sentences.
+- Use 25 words or fewer in a sentence. In steps and commands, use 20 words or fewer and one command in each sentence.
+- Use active voice. Name who acts.
+- Put a condition first: "If X, do Y."
+- Use a vertical list for 3 or more items, steps or conditions.
+- Use one word for one action: "verify", not "confirm" or "check" as a verb. Use "remove", not "delete".
+- Keep each hedge ("may", "can") as it is.
+
+Keep quoted user text, code, logs and error output unchanged. For a long document, also run the linter of `godmode:ste-writing` on the file.
 
 ## User Instructions
 
