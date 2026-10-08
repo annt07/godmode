@@ -1,51 +1,61 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Use when you have a spec or requirements for a multi-step task, before you change code.
 ---
 
 # Writing Plans
 
 ## Overview
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
+Write complete implementation plans. Assume that the engineer has zero context for our codebase and poor taste. Write all that they must know:
 
-Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they do not know good test design very well.
+- which files each task changes
+- the code
+- the tests, and how to run them
+- the docs that they can need to read
 
-**Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
+Give them the full plan as small tasks. DRY. YAGNI. TDD. Frequent commits.
 
-**Context:** If working in an isolated worktree, it should have been created via the `godmode:using-git-worktrees` skill at execution time.
+Assume that they are a skilled developer who knows almost nothing about our toolset or problem domain. Assume that they do not know good test design well.
+
+**Announce at the start:** "I'm using the writing-plans skill to create the implementation plan."
+
+**Context:** If you work in an isolated worktree, the `godmode:using-git-worktrees` skill must have made it at execution time.
 
 **Save plans to:** `docs/godmode/plans/YYYY-MM-DD-<feature-name>.md`
 
 ## Scope Check
 
-If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it was not, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
+If the spec covers more than one independent subsystem, brainstorming must have divided it into sub-project specs. If brainstorming did not do this, propose separate plans: one plan for each subsystem. Each plan must make software that works and that you can test on its own.
 
 ## File Structure
 
-Before defining tasks, map out which files will be created or modified and what each one is responsible for. This is where decomposition decisions get locked in.
+Before you define the tasks, list the files that the plan makes or changes, and the responsibility of each file. Here you lock the decomposition decisions.
 
-**REQUIRED SUB-SKILL:** Invoke `godmode:codebase-design` to evaluate module boundaries. Each file should be a deep module: a lot of behaviour behind a small interface. Apply the deletion test to every proposed file boundary. Ask: would deleting this module concentrate complexity, or just move it? Prefer smaller, focused files over large ones that do too much.
+**REQUIRED SUB-SKILL:** Invoke `godmode:codebase-design` to assess the module boundaries. Each file must be a deep module: a lot of behavior behind a small interface. Apply the deletion test to each proposed file boundary. Ask: if you remove this module, does the complexity collect in one place, or does it only move? Prefer small, focused files to large files that do too much.
 
-- Design units with clear boundaries and well-defined interfaces (module, seam, adapter vocabulary from codebase-design).
-- Files that change together should live together. Split by responsibility, not by technical layer.
-- In existing codebases, follow established patterns. If a file you are modifying has grown unwieldy, including a split in the plan is reasonable.
+- Design units with clear boundaries and well-defined interfaces (the module, seam and adapter vocabulary from codebase-design).
+- Files that change together must stay together. Divide by responsibility, not by technical layer.
+- In an existing codebase, follow the existing patterns. If a file that you change became too large, you can add a split to the plan.
 
-This structure informs the task decomposition. Each task should produce self-contained changes that make sense independently.
+This structure informs the task decomposition. Each task must make a self-contained change that has a purpose on its own.
 
 ## Task Right-Sizing
 
-A task is the smallest unit that carries its own test cycle and is worth a fresh reviewer's gate. When drawing task boundaries: fold setup, configuration, scaffolding, and documentation steps into the task whose deliverable needs them; split only where a reviewer could meaningfully reject one task while approving its neighbor. Each task ends with an independently testable deliverable.
+A task is the smallest unit that has its own test cycle and that a new reviewer can usefully gate. When you set the task boundaries, put setup, configuration, scaffolding and documentation steps into the task whose result needs them. Divide a task only where a reviewer can reject one part and approve the next part. Each task ends with a result that you can test on its own.
 
 ## Slice Vertically: Tracer Bullets, Not Layers
 
-Every task is a **tracer bullet**: a thin but complete path through every layer the change touches (schema, logic, API, UI, tests) that can be demoed on its own the moment it lands. Never slice by layer ("all the schema", then "all the API"): nothing works until every layer lands, and each task's checks reach into work another task owns. Horizontal slicing is the failure that multiplies rework.
+Each task is a **tracer bullet**: a thin but complete path through each layer that the change touches (schema, logic, API, UI, tests). You can show the task on its own when it lands. Never divide the work by layer ("all the schema", then "all the API"). If you do, nothing works until all layers land, and the checks of each task depend on work that a different task owns. Horizontal slicing is the failure that multiplies rework.
 
-- **Demo test.** For each task, answer: "What can I demo when this is done?" The answer must be behavior, not a layer. A task with no answer is a horizontal slice: re-cut it.
-- **Prefactoring first.** Make the change easy, then make the easy change. If existing code must be reshaped before the feature fits (a shallow module deepened, a seam introduced), that reshaping is its own task at the front of the order, never mixed into a feature task.
-- **Checks must fail at the start.** Every acceptance check must be false at the commit the task starts from. A check already true at the base, or one only another task's work can satisfy, grades nothing. For each check, name the observation that would show it false.
-- **Wide-refactor exception: expand, migrate, contract.** A single mechanical change whose blast radius fans across the codebase (rename a column, retype a shared symbol) cannot land as one green vertical slice. Sequence it as: **expand** (add the new form beside the old, nothing breaks), **migrate** (move call sites in batches sized by blast radius, one task per batch, each consuming the expand), **contract** (delete the old form once no caller remains).
-- **Size to one fresh context.** A task must be finishable by an implementer that has never seen the spec, working only from its brief.
+- **Demo test.** For each task, answer: "What can I demo when this is done?" The answer must be a behavior, not a layer. A task with no answer is a horizontal slice. Cut it again.
+- **Prefactoring first.** Make the change easy, then make the easy change. Sometimes existing code must change its shape before the feature fits (a shallow module becomes deeper, or a new seam). That change of shape is its own task at the start of the order. Never mix it into a feature task.
+- **Each acceptance check must fail at the start.** Each acceptance check must be false at the commit where the task starts. A check that is already true at the base grades nothing. A check that only the work of a different task can make true also grades nothing. For each check, name the observation that shows that it is false.
+- **Wide-refactor exception: expand, migrate, contract.** Some mechanical changes affect much of the codebase (rename a column, change the type of a shared symbol). Such a change cannot land as one green vertical slice. Do it in this order:
+  - **expand**: add the new form next to the old form. Nothing breaks.
+  - **migrate**: move the call sites in batches. The size of the affected area sets the batch size. Use one task for each batch. Each batch uses the expand.
+  - **contract**: remove the old form when no caller uses it.
+- **Size to one new context.** An implementer that never saw the spec must be able to finish the task with only its brief.
 
 ## Bite-Sized Task Granularity
 
@@ -86,7 +96,7 @@ Every task is a **tracer bullet**: a thin but complete path through every layer 
 
 ## Task Structure
 
-Each task must include seam confirmation before any test is written (see `godmode:test-driven-development`). Replace all placeholders with real project commands and syntax — do not leave `[ext]`, `[test framework]`, or `[project test command]` in the final plan:
+In each task, the implementer verifies the seam before they write a test (see `godmode:test-driven-development`). Replace all placeholders with real project commands and syntax. Do not leave `[ext]`, `[test framework]` or `[project test command]` in the final plan:
 
 ````markdown
 ### Task N: [Component Name]
@@ -138,47 +148,49 @@ git commit -m "feat: [what this task implements]"
 
 ## No Placeholders
 
-Every step must contain the actual content an engineer needs. These are **plan failures** — never write them:
+Each step must contain the actual content that an engineer needs. These items are **plan failures**. Never write them:
 - "TBD", "TODO", "implement later", "fill in details"
 - "Add appropriate error handling" / "add validation" / "handle edge cases"
 - "Write tests for the above" (without actual test code)
-- "Similar to Task N" (repeat the code — the engineer may be reading tasks out of order)
-- Steps that describe what to do without showing how (code blocks required for code steps)
-- References to types, functions, or methods not defined in any task
+- "Similar to Task N" (repeat the code, because the engineer can read the tasks in a different order)
+- Steps that tell what to do but do not show how (code steps need code blocks)
+- References to types, functions or methods that no task defines
 
 ## Self-Review
 
-After writing the complete plan, look at the spec with fresh eyes and check the plan against it. This is a checklist you run yourself — not a subagent dispatch.
+After you write the complete plan, read the spec again as a new reader and compare the plan with it. You do this checklist yourself. It is not a subagent dispatch.
 
-**1. Spec coverage:** Skim each section/requirement in the spec. Can you point to a task that implements it? List any gaps.
+**1. Spec coverage:** Read each section and requirement of the spec quickly. Can you point to a task that implements it? List each gap.
 
-**2. Placeholder scan:** Search your plan for red flags — any of the patterns from the "No Placeholders" section above. Fix them.
+**2. Placeholder scan:** Search your plan for red flags: any pattern from the "No Placeholders" section above. Fix them.
 
-**3. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks?
+**3. Type consistency:** Do the types, method signatures and property names in later tasks agree with what you defined in earlier tasks?
 
-**4. Seam consistency:** Does each task name its seam? Are the seams at the highest point possible? Are any seams duplicated across tasks (a sign of coupling)?
+**4. Seam consistency:** Does each task name its seam? Are the seams at the highest possible point? Do two tasks use the same seam (a sign of coupling)?
 
-**5. Review Focus:** For each input class or failure mode the spec implies, is there a task whose tests exercise it?
+**5. Review Focus:** For each input class or failure mode that the spec implies, does a task have tests that exercise it?
 
-**6. Slicing:** Does every task have a behavioral Demo line and a Fails at base line? Is any task one layer of the change? Is prefactoring at the front, not mixed into feature tasks? Is any wide refactor sequenced expand, migrate, contract?
+**6. Slicing:** Does each task have a behavioral Demo line and a Fails at base line? Is a task only one layer of the change? Is prefactoring at the start, not mixed into feature tasks? Does each wide refactor use the order expand, migrate, contract?
 
-**7. Agent-readable:** The plan and every task brief are read by agents with no context. Apply godmode:writing-for-agents' no-op test to the Global Constraints and task prose: cut what the implementer would do by default, keep each constraint in one place, and give every step a checkable done-condition.
+**7. Agent-readable:** Agents with no context read the plan and each task brief. Apply the no-op test of godmode:writing-for-agents to the Global Constraints and the task text. Remove what the implementer does by default. Keep each constraint in one place. Give each step a done-condition that a reader can verify.
 
-If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
+If you find problems, fix them in the plan. You do not have to review again. Fix the problems and continue. If you find a spec requirement with no task, add the task.
 
 ## Execution Handoff
 
-After saving and self-reviewing the plan, link it for your human partner to read. Ask them to review the plan and choose an execution method before implementation.
+After you save the plan and review it yourself, give your human partner a link to it. Ask them to review the plan and to select an execution method before implementation.
 
 **"Plan complete and saved to `docs/godmode/plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
 
-- **Subagent-driven** - A fresh subagent implements each task and a fresh reviewer checks it before the next one starts, then a whole-branch review at the end. Most thorough; costs a fresh context per task and per review.
-- **Native** - I implement every task myself in this session, then one fresh reviewer on the most capable model checks the whole branch. Cheapest and fastest; no independent review until the end.
+- **Subagent-driven** - A new subagent implements each task. A new reviewer reviews it before the next task starts. At the end, one review covers the full branch. This is the most thorough method. It costs a new context for each task and each review.
+- **Native** - I implement each task myself in this session. Then one new reviewer on the most capable model reviews the full branch. This is the cheapest and fastest method. No independent review occurs until the end.
 
-**For this plan I recommend <one of the two>, because <one sentence from the plan: how much the tasks depend on each other's interfaces, how many there are, what a shipped mistake would cost>. Does the plan capture what you want, and which approach should we use?"**
+**For this plan I recommend <one of the two>, because <reason>. Does the plan capture what you want? Which approach should we use?"**
 
-**If Subagent-driven chosen:**
+The `<reason>` is one sentence from the plan. It tells how much the tasks depend on the interfaces of other tasks, how many tasks there are, and the cost of a shipped mistake.
+
+**If your partner selects Subagent-driven:**
 - **REQUIRED SUB-SKILL:** Use `godmode:subagent-driven-development`
 
-**If Native chosen:**
+**If your partner selects Native:**
 - **REQUIRED SUB-SKILL:** Use `godmode:executing-plans`

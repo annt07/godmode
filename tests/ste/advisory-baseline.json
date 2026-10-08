@@ -1,8 +1,4 @@
 {
- "skills/brainstorming/SKILL.md": {
-  "passive-voice": 1,
-  "present-perfect": 0
- },
  "skills/codebase-design/DEEPENING.md": {
   "passive-voice": 4,
   "present-perfect": 0
@@ -53,10 +49,6 @@
  },
  "skills/finishing-a-development-branch/SKILL.md": {
   "passive-voice": 3,
-  "present-perfect": 1
- },
- "skills/grilling/SKILL.md": {
-  "passive-voice": 1,
   "present-perfect": 1
  },
  "skills/improve-codebase-architecture/HTML-REPORT.md": {
@@ -147,24 +139,12 @@
   "passive-voice": 8,
   "present-perfect": 2
  },
- "skills/test-driven-development/SKILL.md": {
-  "passive-voice": 7,
-  "present-perfect": 1
- },
  "skills/to-questionnaire/SKILL.md": {
   "passive-voice": 1,
   "present-perfect": 0
  },
- "skills/to-spec/SKILL.md": {
-  "passive-voice": 4,
-  "present-perfect": 1
- },
  "skills/using-git-worktrees/SKILL.md": {
   "passive-voice": 1,
-  "present-perfect": 1
- },
- "skills/using-godmode/SKILL.md": {
-  "passive-voice": 4,
   "present-perfect": 1
  },
  "skills/vuln-scan/SKILL.md": {
@@ -182,10 +162,6 @@
  "skills/writing-for-agents/SKILL.md": {
   "passive-voice": 5,
   "present-perfect": 0
- },
- "skills/writing-plans/SKILL.md": {
-  "passive-voice": 3,
-  "present-perfect": 1
  },
  "skills/writing-skills/SKILL.md": {
   "passive-voice": 2,

@@ -1,6 +1,6 @@
 ---
 name: verification-before-completion
-description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
+description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs. Run the verification commands and read the output before you claim success. Always give evidence before assertions.
 ---
 
 # Verification Before Completion
@@ -9,7 +9,7 @@ description: Use when about to claim work is complete, fixed, or passing, before
 
 **Core principle:** Evidence before claims, always.
 
-**Violating the letter of this rule is violating the spirit of this rule.**
+**If you break the letter of this rule, you break the spirit of this rule.**
 
 ## The Iron Law
 
@@ -17,7 +17,7 @@ description: Use when about to claim work is complete, fixed, or passing, before
 NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 ```
 
-If you haven't run the verification command in this message, you cannot claim it passes.
+If you did not run the verification command in this message, you cannot claim that it passes.
 
 ## The Gate Function
 
@@ -49,14 +49,14 @@ Skip any step = lying, not verifying
 
 ## Red Flags - STOP
 
-- Using "should", "probably", "seems to"
-- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
-- About to commit/push/PR without verification
-- Trusting agent success reports
-- Relying on partial verification
-- Thinking "just this once"
-- Tired and wanting work over
-- **ANY wording implying success without having run verification**
+- You use "should", "probably", "seems to"
+- You express satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
+- You are about to commit, push or open a PR without verification
+- You trust the success report of an agent
+- You rely on partial verification
+- You think "just this once"
+- You feel tired and want the work to end
+- **ANY words that imply success when you did not run the verification**
 
 ## Rationalization Prevention
 
@@ -66,7 +66,7 @@ Skip any step = lying, not verifying
 | "I'm confident" | Confidence ≠ evidence |
 | "Just this once" | No exceptions |
 | "Linter passed" | Linter ≠ compiler |
-| "Agent said success" | Verify independently |
+| "Agent said success" | Verify it yourself |
 | "I'm tired" | Exhaustion ≠ excuse |
 | "Partial check is enough" | Partial proves nothing |
 | "Different words so rule doesn't apply" | Spirit over letter |
@@ -106,15 +106,15 @@ Skip any step = lying, not verifying
 ## When To Apply
 
 **ALWAYS before:**
-- ANY variation of success/completion claims
+- ANY form of a claim of success or completion
 - ANY expression of satisfaction
-- ANY positive statement about work state
-- Committing, PR creation, task completion
-- Moving to next task
-- Delegating to agents
+- ANY positive statement about the state of the work
+- A commit, a new PR, the completion of a task
+- The move to the next task
+- A delegation to agents
 
-**Rule applies to:**
+**The rule applies to:**
 - Exact phrases
 - Paraphrases and synonyms
 - Implications of success
-- ANY communication suggesting completion/correctness
+- ANY message that suggests completion or correctness
