@@ -108,12 +108,8 @@
   "present-perfect": 0
  },
  "skills/subagent-driven-development/SKILL.md": {
-  "passive-voice": 7,
-  "present-perfect": 1
- },
- "skills/subagent-driven-development/re-review-prompt.md": {
   "passive-voice": 2,
-  "present-perfect": 0
+  "present-perfect": 1
  },
  "skills/systematic-debugging/SKILL.md": {
   "passive-voice": 5,

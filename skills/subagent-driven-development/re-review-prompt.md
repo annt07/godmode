@@ -1,11 +1,12 @@
 # Scoped Re-Review Prompt Template
 
-Use this template when dispatching a re-review after a fix round. The
-re-reviewer verifies the findings were addressed and checks the fix diff for
-new breakage. It is not a fresh review — the full review already happened.
+Use this template when you dispatch a re-review after a fix round. The
+re-reviewer verifies that the implementer addressed the findings. It also
+verifies the fix diff for new breakage. It is not a fresh review: the full
+review already happened.
 
-**Purpose:** Verify each finding from the previous review was addressed, and
-that the fix itself broke nothing.
+**Purpose:** Verify that the implementer addressed each finding from the
+previous review, and that the fix itself broke nothing.
 
 ```
 Subagent (general-purpose):
@@ -101,7 +102,7 @@ Subagent (general-purpose):
 ```
 
 **Placeholders:**
-- `[MODEL]` — REQUIRED: reviewer model per SKILL.md Model Selection; scoped
+- `[MODEL]` — REQUIRED: reviewer model per SKILL.md Model Selection. Scoped
   re-reviews of small fix diffs take a cheap-to-mid tier
 - `[BRIEF_FILE]` — the task brief file (same file the implementer worked from)
 - `[FINDINGS]` — the Critical/Important findings and spec gaps from the
