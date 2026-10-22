@@ -569,7 +569,7 @@ Follow the TDD cycle:
 
 ### RED: Write Failing Test (Baseline)
 
-Run a pressure scenario with a subagent WITHOUT the skill. Document the exact behavior:
+Run a pressure scenario with a subagent WITHOUT the skill. Choose the subagent's model per godmode:using-godmode → Subagent model selection (the default profile when one is defined). Document the exact behavior:
 - What choices did they make?
 - What rationalizations did they use (verbatim)?
 - Which pressures triggered violations?

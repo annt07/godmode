@@ -104,7 +104,7 @@ A good interface makes a test easy:
 
 ## Design-It-Twice
 
-When you examine alternative interfaces for a module, start parallel subagents. Each subagent designs the interface in a radically different way. Then compare the designs on depth, locality and seam placement. Use this method only for architectural decisions where the shape of the interface is really uncertain. [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md) gives the full procedure, with the subagent briefs and the comparison format.
+When you examine alternative interfaces for a module, start parallel subagents. Each subagent designs the interface in a radically different way. Choose each subagent's model per godmode:using-godmode → Subagent model selection (the default profile when one is defined). Then compare the designs on depth, locality and seam placement. Use this method only for architectural decisions where the shape of the interface is really uncertain. [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md) gives the full procedure, with the subagent briefs and the comparison format.
 
 ## Deepening a Shallow Module
 

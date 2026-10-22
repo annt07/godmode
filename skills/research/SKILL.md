@@ -15,6 +15,8 @@ Before you dispatch the agent, state the question precisely. A vague question gi
 
 ### 2. Dispatch the Research Agent
 
+Choose the agent's model per godmode:using-godmode → Subagent model selection — the default subagent profile when one is defined.
+
 The work of the agent:
 
 1. Examine the question against **primary sources** (official docs, source code, specs, first-party APIs), not against a secondary text about them. Follow each claim back to the source that owns it.

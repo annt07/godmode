@@ -73,6 +73,8 @@ In addition to the documented standards of the repository, the Standards axis al
 
 Both subagents start from the base template [code-reviewer.md](code-reviewer.md) (read-only review, no sub-dispatch, "the spec is a vision document", "Declined to judge", severity calibration, output format). Each subagent then adds its axis brief below and stays on that axis only. If a review package file exists (subagent-driven-development and executing-plans make one), give its path instead of raw git commands.
 
+Choose the model for both seats per godmode:using-godmode → Subagent model selection: on the default subagent profile when one is defined; otherwise scaled to the diff — a mid tier for a small, low-risk diff, the most capable available model for a large or risky whole-branch review. The same rule covers the security-pass subagent in step 5 and the single-seat gate below.
+
 **Only one review seat available** (no subagent tool, or a per-task gate that must stay cheap): One reviewer fills code-reviewer.md. It reports the two axes under separate `## Standards` and `## Spec` headings, each with its own verdict. Never merge them into one verdict.
 
 **Standards sub-agent prompt** should include:

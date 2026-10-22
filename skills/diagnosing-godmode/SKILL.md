@@ -40,6 +40,9 @@ Create a todo for each step. Steps 5–7 run only on their stated condition.
    dimension file from `prompts/`: `skill-timeline.md`,
    `plan-adherence.md`, `repeated-work.md`, `stumbles.md`,
    `quality-evidence.md`, `request-conflicts.md`, `cost-and-time.md`.
+   Dispatch each analyst on the model that godmode:using-godmode →
+   Subagent model selection gives — the default profile when one is
+   defined.
    If the transcript is long, split a dimension by turn range. Discard
    each returned finding that has no `path:line`.
 4. **Report.** Fill each section of `templates/report.md` in order. Write

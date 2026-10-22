@@ -107,5 +107,5 @@ Then print a summary table (`ID | Category | Severity | File`) and the report pa
 ## Notes
 
 - Never run the code under review to "confirm" a vulnerability. Do the triage by reading.
-- A large full-mode scan can have several independent entry points. In that case, scan them in parallel with subagents, one entry point for each subagent. Then do the triage together.
+- A large full-mode scan can have several independent entry points. In that case, scan them in parallel with subagents, one entry point for each subagent. Then do the triage together. Choose each scan subagent's model per godmode:using-godmode → Subagent model selection (the default profile when one is defined).
 - `scripts/vuln_agent.py` runs the same pipeline outside an agent session through an agent SDK (see the script header for its requirements): `uv run --with-requirements scripts/requirements.txt scripts/vuln_agent.py <target_dir>`. It is optional. The stages above are the skill.

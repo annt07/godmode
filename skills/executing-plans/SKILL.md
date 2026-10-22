@@ -80,9 +80,10 @@ a secret to you.
   godmode:subagent-driven-development.
 
 With a fully specified plan, inline execution is transcription and tests.
-It runs well on a mid-tier session model. The most capable model is worth
-its cost in one place only: the final review. This skill dispatches that
-review separately. Tell your human partner this when they choose inline.
+It runs well on a mid-tier session model. A stronger model is worth its
+cost in one place only: the final review, scaled to the branch's risk.
+This skill dispatches that review separately. Tell your human partner
+this when they choose inline.
 
 Prefer godmode:subagent-driven-development when your human partner
 wants a review gate on each task. Also prefer it when the plan is so long that
@@ -278,8 +279,12 @@ Run `../subagent-driven-development/scripts/review-package PLAN_FILE MERGE_BASE 
 
 **With a subagent tool:** Run the two-axis review of
 godmode:requesting-code-review. Start a Standards subagent and a Spec
-subagent in parallel. Use the most capable available model for both,
-because the whole-branch review is a judgment task. Make both from
+subagent in parallel. Scale the model to the branch: a mid tier for a
+small, low-risk branch, the most capable available model for a large or
+risky one — the whole-branch review is a judgment task. When a default
+subagent profile is defined (godmode:using-godmode → Subagent model
+selection), dispatch both on that profile instead: it governs every
+subagent, these seats included. Make both from
 [code-reviewer.md](../requesting-code-review/code-reviewer.md). Give the
 Standards subagent also
 [fowler-smells.md](../requesting-code-review/fowler-smells.md) and the
@@ -293,8 +298,10 @@ Standards subagent also
 - A pointer to the `Ruling:` lines of the ledger, so that the reviewer can
   weigh your decisions.
 
-Specify the model explicitly. If you do not give a model, the subagent
-gets the model of the session, which may not be the most capable. This is
+When no default profile is defined, specify the model explicitly. If you
+do not give a model, the subagent gets the model of the session, which may
+be weaker than the branch warrants. Under a default profile, name the
+profile and set no model. This is
 the one fresh context that the whole run pays for. Do not skip it. Do not
 replace it with your own read of the diff. Dispatch the security pass
 (`godmode:vuln-scan` in review mode on MERGE_BASE..HEAD) as a third
@@ -406,7 +413,7 @@ Task 2: Recovery modes
 
 ...
 
-[After all tasks: review-package plan MERGE_BASE HEAD; dispatch code-reviewer, most capable model]
+[After all tasks: review-package plan MERGE_BASE HEAD; dispatch code-reviewer (default profile if defined, else model scaled to the branch)]
 Reviewer: One Important finding — progress reporting interval hardcoded. Two Minor.
 [Re-grade: Important stands; minors → ledger as deferred]
 [Fix pass: test_progress_interval_configurable RED → extract PROGRESS_INTERVAL → GREEN; suite 12/12; commit]
