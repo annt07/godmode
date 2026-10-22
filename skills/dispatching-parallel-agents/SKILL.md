@@ -76,6 +76,8 @@ Subagent (general-purpose): "Fix tool-approval-race-conditions.test.ts failures"
 
 More than one dispatch call in one response = parallel execution. One call in each response = sequential execution.
 
+**Model:** choose each agent's model per godmode:using-godmode → Subagent model selection — the default subagent profile when one is defined.
+
 ### 4. Review and Integrate
 
 When the agents return:

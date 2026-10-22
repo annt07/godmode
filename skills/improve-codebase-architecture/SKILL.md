@@ -22,7 +22,7 @@ Find architectural friction and propose **deepening opportunities**. These are r
 
 First, read CONTEXT.md and all ADRs in the area that you change.
 
-Then start a subagent to go through the codebase. Do not follow rigid heuristics. Explore freely and record each place where you find friction:
+Then start a subagent to go through the codebase. Choose its model per godmode:using-godmode → Subagent model selection (the default profile when one is defined). Do not follow rigid heuristics. Explore freely and record each place where you find friction:
 
 - Where must you go between many small modules to understand one concept?
 - Where are modules **shallow**, with an interface almost as complex as the implementation?

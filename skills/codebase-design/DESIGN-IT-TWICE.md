@@ -18,7 +18,7 @@ Show this to the user. Then go to Step 2 immediately. The user reads and thinks 
 
 ### 2. Spawn sub-agents
 
-Start 3+ subagents in parallel. Each subagent must make a **radically different** interface for the deepened module.
+Start 3+ subagents in parallel. Each subagent must make a **radically different** interface for the deepened module. Choose each subagent's model per godmode:using-godmode → Subagent model selection (the default profile when one is defined).
 
 Give each subagent a separate technical brief. The brief contains the file paths, the coupling details, the dependency category from [DEEPENING.md](DEEPENING.md), and what sits behind the seam. The brief is independent of the problem-space explanation for the user in Step 1. Give each agent a different design constraint:
 

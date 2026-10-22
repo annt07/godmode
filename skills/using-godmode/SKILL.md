@@ -149,6 +149,22 @@ Skills name actions, not tools: "read the file", "dispatch a subagent", "track t
 
 **Windows:** skills run helper scripts with `bash` (for example, `subagent-driven-development/scripts/*` and `executing-plans/scripts/*`). On Windows, a plain `bash` can start WSL (`C:\Windows\System32\bash.exe`). WSL cannot run these scripts from their Windows paths. Run the scripts with Git Bash instead: `& "C:\Program Files\Git\bin\bash.exe" <script> <args>`. If Git Bash is not installed, do the steps of the script by hand and ledger that you did them.
 
+### Subagent model selection
+
+Before you choose a model for a subagent dispatch, check whether the repo or the user defines a default subagent profile. Check these sources in this order and take the first hit:
+
+1. `<repo>/.devin/agents/default_subagent.md`
+2. `<repo>/.agents/agents/default_subagent.md`
+3. `~/.devin/agents/default_subagent.md`
+4. `~/.agents/agents/default_subagent.md`
+5. `agent.subagent_model` in `<repo>/.devin/config.local.json`, then in `<repo>/.devin/config.json`
+
+(`~` is the user home directory.) A profile file beats a config key when both exist and disagree.
+
+When a default profile is defined, dispatch every subagent on that profile and do not set a model yourself. The profile's `model` and `effort` govern each dispatch — implementers, reviewers, fix rounds, final whole-branch reviews and security passes alike. On a harness with named subagent profiles, name the default profile in the dispatch (for example `profile: default_subagent`). On a harness without profiles, pass the profile's declared model and effort as the dispatch's model.
+
+When no default profile is defined, each skill's own model guidance applies unchanged.
+
 ## User Instructions
 
 User instructions have priority over skills, and skills have priority over default behavior. User instructions are the agent instructions files of the repository or the user (for example, AGENTS.md) and direct requests. Skip a skill workflow or an instruction only when your human partner tells you to skip it.

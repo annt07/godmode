@@ -185,7 +185,7 @@ After you save the plan and review it yourself, give your human partner a link t
 **"Plan complete and saved to `docs/godmode/plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
 
 - **Subagent-driven** - A new subagent implements each task. A new reviewer reviews it before the next task starts. At the end, one review covers the full branch. This is the most thorough method. It costs a new context for each task and each review.
-- **Native** - I implement each task myself in this session. Then one new reviewer on the most capable model reviews the full branch. This is the cheapest and fastest method. No independent review occurs until the end.
+- **Native** - I implement each task myself in this session. Then one new reviewer reviews the full branch — on the default subagent profile when one is defined, else on a model scaled to the branch's risk. This is the cheapest and fastest method. No independent review occurs until the end.
 
 **For this plan I recommend <one of the two>, because <reason>. Does the plan capture what you want? Which approach should we use?"**
 

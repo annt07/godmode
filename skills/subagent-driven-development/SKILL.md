@@ -93,7 +93,7 @@ digraph process {
         "Spec ✅ and quality approved?" [shape=diamond];
         "Finding conflicts with plan text?" [shape=diamond];
         "Rule on the conflict, ledger the ruling" [shape=box];
-        "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer, more capable model" [shape=box];
+        "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer (model bump when unpinned)" [shape=box];
         "Dispatch scoped re-review (./re-review-prompt.md)" [shape=box];
         "All findings addressed?" [shape=diamond];
         "R = 5?" [shape=diamond];
@@ -121,13 +121,13 @@ digraph process {
     "Spec ✅ and quality approved?" -> "Append completion to ledger, mark todo complete" [label="yes"];
     "Spec ✅ and quality approved?" -> "Finding conflicts with plan text?" [label="no"];
     "Finding conflicts with plan text?" -> "Rule on the conflict, ledger the ruling" [label="yes"];
-    "Rule on the conflict, ledger the ruling" -> "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer, more capable model";
-    "Finding conflicts with plan text?" -> "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer, more capable model" [label="no"];
-    "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer, more capable model" -> "Dispatch scoped re-review (./re-review-prompt.md)";
+    "Rule on the conflict, ledger the ruling" -> "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer (model bump when unpinned)";
+    "Finding conflicts with plan text?" -> "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer (model bump when unpinned)" [label="no"];
+    "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer (model bump when unpinned)" -> "Dispatch scoped re-review (./re-review-prompt.md)";
     "Dispatch scoped re-review (./re-review-prompt.md)" -> "All findings addressed?";
     "All findings addressed?" -> "Append completion to ledger, mark todo complete" [label="yes"];
     "All findings addressed?" -> "R = 5?" [label="no"];
-    "R = 5?" -> "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer, more capable model" [label="no - next round"];
+    "R = 5?" -> "Fix round R of 5: R≤3 resume implementer; R≥4 fresh implementer (model bump when unpinned)" [label="no - next round"];
     "R = 5?" -> "Adjudicate each open finding" [label="yes - breaker trips"];
     "Adjudicate each open finding" -> "Any load-bearing finding?";
     "Any load-bearing finding?" -> "Rule and continue; stop only if every path forward is a guess" [label="yes"];
@@ -169,6 +169,10 @@ progress in a ledger file, not only in todos.
   a ledger in place and start your own, fresh.
 - Create the ledger with its identity as the first line:
   `# SDD ledger — plan: <plan file path>`.
+- Check for a default subagent profile (godmode:using-godmode →
+  Subagent model selection) and ledger the result:
+  `Subagent model: default profile (<source path>)` or
+  `Subagent model: none — per-dispatch tiers apply`.
 - The ledger is your recovery map. The commits that it names exist in git,
   even when your context does not remember their creation. After compaction,
   trust the ledger and `git log` over your own memory.
@@ -206,6 +210,14 @@ from implementation.
 
 ## Model Selection
 
+**Default subagent profile first.** Before you use the tiers below, check
+for a default subagent profile (godmode:using-godmode → Platform
+Adaptation → Subagent model selection). If one is defined, dispatch each
+subagent of this skill on that profile — implementer, reviewers, fix
+implementers, the per-task security pass and the final whole-branch
+review. Do not set a model yourself. The tiers below apply only when no
+default profile is defined.
+
 To keep cost low and speed high, use the least powerful model that can handle each role.
 
 **Mechanical implementation tasks** (isolated functions, clear specs, 1-2 files): use a fast, cheap model. When the plan is well-specified, most implementation tasks are mechanical.
@@ -213,8 +225,9 @@ To keep cost low and speed high, use the least powerful model that can handle ea
 **Integration and judgment tasks** (multi-file coordination, pattern matching, debugging): use a standard model.
 
 **Architecture and design tasks**: use the most capable available model.
-The final whole-branch review is one of these tasks. Dispatch it on the most
-capable available model, not the session default.
+The final whole-branch review scales like the other review tasks: a mid
+tier for a small, low-risk branch, the most capable available model for a
+large or risky one.
 
 **Review tasks**: choose the model with the same judgment, scaled to the
 size, complexity and risk of the diff. A small mechanical diff does not need
@@ -222,12 +235,15 @@ the most capable model. A subtle concurrency change does. Scoped re-reviews of
 small fix diffs take a cheap-to-mid tier.
 
 **Fix-loop escalation (rounds 4-5)**: use a model at least one tier above
-the implementer that got stuck.
+the implementer that got stuck. When a default profile pins the implementer,
+there is no tier above it — the fresh eyes alone carry the escalation.
 
-**Always specify the model explicitly when you dispatch a subagent.** If you
-omit the model, the subagent inherits the model of your session. That model
-is often the most capable and most expensive, and it silently defeats this
-section.
+**When no default profile is defined, always specify the model explicitly
+when you dispatch a subagent.** If you omit the model, the subagent inherits
+the model of your session. That model is often the most capable and most
+expensive, and it silently defeats this section. When a default profile is
+defined, do the opposite: never set a model — an explicit model would
+override the profile.
 
 **Turn count beats token price.** Wall-clock and context cost scale with the
 number of turns that a subagent takes. The cheapest models routinely take 2-3×
@@ -320,7 +336,7 @@ Implementer subagents report one of four statuses. Handle each status as follows
 
 **BLOCKED:** The implementer cannot complete the task. Assess the blocker:
 1. If it is a context problem, provide more context and re-dispatch with the same model
-2. If the task requires more reasoning, re-dispatch with a more capable model
+2. If the task requires more reasoning, re-dispatch with a more capable model (when no default profile pins the model)
 3. If the task is too large, divide it into smaller pieces
 4. If the plan itself is wrong, rule on the correction, ledger it, and re-dispatch with the ruling in the dispatch
 
@@ -422,12 +438,13 @@ dispatch a fresh implementer. Give it the brief path, the report-file path
 and the findings. Either way, the report file is the persistent memory.
 
 **Rounds 4-5 — dispatch a fresh implementer on a more capable model** (per
-Model Selection). Give it the brief path, the report-file path, the open
+Model Selection; under a default profile, on the same profile — the fresh
+context is the escalation). Give it the brief path, the report-file path, the open
 findings and this framing:
 "A prior implementer attempted this task [N] times; you own it now. Read the report file for what was tried."
 If a loop survives three resumes, it usually means that the implementer
-cannot see its own problem. A fresh implementer gives fresh eyes and a
-capability bump in one move.
+cannot see its own problem. A fresh implementer gives fresh eyes and, when
+no default profile pins the model, a capability bump in one move.
 
 **Every round, either way:** the implementer fixes the findings and re-runs
 the tests that cover the amended code. It appends its fix report to the same
@@ -496,8 +513,8 @@ does not derive the branch diff again with git commands.
 
 **REQUIRED SUB-SKILL:** run the two-axis review of godmode:requesting-code-review.
 It has a Standards sub-agent and a Spec sub-agent. Dispatch them in
-parallel, both on the most capable available model (see Model
-Selection). Build both on
+parallel on the model that Model Selection gives for this branch (risk-scaled;
+the default profile governs when one is defined). Build both on
 [code-reviewer.md](../requesting-code-review/code-reviewer.md) plus their
 axis brief. Give both the package path, the plan and spec paths and the
 Review Focus section of the plan. Give the Standards sub-agent the full
@@ -619,7 +636,7 @@ Re-reviewer: Missing progress reporting — ADDRESSED (src/recovery.js:41).
 ...
 
 [After all tasks]
-[Run review-package PLAN_FILE MERGE_BASE HEAD; dispatch final code-reviewer, most capable model]
+[Run review-package PLAN_FILE MERGE_BASE HEAD; dispatch final code-reviewer (model per Model Selection)]
 Final reviewer: All requirements met. Deferred minors triaged: none block merge.
 
 [Delete this plan's workspace — the record now lives in git]

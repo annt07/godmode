@@ -10,8 +10,11 @@ more, nothing less) and is well-built (clean, tested, maintainable)
 ```
 Subagent (general-purpose):
   description: "Review Task N (spec + quality)"
-  model: [MODEL — REQUIRED: choose per SKILL.md Model Selection; an omitted
-         model silently inherits the session's most expensive one]
+  model: [MODEL — when a default subagent profile is defined (godmode:using-godmode
+         → Subagent model selection), dispatch on that profile instead of
+         setting a model. Otherwise REQUIRED: choose per SKILL.md Model
+         Selection; an omitted model silently inherits the session's most
+         expensive one]
   prompt: |
     You are reviewing one task's implementation: first whether it matches its
     requirements, then whether it is well-built. This is a task-scoped gate,
@@ -207,7 +210,9 @@ Subagent (general-purpose):
 ```
 
 **Placeholders:**
-- `[MODEL]` — REQUIRED: reviewer model per SKILL.md Model Selection
+- `[MODEL]` — default subagent profile when one is defined (godmode:using-godmode
+  → Subagent model selection); otherwise REQUIRED: reviewer model per SKILL.md
+  Model Selection
 - `[BRIEF_FILE]` — REQUIRED: the task brief file (`bash scripts/task-brief PLAN N`
   prints the path. It is the same file that the implementer worked from)
 - `[GLOBAL_CONSTRAINTS]` — the binding requirements, copied verbatim from
