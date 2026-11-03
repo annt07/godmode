@@ -10,7 +10,7 @@ Run these commands from `tests/agent-eval/`. You need a Devin login.
 uv run python make_config.py            # once: writes the git-ignored devin-test-config.json
 PAR=5 uv run python trigger_eval.py LABEL   # 19 trigger cases
 uv run python gate_rate.py LABEL            # design gate, 6 runs
-uv run python run_pressure.py LABEL         # pressure scenarios S1, S2, S4, S7
+uv run python run_pressure.py LABEL         # pressure scenarios S1-S2, S4, S7-S11
 ```
 
 To measure a fixed commit while you change files, make a worktree of that commit and run the eval there. Results go to `results/` and session files go to `runs/`. Git ignores both folders.
