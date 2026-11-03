@@ -75,6 +75,7 @@ These commands are tools of your human partner. The model never invokes them, an
 | `/to-questionnaire` | A decision needs the knowledge of a different person. The command makes a questionnaire for that person |
 | `/teach` | Learn a concept over several sessions. The command uses the directory as a teaching workspace |
 | `/mr-full-review` | Only when your partner types the command: a full, read-only MR/PR review that it writes to `.scratch/` as a numbered round. Each other review request invokes `godmode:requesting-code-review`, also when the request names an MR or PR number |
+| `/pull-request-review` | Only when your partner types the command: two independent reviews plus a test comparison of both branches, merged into one read-only report in `.scratch/` |
 | `/setup-godmode` | Install, update or remove godmode for one repository or for all repositories, and write the bootstrap |
 
 ## Skill Priority
@@ -151,7 +152,7 @@ Skills name actions, not tools: "read the file", "dispatch a subagent", "track t
 
 ### Subagent model selection
 
-Before you choose a model for a subagent dispatch, check whether the repo or the user defines a default subagent profile. Check these sources in this order and take the first hit:
+Before you choose a model for a subagent dispatch, verify whether the repo or the user defines a default subagent profile. Verify these sources in this order and take the first hit:
 
 1. `<repo>/.devin/agents/default_subagent.md`
 2. `<repo>/.agents/agents/default_subagent.md`
@@ -161,9 +162,9 @@ Before you choose a model for a subagent dispatch, check whether the repo or the
 
 (`~` is the user home directory.) A profile file beats a config key when both exist and disagree.
 
-When a default profile is defined, dispatch every subagent on that profile and do not set a model yourself. The profile's `model` and `effort` govern each dispatch — implementers, reviewers, fix rounds, final whole-branch reviews and security passes alike. On a harness with named subagent profiles, name the default profile in the dispatch (for example `profile: default_subagent`). On a harness without profiles, pass the profile's declared model and effort as the dispatch's model.
+When a default profile exists, dispatch every subagent on that profile and do not set a model yourself. The profile's `model` and `effort` govern each dispatch — implementers, reviewers, fix rounds, final whole-branch reviews and security passes alike. On a harness with named subagent profiles, name the default profile in the dispatch (for example `profile: default_subagent`). On a harness without profiles, pass the profile's declared model and effort as the dispatch's model.
 
-When no default profile is defined, each skill's own model guidance applies unchanged.
+When no default profile exists, each skill's own model guidance applies unchanged.
 
 ## User Instructions
 

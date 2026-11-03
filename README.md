@@ -70,7 +70,7 @@ You don't call pipeline skills by hand. A session-start hook (plugin install) or
 
 ## Skills
 
-34 skills: 27 the agent uses on its own, and 7 commands only you can run.
+35 skills: 27 the agent uses on its own, and 8 commands only you can run.
 
 ### Pipeline (from Superpowers)
 
@@ -128,11 +128,12 @@ The agent never fires these. They're marked `disable-model-invocation: true` (an
 | `/to-questionnaire` | A decision needs someone else's knowledge: turns it into a questionnaire for them |
 | `/teach` | You want to learn a topic over several sessions |
 | `/mr-full-review <url or number>` | A full review of a GitLab MR or a GitHub / Bitbucket (Cloud or Server) PR. The provider is detected from the URL or the `origin` remote. Read-only: it never posts. The report goes to `.scratch/<ticket or mr/pr folder>/<mr\|pr>-<n>-review-round-<N>.md`, and from round 2 it tracks which earlier findings were fixed |
+| `/pull-request-review <url or number>` | Two independent reviews of the same MR/PR in parallel, plus a run of the relevant tests on both branches. All findings merge into one report that names no review or tool. Read-only: it never posts. The report goes to `.scratch/<ticket or mr/pr folder>/<mr\|pr>-<n>-pr-review-round-<N>.md` |
 | `/setup-godmode` | Install, update or remove godmode for one repo or for every repo, and write the bootstrap block that makes the skills fire on their own |
 
 With a plugin install on Devin the commands are namespaced, for example `/godmode:grill-me`.
 
-**Tokens for `/mr-full-review`** (set in your environment; the skill never searches for them): `GITLAB_TOKEN` (`read_api`), `GITHUB_TOKEN` or `GH_TOKEN` (pull request read), `BITBUCKET_TOKEN` (Bitbucket Cloud also accepts `BITBUCKET_USERNAME` + `BITBUCKET_APP_PASSWORD`). Hosts whose name doesn't reveal the provider: `GODMODE_GIT_PROVIDERS="git.corp.example=gitlab,code.corp.example=bitbucket-server"`.
+**Tokens for `/mr-full-review` and `/pull-request-review`** (set in your environment; the skills never search for them): `GITLAB_TOKEN` (`read_api`), `GITHUB_TOKEN` or `GH_TOKEN` (pull request read), `BITBUCKET_TOKEN` (Bitbucket Cloud also accepts `BITBUCKET_USERNAME` + `BITBUCKET_APP_PASSWORD`). Hosts whose name doesn't reveal the provider: `GODMODE_GIT_PROVIDERS="git.corp.example=gitlab,code.corp.example=bitbucket-server"`.
 
 **Not included:** `ask-matt` (replaced by the router), `triage` and `wayfinder` (need an issue tracker), `setup-matt-pocock-skills` (replaced by `setup-godmode`).
 
@@ -219,6 +220,7 @@ On Devin, `devin skills list` (or `devin plugins list`) shows the installed skil
 | Diagnosis reports | `~/.godmode/diagnosing-godmode/<session-id>/` |
 | Security scan artifacts | `.godmode/security/<timestamp>-<scope>/` (`THREAT_MODEL.md`, `vulnerability_report.json`; self-ignoring) |
 | MR/PR review reports (`/mr-full-review`) | `.scratch/<ticket or mr/pr folder>/<mr\|pr>-<n>-review-round-<N>.md` |
+| Consolidated MR/PR review reports (`/pull-request-review`) | `.scratch/<ticket or mr/pr folder>/<mr\|pr>-<n>-pr-review-round-<N>.md` |
 | Bootstrap block (installer) | Between `<!-- godmode:begin -->` and `<!-- godmode:end -->` at the top of the untracked `AGENTS.local.md` / `CLAUDE.local.md`, or your user-level instructions file with `--global` |
 
 ---
@@ -227,20 +229,21 @@ On Devin, `devin skills list` (or `devin plugins list`) shows the installed skil
 
 ```
 godmode/
-├── skills/                    34 skills, one folder each (SKILL.md + support files)
+├── skills/                    35 skills, one folder each (SKILL.md + support files)
 │   ├── using-godmode/         router (harness-neutral: no skill names a specific agent tool)
 │   ├── subagent-driven-development/   prompts + scripts/ (task-brief, review-package, sdd-workspace)
 │   ├── executing-plans/       scripts/ (task-start, task-done)
 │   ├── requesting-code-review/        code-reviewer.md, fowler-smells.md
 │   ├── vuln-scan/             scripts/vuln_agent.py (optional Agent SDK runner)
 │   ├── mr-full-review/        scripts/review_request.py (GitLab/GitHub/Bitbucket, read-only), references/
+│   ├── pull-request-review/   orchestrator: two parallel reviews + test comparison, references/
 │   ├── setup-godmode/         scripts/install.mjs (the installer; Node 18+, no dependencies)
 │   └── ...
 ├── bin/godmode.mjs            npx entry point (calls the installer)
 ├── package.json               makes `npx github:annt07/godmode` work; private, never published
 ├── tests/                     node --test tests/ (installer); uv run --with pytest pytest tests (provider script, STE linter, STE conformance)
 │   ├── ste/                   advisory baseline, trigger phrases, meaning-diff script, rewrite and review briefs
-│   └── agent-eval/            real-session eval: 19 trigger cases, design-gate rate, 4 pressure scenarios
+│   └── agent-eval/            real-session eval: 19 trigger cases, design-gate rate, 8 pressure scenarios
 ├── hooks/
 │   ├── session-start          injects the router into every session
 │   ├── run-hook.cmd           Windows/Unix wrapper that finds bash

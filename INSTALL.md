@@ -2,7 +2,7 @@
 
 Godmode is one skill set built from two sources. Superpowers drives the pipeline (brainstorm, plan, execute, review, finish). Matt Pocock's engineering skills plug into that pipeline at fixed stages (grilling, codebase design, domain modeling, TDD at seams, two-axis review, prototype, research, merge conflicts, architecture improvement). You never call a pipeline skill by hand: a session-start hook loads the `using-godmode` router, and the router takes it from there.
 
-Seven skills ship as **programmer commands** that only you can run: Matt Pocock's `/wait-what`, `/handoff`, `/grill-me`, `/to-questionnaire`, `/teach`, plus `/mr-full-review` (read-only GitLab/GitHub/Bitbucket review into `.scratch/`) and `/setup-godmode` (the installer). They are marked user-invoked (`disable-model-invocation: true`, plus `agents/openai.yaml` for Codex), so the agent never fires them and they cost nothing in its context. They only work where the harness exposes skills as slash commands (Claude Code, Codex). Elsewhere, ask for them by name.
+Eight skills ship as **programmer commands** that only you can run: Matt Pocock's `/wait-what`, `/handoff`, `/grill-me`, `/to-questionnaire`, `/teach`, plus `/mr-full-review` (read-only GitLab/GitHub/Bitbucket review into `.scratch/`), `/pull-request-review` (two independent reviews plus a test comparison, one report in `.scratch/`) and `/setup-godmode` (the installer). They are marked user-invoked (`disable-model-invocation: true`, plus `agents/openai.yaml` for Codex), so the agent never fires them and they cost nothing in its context. They only work where the harness exposes skills as slash commands (Claude Code, Codex). Elsewhere, ask for them by name.
 
 **Without a plugin, use the installer.** `npx github:annt07/godmode` in a repo (local, untracked install), or `npx github:annt07/godmode --global --tool <devin|claude>` for every repo, copies the skills and writes the bootstrap block. Without that block the skills fire only when you name them. See [README → Installer](README.md#installer-npx-straight-from-github-no-npm-registry). To do a single repository by hand instead, see [INSTALL-LOCAL-PROJECT.md](INSTALL-LOCAL-PROJECT.md).
 
@@ -10,8 +10,8 @@ Seven skills ship as **programmer commands** that only you can run: Matt Pocock'
 
 ```
 combined/
-  skills/                  34 skills, one folder each (SKILL.md plus support files):
-                           27 model-invoked, 7 user-invoked programmer commands
+  skills/                  35 skills, one folder each (SKILL.md plus support files):
+                           27 model-invoked, 8 user-invoked programmer commands
     using-godmode/         the router the hook injects at session start
   hooks/
     session-start          bash script that injects using-godmode into the session

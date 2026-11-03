@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 export const BEGIN = "<!-- godmode:begin (managed by setup-godmode; edit outside this block) -->";
 export const END = "<!-- godmode:end -->";
 export const MANIFEST = ".godmode-manifest.json";
-export const USER_ONLY = ["wait-what", "handoff", "grill-me", "to-questionnaire", "teach", "mr-full-review", "setup-godmode"];
+export const USER_ONLY = ["wait-what", "handoff", "grill-me", "to-questionnaire", "teach", "mr-full-review", "pull-request-review", "setup-godmode"];
 
 // Where each tool looks for skills and for local / user-level instructions.
 // This table is the only place harness-specific knowledge lives.

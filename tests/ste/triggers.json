@@ -67,6 +67,14 @@
   "Bitbucket",
   "Read-only"
  ],
+ "skills/pull-request-review/SKILL.md": [
+  "merge request",
+  "pull request",
+  "GitLab",
+  "GitHub",
+  "Bitbucket",
+  "Read-only"
+ ],
  "skills/prototype/SKILL.md": [
   "spike",
   "throwaway",
