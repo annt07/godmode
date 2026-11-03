@@ -20,7 +20,7 @@ RUNS = HERE / "runs"
 RESULTS = HERE / "results"
 CONFIG = HERE / "devin-test-config.json"
 INSTALLER = ROOT / "skills/setup-godmode/scripts/install.mjs"
-USER_ONLY = {"wait-what", "handoff", "grill-me", "to-questionnaire", "teach", "mr-full-review", "setup-godmode"}
+USER_ONLY = {"wait-what", "handoff", "grill-me", "to-questionnaire", "teach", "mr-full-review", "pull-request-review", "setup-godmode"}
 
 _spec = importlib.util.spec_from_file_location("ste_lint", ROOT / "skills/ste-writing/scripts/ste-lint.py")
 ste_lint = importlib.util.module_from_spec(_spec)

@@ -37,6 +37,9 @@ skills/mr-full-review/SKILL.md
 skills/mr-full-review/agents/openai.yaml
 skills/mr-full-review/references/checklist.md
 skills/mr-full-review/references/report-template.md
+skills/pull-request-review/SKILL.md
+skills/pull-request-review/agents/openai.yaml
+skills/pull-request-review/references/report-template.md
 skills/prototype/LOGIC.md
 skills/prototype/SKILL.md
 skills/prototype/UI.md
