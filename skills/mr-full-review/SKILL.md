@@ -99,7 +99,7 @@ This phase always runs. Do sections F-M of `references/checklist.md`, each with 
 
 Fill `references/report-template.md`. Show each section, with `Skipped: <reason>` or "None found." where applicable.
 
-**Where it goes:** `.scratch/<folder>/` at the repo root.
+**Where it goes:** `.scratch/<folder>/` at the repo root. When a caller gives a report path, write the report to that path instead. Then skip the folder rules and the round number below.
 
 1. **Folder:** use again an existing `.scratch/` subfolder whose name contains the ticket key (case-insensitive). Else use one that contains `mr-<n>` / `pr-<n>`. Else use the source branch name. If no such folder exists, create `.scratch/<ticket-key-lowercase>-<short-slug>/`. If there is no ticket, create `.scratch/<mr|pr>-<n>-<short-slug>/`.
 2. **Round number:** count the existing `<mr|pr>-<n>-review-round-*.md` files in that folder. This report is the next one (first review = round 1).
