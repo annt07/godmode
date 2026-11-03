@@ -64,7 +64,7 @@ def test_template_sections_in_order():
     text = TEMPLATE.read_text(encoding="utf-8")
     sections = ["# Pull Request Review Report", "## Summary", "## Scope",
                 "## Test Results", "## Findings", "## Missing Tests",
-                "## Since Round", "## Recommendation", "## Summary For Author"]
+                "## Earlier Feedback", "## Recommendation", "## Summary For Author"]
     pos = [text.find(s) for s in sections]
     missing = [s for s, p in zip(sections, pos) if p == -1]
     assert not missing, missing
@@ -75,3 +75,40 @@ def test_full_review_writes_report_to_a_caller_path():
     """The orchestrator collects the review report at a given path, not .scratch."""
     text = (ROOT / "skills" / "mr-full-review" / "SKILL.md").read_text(encoding="utf-8").lower()
     assert "caller" in text and "report path" in text
+
+
+def test_full_review_can_skip_earlier_round_check():
+    """The orchestrator tells the full-review subagent to skip .scratch round files."""
+    text = (ROOT / "skills" / "mr-full-review" / "SKILL.md").read_text(encoding="utf-8").lower()
+    assert re.search(r"caller\b[^.]{0,80}skip", text, re.S)
+
+
+def test_skill_file_is_the_only_source_of_the_format():
+    """No memory page, summary, earlier report or foreign skill section overrides it."""
+    text = SKILL_MD.read_text(encoding="utf-8").lower()
+    assert "only source" in text
+    assert "memory" in text
+
+
+def test_no_earlier_report_as_finding_source():
+    text = SKILL_MD.read_text(encoding="utf-8").lower()
+    assert "read the previous round" not in text
+    assert "never read earlier" in text
+
+
+def test_earlier_feedback_uses_live_sources():
+    text = SKILL_MD.read_text(encoding="utf-8")
+    assert "comments" in text
+    assert "jira" in text.lower() or "ticket" in text.lower()
+
+
+def test_template_has_earlier_feedback_not_since_round():
+    text = TEMPLATE.read_text(encoding="utf-8")
+    assert "## Earlier Feedback" in text
+    assert "since round" not in text.lower()
+
+
+def test_router_rejects_plain_words_invocation():
+    text = (ROOT / "skills" / "using-godmode" / "SKILL.md").read_text(encoding="utf-8").lower()
+    assert "plain words" in text
+    assert "to run it" in text

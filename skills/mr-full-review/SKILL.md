@@ -106,7 +106,7 @@ Fill `references/report-template.md`. Show each section, with `Skipped: <reason>
 3. **File name:** `<mr|pr>-<n>-review-round-<N>.md` (GitLab uses `mr`, GitHub and Bitbucket use `pr`). Local-diff mode: `local-review-round-<N>.md` in the ticket or branch folder.
 4. If this repo does not git-ignore `.scratch/`, still write the file. Tell the user, so that they can keep it out of commits.
 
-In round 2 and later rounds, first read the previous round. Add a **Since round N-1** section to the report. In it, mark each earlier finding Fixed / Still open / No longer applicable, with evidence.
+In round 2 and later rounds, first read the previous round. Add a **Since round N-1** section to the report. In it, mark each earlier finding Fixed / Still open / No longer applicable, with evidence. A caller can ask you to skip the earlier-round comparison. Then do not read the earlier `.scratch` files.
 
 Show the verdict, the blocking findings and the report path in chat.
 
