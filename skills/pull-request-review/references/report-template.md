@@ -39,8 +39,8 @@ Suggested Change: <suggestion block when applicable>
 ## Missing Tests
 <Each gap names file::function and the behaviour that the missing test should pin. "None found." if empty.>
 
-## Since Round <N-1>
-<Round 2 onward only. Round 1 writes "First review round.". Each earlier finding: Fixed / Still open / No longer applicable, with evidence (file:line or commit).>
+## Earlier Feedback
+<Each earlier finding from the MR/PR comments or the ticket: Fixed / Still open / No longer applicable / Out of scope (now in target), with evidence (commit or file:line). "No earlier feedback on the MR/PR or the ticket." when none.>
 
 ## Recommendation
 **Ready | With fixes | Not ready**
