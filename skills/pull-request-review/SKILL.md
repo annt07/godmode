@@ -68,7 +68,7 @@ Then classify:
 
 When the tests cannot run (no runner, missing dependencies, no local checkout), write `Skipped: <reason>` in Test Results. Do not leave the section out.
 
-Remove both worktrees at the end, also after a failure:
+Keep both worktrees: Phase 3 uses the source worktree. Phase 6 removes them, also after a failure:
 
 ```bash
 git worktree remove --force "<tmp>/pr-review-target-<label>"
