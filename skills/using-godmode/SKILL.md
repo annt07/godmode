@@ -78,6 +78,8 @@ These commands are tools of your human partner. The model never invokes them, an
 | `/pull-request-review` | Only when your partner types the command: two independent reviews plus a test comparison of both branches, merged into one read-only report in `.scratch/` |
 | `/setup-godmode` | Install, update or remove godmode for one repository or for all repositories, and write the bootstrap |
 
+**Plain words are not the command.** The user can name a user-only command in plain words instead of typing it (for example "use pull-request-review on 39"). Then do not do the work and do not rebuild the command from memory. Reply with the exact command to type, for example: "Type `/pull-request-review 39` to run it." Then stop.
+
 ## Skill Priority
 
 When more than one skill applies, the process skills come first. They set the approach. Then the implementation skills do the work.
