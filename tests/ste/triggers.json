@@ -75,6 +75,12 @@
   "Bitbucket",
   "Read-only"
  ],
+ "skills/drawio-architecture/SKILL.md": [
+  "draw.io",
+  "architecture",
+  "data flow",
+  "/drawio-architecture"
+ ],
  "skills/prototype/SKILL.md": [
   "spike",
   "throwaway",

@@ -1,0 +1,120 @@
+<mxfile host="drawio" agent="drawio-architecture">
+  <diagram id="modules" name="3 · Modules">
+    <mxGraphModel dx="1400" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="880" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Acme order importer - module map" style="text;html=1;fontSize=24;fontStyle=1;fontColor=#1F3864;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1320" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="takeaway" value="The import graph has no cycle. reader.py is the only public interface: it imports storage + quality + stdlib and nothing else." style="text;html=1;fontSize=14;fontStyle=2;fontColor=#404040;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="56" width="1320" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="z_entry" value="1 · ENTRY" style="swimlane;html=1;whiteSpace=wrap;startSize=34;fontSize=14;fontStyle=1;fontColor=#ffffff;fillColor=#1E6FD9;strokeColor=#1E6FD9;swimlaneFillColor=#EAF2FD;rounded=1;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="300" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="z_orch" value="2 · ORCHESTRATION" style="swimlane;html=1;whiteSpace=wrap;startSize=34;fontSize=14;fontStyle=1;fontColor=#ffffff;fillColor=#E07B00;strokeColor=#E07B00;swimlaneFillColor=#FFF4E5;rounded=1;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="380" y="110" width="300" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="z_core" value="3 · CORE" style="swimlane;html=1;whiteSpace=wrap;startSize=34;fontSize=14;fontStyle=1;fontColor=#ffffff;fillColor=#1E9E5A;strokeColor=#1E9E5A;swimlaneFillColor=#E8F7EF;rounded=1;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="720" y="110" width="300" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="z_found" value="4 · FOUNDATION" style="swimlane;html=1;whiteSpace=wrap;startSize=34;fontSize=14;fontStyle=1;fontColor=#ffffff;fillColor=#7B3FB5;strokeColor=#7B3FB5;swimlaneFillColor=#F3ECFA;rounded=1;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="110" width="300" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="z_tools" value="5 · PUBLIC &amp; TOOLS" style="swimlane;html=1;whiteSpace=wrap;startSize=34;fontSize=13;fontStyle=1;fontColor=#ffffff;fillColor=#5B6770;strokeColor=#5B6770;swimlaneFillColor=#F1F3F4;rounded=1;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="40" y="600" width="1320" height="210" as="geometry" />
+        </mxCell>
+
+        <mxCell id="commands" value="&lt;b&gt;commands&lt;/b&gt;&lt;br&gt;entry · cli · config_cmd&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;_pyz_main&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#CFE2FF;strokeColor=#1E6FD9;strokeWidth=2;fontSize=13;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="70" y="220" width="240" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pipeline" value="&lt;b&gt;pipeline&lt;/b&gt;&lt;br&gt;build · batch · bundle · render&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;config_hashes · defaults&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#FFD8A8;strokeColor=#E07B00;strokeWidth=3;fontSize=14;fontColor=#4A2500;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="160" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="v5" value="&lt;b&gt;v1&lt;/b&gt;&lt;br&gt;parser · db_builder&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;shares parsing.records&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#FFE8CC;strokeColor=#E07B00;strokeWidth=2;fontSize=13;fontColor=#4A2500;" vertex="1" parent="1">
+          <mxGeometry x="410" y="350" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="components" value="&lt;b&gt;components&lt;/b&gt;&lt;br&gt;registry · builtins · linkers&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;link_rules&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#BFEBD2;strokeColor=#1E9E5A;strokeWidth=2;fontSize=13;fontColor=#0B3B22;" vertex="1" parent="1">
+          <mxGeometry x="750" y="180" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="storage" value="&lt;b&gt;storage&lt;/b&gt;&lt;br&gt;store · model · keys&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;orders.db&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;size=10;align=center;verticalAlign=middle;fillColor=#BFEBD2;strokeColor=#1E9E5A;strokeWidth=2;fontSize=13;fontColor=#0B3B22;" vertex="1" parent="1">
+          <mxGeometry x="750" y="330" width="240" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="extraction" value="&lt;b&gt;parsing&lt;/b&gt;&lt;br&gt;records · sku_parser&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;row_filters · aliases&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#E0CCF5;strokeColor=#7B3FB5;strokeWidth=2;fontSize=13;fontColor=#2E1150;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="160" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="layout" value="&lt;b&gt;layout&lt;/b&gt;&lt;br&gt;engines · detector · inferrer&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;schema_mapping&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#E0CCF5;strokeColor=#7B3FB5;strokeWidth=2;fontSize=13;fontColor=#2E1150;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="420" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="quality" value="&lt;b&gt;quality&lt;/b&gt;&lt;br&gt;lint · findings" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#E0CCF5;strokeColor=#7B3FB5;strokeWidth=2;fontSize=13;fontColor=#2E1150;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="290" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="reader" value="&lt;b&gt;reader.py&lt;/b&gt;&lt;br&gt;stdlib-only interface&lt;br&gt;&lt;font color=&quot;#555&quot;&gt;storage + quality only&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#DCE1E5;strokeColor=#5B6770;strokeWidth=3;fontSize=14;fontColor=#222A30;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="660" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="harness" value="&lt;b&gt;harness&lt;/b&gt;&lt;br&gt;cli · verify · stats · evals" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=center;verticalAlign=middle;fillColor=#DCE1E5;strokeColor=#5B6770;strokeWidth=2;fontSize=13;fontColor=#222A30;" vertex="1" parent="1">
+          <mxGeometry x="560" y="660" width="240" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="llm" value="&lt;b&gt;llm.py&lt;/b&gt;&lt;br&gt;LlmClient" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#DCE1E5;strokeColor=#5B6770;strokeWidth=2;fontSize=13;fontColor=#222A30;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="650" width="240" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" value="build" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1E6FD9;strokeWidth=2.5;endArrow=block;endFill=1;fontSize=11;fontColor=#1E6FD9;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="commands" target="pipeline">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="360" y="265" /><mxPoint x="360" y="205" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="v1 path" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#E07B00;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;fontColor=#B35F00;labelBackgroundColor=#FFF4E5;exitX=0.35;exitY=1;entryX=0.35;entryY=0;" edge="1" parent="1" source="pipeline" target="v5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="config hashes / registry" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#E07B00;strokeWidth=2;dashed=1;endArrow=block;endFill=1;startArrow=block;startFill=1;fontSize=11;fontColor=#B35F00;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pipeline" target="components">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="store" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1E9E5A;strokeWidth=2.5;endArrow=block;endFill=1;fontSize=11;fontColor=#1E9E5A;labelBackgroundColor=#ffffff;exitX=1;exitY=0.8;entryX=0;entryY=0.5;" edge="1" parent="1" source="pipeline" target="storage">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="680" y="232" /><mxPoint x="680" y="375" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="parse" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7B3FB5;strokeWidth=2.5;endArrow=block;endFill=1;fontSize=11;fontColor=#7B3FB5;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;entryX=0.5;entryY=0;" edge="1" parent="1" source="components" target="extraction">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="870" y="140" /><mxPoint x="1210" y="140" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="findings" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7B3FB5;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;fontColor=#7B3FB5;labelBackgroundColor=#ffffff;exitX=1;exitY=0.125;entryX=0;entryY=0.625;" edge="1" parent="1" source="storage" target="quality">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="keys / model" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5B6770;strokeWidth=2.5;endArrow=block;endFill=1;fontSize=11;fontColor=#5B6770;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=0.5;entryY=1;" edge="1" parent="1" source="reader" target="storage">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="60" y="705" /><mxPoint x="60" y="95" /><mxPoint x="1390" y="95" /><mxPoint x="1390" y="795" /><mxPoint x="870" y="795" /><mxPoint x="870" y="420" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" value="drive" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5B6770;strokeWidth=2;dashed=1;dashPattern=2 3;endArrow=block;endFill=1;fontSize=11;fontColor=#5B6770;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="harness" target="pipeline">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="500" y="695" /><mxPoint x="500" y="540" /><mxPoint x="400" y="540" /><mxPoint x="400" y="205" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" value="verify" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5B6770;strokeWidth=2;dashed=1;dashPattern=2 3;endArrow=block;endFill=1;fontSize=11;fontColor=#5B6770;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="harness" target="storage">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="680" y="560" /><mxPoint x="820" y="560" /><mxPoint x="820" y="420" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" value="prompt" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7B3FB5;strokeWidth=2;dashed=1;endArrow=block;endFill=1;fontSize=11;fontColor=#7B3FB5;labelBackgroundColor=#ffffff;exitX=1;exitY=0.375;entryX=1;entryY=0.5;" edge="1" parent="1" source="layout" target="llm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="1345" y="450" /><mxPoint x="1345" y="705" /><mxPoint x="1240" y="705" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="legend" value="&lt;b&gt;Legend&lt;/b&gt;&amp;nbsp;&amp;nbsp; solid = module-level import &amp;nbsp;&amp;nbsp; dashed = function-level / lazy / external &amp;nbsp;&amp;nbsp; double-headed = two-way pair &amp;nbsp;&amp;nbsp; bold border = public interface" style="text;html=1;fontSize=12;fontColor=#404040;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="830" width="1320" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

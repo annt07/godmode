@@ -1,0 +1,5 @@
+interface:
+  display_name: "Draw.io Architecture"
+  short_description: "Hand-designed, colourful draw.io architecture pages"
+policy:
+  allow_implicit_invocation: false

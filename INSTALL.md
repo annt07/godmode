@@ -2,7 +2,7 @@
 
 Godmode is one skill set built from two sources. Superpowers drives the pipeline (brainstorm, plan, execute, review, finish). Matt Pocock's engineering skills plug into that pipeline at fixed stages (grilling, codebase design, domain modeling, TDD at seams, two-axis review, prototype, research, merge conflicts, architecture improvement). You never call a pipeline skill by hand: a session-start hook loads the `using-godmode` router, and the router takes it from there.
 
-Eight skills ship as **programmer commands** that only you can run: Matt Pocock's `/wait-what`, `/handoff`, `/grill-me`, `/to-questionnaire`, `/teach`, plus `/mr-full-review` (read-only GitLab/GitHub/Bitbucket review into `.scratch/`), `/pull-request-review` (two independent reviews plus a test comparison, one report in `.scratch/`) and `/setup-godmode` (the installer). They are marked user-invoked (`disable-model-invocation: true`, plus `agents/openai.yaml` for Codex), so the agent never fires them and they cost nothing in its context. They only work where the harness exposes skills as slash commands (Claude Code, Codex). Elsewhere, ask for them by name.
+Nine skills ship as **programmer commands** that only you can run: Matt Pocock's `/wait-what`, `/handoff`, `/grill-me`, `/to-questionnaire`, `/teach`, plus `/mr-full-review` (read-only GitLab/GitHub/Bitbucket review into `.scratch/`), `/pull-request-review` (two independent reviews plus a test comparison, one report in `.scratch/`), `/drawio-architecture` (hand-designed draw.io architecture pages) and `/setup-godmode` (the installer). They are marked user-invoked (`disable-model-invocation: true`, plus `agents/openai.yaml` for Codex), so the agent never fires them and they cost nothing in its context. They only work where the harness exposes skills as slash commands (Claude Code, Codex). Elsewhere, ask for them by name.
 
 **Without a plugin, use the installer.** `npx github:annt07/godmode` in a repo (local, untracked install), or `npx github:annt07/godmode --global --tool <devin|claude>` for every repo, copies the skills and writes the bootstrap block. Without that block the skills fire only when you name them. See [README → Installer](README.md#installer-npx-straight-from-github-no-npm-registry). To do a single repository by hand instead, see [INSTALL-LOCAL-PROJECT.md](INSTALL-LOCAL-PROJECT.md).
 
@@ -10,8 +10,8 @@ Eight skills ship as **programmer commands** that only you can run: Matt Pocock'
 
 ```
 combined/
-  skills/                  35 skills, one folder each (SKILL.md plus support files):
-                           27 model-invoked, 8 user-invoked programmer commands
+  skills/                  36 skills, one folder each (SKILL.md plus support files):
+                           27 model-invoked, 9 user-invoked programmer commands
     using-godmode/         the router the hook injects at session start
   hooks/
     session-start          bash script that injects using-godmode into the session
@@ -232,7 +232,7 @@ If you get code with no skill announcement, the router did not load. Check the h
 
 - **Plugin install:** `/plugin uninstall godmode` (Claude Code) or `devin plugins remove godmode` (Devin CLI).
 - **Installer:** re-run it with `--uninstall` (removes only the skills in `.godmode-manifest.json`, and the bootstrap block).
-- **Manual install:** delete `~/.claude/godmode`, the 34 godmode skill folders in your skills directory, and the SessionStart hook entry or bootstrap line you added.
+- **Manual install:** delete `~/.claude/godmode`, the 36 godmode skill folders in your skills directory, and the SessionStart hook entry or bootstrap line you added.
 
 ## Troubleshooting
 

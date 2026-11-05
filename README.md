@@ -70,7 +70,7 @@ You don't call pipeline skills by hand. A session-start hook (plugin install) or
 
 ## Skills
 
-35 skills: 27 the agent uses on its own, and 8 commands only you can run.
+36 skills: 27 the agent uses on its own, and 9 commands only you can run.
 
 ### Pipeline (from Superpowers)
 
@@ -129,6 +129,7 @@ The agent never fires these. They're marked `disable-model-invocation: true` (an
 | `/teach` | You want to learn a topic over several sessions |
 | `/mr-full-review <url or number>` | A full review of a GitLab MR or a GitHub / Bitbucket (Cloud or Server) PR. The provider is detected from the URL or the `origin` remote. Read-only: it never posts. The report goes to `.scratch/<ticket or mr/pr folder>/<mr\|pr>-<n>-review-round-<N>.md`, and from round 2 it tracks which earlier findings were fixed |
 | `/pull-request-review <url or number>` | Two independent reviews of the same MR/PR in parallel, plus a run of the relevant tests on both branches. All findings merge into one report that names no review or tool. Read-only: it never posts. The report goes to `.scratch/<ticket or mr/pr folder>/<mr\|pr>-<n>-pr-review-round-<N>.md` |
+| `/drawio-architecture` | Hand-designed, colourful draw.io architecture pages: system context, data flow, module map, or a worked example that follows one record. A checker verifies 0 crossings and that all text fits. Pages go to `docs/diagrams/` |
 | `/setup-godmode` | Install, update or remove godmode for one repo or for every repo, and write the bootstrap block that makes the skills fire on their own |
 
 With a plugin install on Devin the commands are namespaced, for example `/godmode:grill-me`.
@@ -229,12 +230,13 @@ On Devin, `devin skills list` (or `devin plugins list`) shows the installed skil
 
 ```
 godmode/
-├── skills/                    35 skills, one folder each (SKILL.md + support files)
+├── skills/                    36 skills, one folder each (SKILL.md + support files)
 │   ├── using-godmode/         router (harness-neutral: no skill names a specific agent tool)
 │   ├── subagent-driven-development/   prompts + scripts/ (task-brief, review-package, sdd-workspace)
 │   ├── executing-plans/       scripts/ (task-start, task-done)
 │   ├── requesting-code-review/        code-reviewer.md, fowler-smells.md
 │   ├── vuln-scan/             scripts/vuln_agent.py (optional Agent SDK runner)
+│   ├── drawio-architecture/   house style, page recipes, scripts/drawio_kit.py + check.py, examples/
 │   ├── mr-full-review/        scripts/review_request.py (GitLab/GitHub/Bitbucket, read-only), references/
 │   ├── pull-request-review/   orchestrator: two parallel reviews + test comparison, references/
 │   ├── setup-godmode/         scripts/install.mjs (the installer; Node 18+, no dependencies)
