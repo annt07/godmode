@@ -76,6 +76,7 @@ These commands are tools of your human partner. The model never invokes them, an
 | `/teach` | Learn a concept over several sessions. The command uses the directory as a teaching workspace |
 | `/mr-full-review` | Only when your partner types the command: a full, read-only MR/PR review that it writes to `.scratch/` as a numbered round. Each other review request invokes `godmode:requesting-code-review`, also when the request names an MR or PR number |
 | `/pull-request-review` | Only when your partner types the command: two independent reviews plus a test comparison of both branches, merged into one read-only report in `.scratch/` |
+| `/drawio-architecture` | Only when your partner types the command: hand-designed, colourful draw.io architecture pages (context, data flow, module map, worked example) in `docs/diagrams/` |
 | `/setup-godmode` | Install, update or remove godmode for one repository or for all repositories, and write the bootstrap |
 
 **Plain words are not the command.** The user can name a user-only command in plain words instead of typing it (for example "use pull-request-review on 39"). Then do not do the work and do not rebuild the command from memory. Reply with the exact command to type, for example: "Type `/pull-request-review 39` to run it." Then stop.

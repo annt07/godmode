@@ -33,6 +33,10 @@ skills/handoff/SKILL.md
 skills/handoff/agents/openai.yaml
 skills/improve-codebase-architecture/HTML-REPORT.md
 skills/improve-codebase-architecture/SKILL.md
+skills/drawio-architecture/SKILL.md
+skills/drawio-architecture/agents/openai.yaml
+skills/drawio-architecture/references/house-style.md
+skills/drawio-architecture/references/page-types.md
 skills/mr-full-review/SKILL.md
 skills/mr-full-review/agents/openai.yaml
 skills/mr-full-review/references/checklist.md
