@@ -58,7 +58,7 @@ function git(cwd, ...args) {
 
 // ------------------------------------------------------------------ arguments
 export function parseArgs(argv) {
-  const o = { command: "install", global: false, repo: process.cwd(), tool: null, dryRun: false, force: false, subagents: true, source: null, skillsDir: null, instructions: null };
+  const o = { command: "install", global: false, repo: process.cwd(), tool: null, dryRun: false, force: false, subagents: true, shellRules: null, source: null, skillsDir: null, instructions: null };
   const rest = [...argv];
   if (rest[0] && !rest[0].startsWith("-")) o.command = rest.shift();
   const need = (flag) => { const v = rest.shift(); if (v === undefined) throw new Fail(`${flag} needs a value`); return v; };
@@ -70,6 +70,8 @@ export function parseArgs(argv) {
     else if (a === "--dry-run" || a === "-n") o.dryRun = true;
     else if (a === "--force") o.force = true;
     else if (a === "--no-subagents") o.subagents = false;
+    else if (a === "--shell-rules") o.shellRules = true;
+    else if (a === "--no-shell-rules") o.shellRules = false;
     else if (a === "--source") o.source = need(a);
     else if (a === "--skills-dir") o.skillsDir = need(a);
     else if (a === "--instructions-file") o.instructions = need(a);
@@ -79,6 +81,8 @@ export function parseArgs(argv) {
   if (["init", "update", "add"].includes(o.command)) o.command = "install";
   if (["remove", "uninstall"].includes(o.command)) o.command = "uninstall";
   if (!["install", "uninstall", "doctor", "help"].includes(o.command)) throw new Fail(`unknown command ${o.command} (see --help)`);
+  if (o.global && o.shellRules) throw new Fail("--shell-rules is for project installs only; a global install never adds them");
+  if (o.shellRules === null) o.shellRules = !o.global && process.platform === "win32";
   if (o.tool && !TOOLS[o.tool]) throw new Fail(`--tool must be one of: ${Object.keys(TOOLS).join(", ")}`);
   return o;
 }
@@ -101,6 +105,8 @@ Options
   --dry-run, -n          show what would change, change nothing
   --force                replace same-named skills godmode doesn't own (backed up first)
   --no-subagents         omit the standing subagent permission from the bootstrap block
+  --shell-rules          add the Windows shell command rules to the block (default on Windows; project installs only)
+  --no-shell-rules       leave the shell command rules out
   --source <path>        godmode repo or skills folder (default: the copy this script belongs to)
   --skills-dir <path>    override the skills folder
   --instructions-file <path>  override the local instructions file
@@ -144,7 +150,17 @@ function sourceVersion(src) {
 }
 
 // ------------------------------------------------------------------ bootstrap block
-export function renderBlock(t, subagents) {
+export const SHELL_RULES = [
+  "## Shell command shape (applies to all agents and subagents)",
+  "",
+  "- ONE command per shell call. NEVER chain with `;`, `&&`, or `||` — make separate calls instead.",
+  "- Every command starts with a fixed command name (`uv run`, `git`, `Get-Content`, `Write-Output`); never with a string, variable, `(` or `$`.",
+  "- Pipes only into read-only formatters (`Select-Object`, `Sort-Object`, `Measure-Object`, `Where-Object`). NEVER pipe into `ForEach-Object { }`, `Set-Content`, `Out-File`, or `Tee-Object`.",
+  "- For any logic beyond one trivial command, write `C:\\Windows\\Temp\\devin_task_<session_id>.py` with the `write` tool and run `uv run python \"C:\\Windows\\Temp\\devin_task_<session_id>.py\"`. If you do not know the session ID, use a short unique suffix such as the current timestamp.",
+  "- When dispatching a subagent, copy these rules into its brief.",
+];
+
+export function renderBlock(t, subagents, shellRules = false) {
   const where = t.repo && t.skillsDir.startsWith(t.repo + path.sep) ? posix(path.relative(t.repo, t.skillsDir)) : posix(t.skillsDir);
   const lines = [
     BEGIN, "## Godmode skills", "",
@@ -156,7 +172,9 @@ export function renderBlock(t, subagents) {
   if (subagents) lines.push(
     "**Subagents are permitted.** The user explicitly and permanently allows subagents whenever a godmode skill calls for them (subagent-driven-development, dispatching-parallel-agents, research, the parallel reviewers in requesting-code-review, large vuln-scan runs). Treat this line as the user's explicit request to use subagents for those steps.",
     "");
-  lines.push(`User-only commands run only when the user types them: ${USER_ONLY.map((n) => `\`/${n}\``).join(", ")}.`, END);
+  lines.push(`User-only commands run only when the user types them: ${USER_ONLY.map((n) => `\`/${n}\``).join(", ")}.`);
+  if (shellRules) lines.push("", ...SHELL_RULES);
+  lines.push(END);
   return lines.join("\n");
 }
 
@@ -255,7 +273,7 @@ export function install(o, log = console.log) {
 
   if (t.repo && isTracked(t.repo, posix(path.relative(t.repo, t.instr)))) throw new Fail(`${t.instr} is tracked by git; refusing to edit a shared file. Pass --instructions-file with an untracked path.`);
 
-  const block = renderBlock(t, o.subagents);
+  const block = renderBlock(t, o.subagents, o.shellRules);
   const file = readText(t.instr);
   const [newText, how] = upsertBlock(file.text, block);
   log(`  bootstrap block: ${how} at the top of ${t.instr}${exists(t.instr) ? "" : " (new file)"}`);
