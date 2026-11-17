@@ -205,3 +205,33 @@ test("the npx entry point runs the installer", () => {
   assert.match(res, /using-godmode|update|add/);
   assert.match(res, /dry run/);
 });
+
+const SHELL = "## Shell command shape";
+const count = (s, sub) => s.split(sub).length - 1;
+
+test("shell rules: in the block on Windows by default, once, removed on uninstall", () => {
+  const src = source(), r = repo(), local = path.join(r, "AGENTS.local.md");
+  run("--repo", r, "--source", src);
+  assert.equal(read(local).includes(SHELL), process.platform === "win32");
+  run("--repo", r, "--source", src, "--shell-rules");
+  run("--repo", r, "--source", src, "--shell-rules");
+  const text = read(local);
+  assert.equal(count(text, SHELL), 1);
+  assert.ok(text.indexOf(SHELL) < text.indexOf("<!-- godmode:end -->"), "rules sit inside the managed block");
+  assert.ok(text.includes("devin_task_<session_id>.py") && text.includes("copy these rules"));
+  run("uninstall", "--repo", r, "--source", src);
+  assert.ok(!fs.existsSync(local) || !read(local).includes(SHELL));
+});
+
+test("shell rules: --no-shell-rules leaves them out", () => {
+  const src = source(), r = repo();
+  run("--repo", r, "--source", src, "--no-shell-rules");
+  assert.ok(!read(path.join(r, "AGENTS.local.md")).includes(SHELL));
+});
+
+test("shell rules: never in a global install", () => {
+  const src = source();
+  assert.equal(run("--global", "--tool", "claude", "--source", src), 0);
+  assert.ok(!read(path.join(home, ".claude", "CLAUDE.md")).includes(SHELL));
+  assert.equal(run("--global", "--tool", "claude", "--source", src, "--shell-rules"), 1);
+});

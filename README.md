@@ -186,7 +186,7 @@ Pin a version with a tag or commit: `npx github:annt07/godmode#v1.1.0`. npm fetc
 
 **Check your agent reads the local file:** the installer relies on your agent loading `AGENTS.local.md` / `CLAUDE.local.md`. If yours doesn't, point it at another untracked file with `--instructions-file <path>`.
 
-The bootstrap block also grants godmode standing permission to use subagents, because some agents refuse them unless you ask. Pass `--no-subagents` to leave that out.
+The bootstrap block also grants godmode standing permission to use subagents, because some agents refuse them unless you ask. Pass `--no-subagents` to leave that out. On Windows, a project install also adds the shell command rules (one command per call, read-only pipes, Python scripts in `C:\Windows\Temp` for logic, copied into every subagent brief). Pass `--no-shell-rules` to leave them out, or `--shell-rules` to add them on another platform. A `--global` install never adds them.
 
 Once godmode is installed, `/setup-godmode` runs the same installer (`skills/setup-godmode/scripts/install.mjs`) conversationally: it explores, recommends, dry-runs, then installs.
 

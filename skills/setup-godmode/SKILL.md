@@ -32,7 +32,8 @@ Ask one question at a time. Start with the recommendation:
 1. **Scope:** this repo (recommended, local and untracked), or `--global` for all repos. That option needs a `--tool` that has a user-level instructions file. `--help` says which tools have one.
 2. **Tool:** `agents`, unless the agent of the user reads a different folder.
 3. **Subagents:** the block gives standing permission for the steps where godmode skills dispatch subagents. Some agents refuse subagents unless the user asks. Recommend yes. `--no-subagents` omits it.
-4. **Conflicts** that the doctor reported: ask whether to remove each one. The installer never changes them. Remove one by hand only after an explicit yes. The user edits the shared instruction files.
+4. **Shell rules:** on Windows, a project install adds the shell command rules to the block. The rules ask for one command for each call, read-only pipes and Python scripts for logic. A global install never adds them. Recommend yes on Windows. `--no-shell-rules` omits them, and `--shell-rules` adds them on a different platform.
+5. **Conflicts** that the doctor reported: ask whether to remove each one. The installer never changes them. Remove one by hand only after an explicit yes. The user edits the shared instruction files.
 
 <!-- ste:off -->
 ### 3. Confirm and run
@@ -41,7 +42,7 @@ Ask one question at a time. Start with the recommendation:
 Show the exact command and the block that the dry run printed. If the user says yes, run:
 
 ```
-node "<this skill>/scripts/install.mjs" install --repo <path> [--tool <name>] [--global] [--no-subagents] [--source <godmode repo>]
+node "<this skill>/scripts/install.mjs" install --repo <path> [--tool <name>] [--global] [--no-subagents] [--no-shell-rules] [--source <godmode repo>]
 ```
 
 From any location, without a local copy: `npx github:annt07/godmode install --repo <path>`. A second run updates in place. `uninstall` removes only the skills in the manifest and the block.
